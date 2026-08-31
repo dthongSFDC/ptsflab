@@ -1,0 +1,72 @@
+{
+  "sessions": [
+    {
+      "date": "2026-08-31",
+      "skills_used": [
+        "discover"
+      ],
+      "summary": "Ingested 1 discovery brief, built discovery context, and produced outputs/00-discovery-brief.md with extraction audit and open questions.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Target solution scope for discovery summary",
+          "rationale": "User confirmed Experience Cloud plus Sales and Service capabilities as the working scope."
+        },
+        {
+          "decision": "Discovery research depth",
+          "rationale": "User chose document-only mode and deferred external web research."
+        }
+      ],
+      "open_threads": [
+        "No fixed go-live target date yet.",
+        "Budget/funding model not confirmed.",
+        "Named executive sponsors and decision owners not confirmed.",
+        "Success metrics/KPI targets not confirmed.",
+        "Governance and change-management model not confirmed."
+      ],
+      "next_steps": [
+        "Run strategy to frame business case and outcomes.",
+        "Run requirements to define epics and formalize gaps."
+      ]
+    },
+    {
+      "date": "2026-08-31",
+      "skills_used": [
+        "requirements"
+      ],
+      "summary": "Defined and approved 5 epics, then completed gap analysis across all epics with 41 total gaps saved to epics.json and gaps.json.",
+      "friction": [
+        "Product overlay files for experience-cloud, sales-cloud, and service-cloud were not present in the requirements skill package."
+      ],
+      "decisions": [
+        {
+          "decision": "Epic structure approved at five epics",
+          "rationale": "Balanced process coverage and boundary clarity for onboarding, application lifecycle, practitioner operations, assessor collaboration, and migration/security."
+        }
+      ],
+      "open_threads": [
+        "Resolve patient identity policy conflict for social login vs identity governance.",
+        "Confirm address validation and geospatial assignment technical approach.",
+        "Confirm chat channel architecture and support-deflection operating model.",
+        "Confirm data residency and regional identity federation model.",
+        "Resolve medical-history visibility and verification contradiction."
+      ],
+      "next_steps": [
+        "Run design to define target architecture and T-shirt sizing for the approved epics.",
+        "Optionally run strategy first if business-priority narrative needs to be finalized before design."
+      ]
+    }
+  ],
+  "preferences": {},
+  "decision_log": [
+    {
+      "date": "2026-08-31",
+      "area": "scope",
+      "decision": "Approved five-epic requirements baseline",
+      "rationale": "Covers full discovery scope with clean separation between onboarding, lifecycle, operations, support, and migration/security.",
+      "rejected": [
+        "No rejected alternatives captured at approval gate."
+      ]
+    }
+  ]
+}
