@@ -73,6 +73,36 @@
         "Run design using these assumptions and keep them tagged as Assumed until evidence-backed confirmation.",
         "Carry unresolved governance and policy items forward as client clarifications."
       ]
+    },
+    {
+      "date": "2026-08-31",
+      "skills_used": [
+        "roadmap"
+      ],
+      "summary": "Created a five-phase delivery roadmap including Phase 0 readiness due to high gap volume, mapped epic dependencies, and committed to a 12-week timeline.",
+      "friction": [
+        "design/estimates data not yet present, so sequencing used requirement complexity and dependency risk from epics and gaps."
+      ],
+      "decisions": [
+        {
+          "decision": "Roadmap structure approved at five phases with an explicit Phase 0",
+          "rationale": "41 open gaps and several policy-heavy assumptions require front-loaded resolution before accelerated build."
+        },
+        {
+          "decision": "Timeline commitment set to 12 weeks",
+          "rationale": "Business priority for near-term launch."
+        }
+      ],
+      "open_threads": [
+        "Confirm geospatial matching architecture for practitioner assignment.",
+        "Confirm external chat/channel architecture and routing model.",
+        "Confirm final identity policy for social sign-in enablement.",
+        "Confirm regional residency/federation policy details for cutover."
+      ],
+      "next_steps": [
+        "Run design to formalize architecture and T-shirt estimates.",
+        "Run estimate to define the named roster and defensible staffing counts for delivery."
+      ]
     }
   ],
   "preferences": {},
@@ -84,6 +114,16 @@
       "rationale": "Covers full discovery scope with clean separation between onboarding, lifecycle, operations, support, and migration/security.",
       "rejected": [
         "No rejected alternatives captured at approval gate."
+      ]
+    },
+    {
+      "date": "2026-08-31",
+      "area": "delivery-plan",
+      "decision": "Approved five-phase roadmap with Phase 0 and 12-week commitment",
+      "rationale": "Front-load policy and dependency closure, then deliver identity, lifecycle, operations, and cutover in sequence.",
+      "rejected": [
+        "No-commitment sequencing-only roadmap",
+        "Benchmark-range-only timeline without a committed total"
       ]
     }
   ]

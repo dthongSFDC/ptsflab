@@ -13,7 +13,7 @@
     "strategy": "not-started",
     "requirements": "complete",
     "design": "not-started",
-    "roadmap": "not-started",
+    "roadmap": "complete",
     "efficiency": "not-started",
     "estimate": "not-started",
     "commercials": "not-started",
@@ -32,7 +32,11 @@
   },
   "timeline": {
     "client_target": null,
-    "user_commitment": null
+    "user_commitment": {
+      "total_weeks": 12,
+      "rationale": "Business priority for near-term launch",
+      "set_by": "user"
+    }
   },
   "products_in_scope": [
     "experience-cloud",

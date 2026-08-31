@@ -7,7 +7,8 @@
     "kb_sources": [
       "[KB:experience_cloud_4-2-2026.md:2153-2324]",
       "[KB:experience_cloud_4-2-2026.md:13346-13549]"
-    ]
+    ],
+    "depends_on": []
   },
   {
     "epic_id": "E02",
@@ -17,6 +18,9 @@
     "kb_sources": [
       "[KB:sales_einstein_implementation_guide.md:28-77]",
       "[extends: workflow-driven case/application lifecycle using standard platform automation patterns]"
+    ],
+    "depends_on": [
+      "E01"
     ]
   },
   {
@@ -27,6 +31,9 @@
     "kb_sources": [
       "[KB:service_cloud_3-27-2026.md:1-18775]",
       "[assumption: confirm geospatial matching and reassignment strategy in solution design]"
+    ],
+    "depends_on": [
+      "E02"
     ]
   },
   {
@@ -38,6 +45,9 @@
       "[KB:experience_cloud_4-2-2026.md:23656-23687]",
       "[KB:experience_cloud_4-2-2026.md:23793-23812]",
       "[assumption: confirm channel architecture for external chat and internal routing]"
+    ],
+    "depends_on": [
+      "E03"
     ]
   },
   {
@@ -48,6 +58,9 @@
     "kb_sources": [
       "[KB:service_cloud_3-27-2026.md:1-18775]",
       "[KB:experience_cloud_4-2-2026.md:13864-13980]"
+    ],
+    "depends_on": [
+      "E01"
     ]
   }
 ]
