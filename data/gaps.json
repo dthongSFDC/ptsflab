@@ -3,7 +3,9 @@
     "gap_id": "G0101",
     "category": "Source Conflict",
     "gap_or_question": "Should patient authentication definitively include email/password plus Facebook social sign-in, or is there a policy to limit external identity providers given discovery notes that patient login direction remained open while internal identity is SSO-driven?",
-    "impact_or_notes": "This changes identity architecture, consent model, and delivery scope for registration flows; unresolved conflict can cause rework across security, UX, and onboarding."
+    "impact_or_notes": "This changes identity architecture, consent model, and delivery scope for registration flows; unresolved conflict can cause rework across security, UX, and onboarding.",
+    "status": "Assumed",
+    "resolution_note": "Short grill 2026-08-31: user endorsed launch posture of email/password first with social sign-in deferred to a later phase unless a hard business requirement emerges."
   },
   {
     "gap_id": "G0102",
@@ -75,7 +77,9 @@
     "gap_id": "G0204",
     "category": "Logical Gap",
     "gap_or_question": "Medical history must be verified on each application, but internal PTSF users cannot view medical history at all. What mechanism provides verification evidence to assessors without exposing restricted clinical data?",
-    "impact_or_notes": "Unresolved data-access paradox can block assessor decisioning or force policy-breaking workarounds."
+    "impact_or_notes": "Unresolved data-access paradox can block assessor decisioning or force policy-breaking workarounds.",
+    "status": "Assumed",
+    "resolution_note": "Short grill 2026-08-31: user endorsed tokenized/derived verification evidence for assessors instead of direct medical-history visibility."
   },
   {
     "gap_id": "G0205",
@@ -207,7 +211,9 @@
     "gap_id": "G0502",
     "category": "Missing Requirement",
     "gap_or_question": "What is the regional data residency and cross-border access policy for migrated patient and assessment records across APAC, EMEA, and AMER?",
-    "impact_or_notes": "Without explicit residency rules, migration scope, org/data partitioning, and sharing design may violate compliance or require major rework."
+    "impact_or_notes": "Without explicit residency rules, migration scope, org/data partitioning, and sharing design may violate compliance or require major rework.",
+    "status": "Assumed",
+    "resolution_note": "Short grill 2026-08-31: user endorsed default architecture assumption that regional residency/access constraints exist until regional policy confirms otherwise."
   },
   {
     "gap_id": "G0503",

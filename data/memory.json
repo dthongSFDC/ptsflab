@@ -55,6 +55,24 @@
         "Run design to define target architecture and T-shirt sizing for the approved epics.",
         "Optionally run strategy first if business-priority narrative needs to be finalized before design."
       ]
+    },
+    {
+      "date": "2026-08-31",
+      "skills_used": [
+        "grill-me-on-scope"
+      ],
+      "summary": "Ran a short assumption grill and aligned on three load-bearing architecture defaults: launch with email/password first, tokenized eligibility verification without internal medical-history visibility, and regional residency constraints assumed until policy confirmation.",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "Need explicit policy decision on if/when patient social sign-in is enabled.",
+        "Need concrete verification-service design and control ownership for medical-history-derived eligibility evidence.",
+        "Need confirmed APAC/EMEA/AMER residency and identity-federation topology."
+      ],
+      "next_steps": [
+        "Run design using these assumptions and keep them tagged as Assumed until evidence-backed confirmation.",
+        "Carry unresolved governance and policy items forward as client clarifications."
+      ]
     }
   ],
   "preferences": {},
