@@ -103,6 +103,30 @@
         "Run design to formalize architecture and T-shirt estimates.",
         "Run estimate to define the named roster and defensible staffing counts for delivery."
       ]
+    },
+    {
+      "date": "2026-08-31",
+      "skills_used": [
+        "design"
+      ],
+      "summary": "Reconciled existing solution-architecture artifact at outputs/01-solution.md into project state so design tracking reflects delivered architecture content.",
+      "friction": [
+        "Design output exists but estimates.json was not generated in the same cycle, so canonical per-epic T-shirt sizing is still missing."
+      ],
+      "decisions": [
+        {
+          "decision": "Marked design as complete based on existing architecture artifact",
+          "rationale": "The solution document captures architecture foundations, epic-level solution approaches, and open architecture decisions."
+        }
+      ],
+      "open_threads": [
+        "Generate canonical design sizing data (estimates.json) if downstream estimate comparison requires persisted T-shirt baselines.",
+        "Close remaining architecture assumptions in outputs/01-solution.md via client confirmations."
+      ],
+      "next_steps": [
+        "Run estimate for named roster and delivery-lane comparison.",
+        "Optionally rerun design to persist estimates.json and tighten architecture assumptions."
+      ]
     }
   ],
   "preferences": {},
@@ -124,6 +148,15 @@
       "rejected": [
         "No-commitment sequencing-only roadmap",
         "Benchmark-range-only timeline without a committed total"
+      ]
+    },
+    {
+      "date": "2026-08-31",
+      "area": "project-state",
+      "decision": "Reconciled design status to complete from existing solution artifact",
+      "rationale": "outputs/01-solution.md already contains the architecture baseline used by roadmap sequencing.",
+      "rejected": [
+        "Leave design marked not-started despite existing architecture deliverable"
       ]
     }
   ]
