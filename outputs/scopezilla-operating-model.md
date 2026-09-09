@@ -6,18 +6,18 @@
 
 ## Executive summary
 
-Scopezilla removed the old division of labour without replacing it. Solution scoping and estimation used to sit with the Delivery Leader (DL); SOW creation and negotiation sat with the Services Solution Sales Lead (SSSL). The tool now lets either role run the entire flow, and no one has said who should.
+Scopezilla removed the old division of labour without replacing it. The solution used to sit with the Delivery Leader (DL); proposal creation and negotiation sat with the Services Solution Sales Lead (SSSL). The DL approves the estimates and is accountable for follow-on delivery. The new tool lets either role run the entire or parts of the flow, and no one has agreed who should.
 
-Two consequences have surfaced, and they are the same problem seen from two sides. **Work is being done twice** — an SSSL scopes a deal and the architect re-runs it before approving. And **there is no confidence in the output** — the approver cannot see which claims were confirmed, which were assumed, and how the load-bearing decisions were reached, so re-deriving the scope is cheaper than auditing it. The duplication is not carelessness. It is the rational response to an artifact you cannot inspect.
+Two consequences have surfaced from the DLs. **Work is being done twice** — an SSSL scopes a deal and the architect re-runs it before approving. And **there is sometimes no confidence in the output** — the approver cannot see which claims were confirmed, which were assumed, and how the load-bearing decisions were reached, so re-deriving the scope is cheaper than auditing it. The duplication is not carelessness. It is the rational response to an artefact you cannot inspect and also the fact the DLs are fully accountable for subsequent delivery of the deal.
 
 **Proposal, in two parts.**
 
-- **Two speeds, routed on risk and complexity.** On a higher-risk or more complex deal the DL is present when the shape of the solution is decided. On a lower-risk deal the SSSL runs it and the DL reviews the output. The DL makes the call at intake.
+- **Two speeds, routed on risk and complexity.** On a higher-risk or more complex deal the DL is present when the shape of the solution is decided on the parts where implementation judgement is critical. On a lower-risk deal the SSSL runs it and the DL reviews the output. The DL makes the call at intake.
 - **A standardised review that makes the scope inspectable** — and that leads with whether the scope declares its own uncertainty honestly. This is what ends the re-run, and it is the only build item in the plan.
 
 **Ask:** agreement on the two speeds, the ownership split, and sponsorship for the actions below, all achievable inside a month.
 
-**What this is not.** It removes duplicated senior effort and makes the delivery approval mean something. It does not add capacity. With 10 full-time SSSLs and 24 DLs who each lead a delivery team, if demand exceeds what this recovers, the queue returns — and that is a demand and headcount conversation above this paper.
+**What this is not.** It removes duplicated senior effort and makes the delivery approval mean something. It does not add capacity. With 10 full-time SSSLs and 24 DLs who each lead a delivery team and accountable for delivery, if demand exceeds what this recovers, the queue returns — and that is a demand and headcount conversation above this paper.
 
 ---
 
@@ -43,9 +43,9 @@ Two consequences have surfaced, and they are the same problem seen from two side
 
 The speeds differ in **where the DL's time sits**, not whether the DL is involved. Both end at the same delivery approval.
 
-**Speed A — DL-paired.** The DL is present at the two points where implementation judgment does its work: the epic skeleton (epic boundaries, scope stubs, double-counting) and the architecture skeleton (the load-bearing forks and the relative sizing everything downstream inherits). After the design gate the deal hands to the SSSL for roadmap, pricing, narrative and SOW. Two touchpoints, not a full run.
+**Speed A — DL-SSSL paired.** The DL is present at the two points where implementation judgment does its work: the epic skeleton (epic boundaries, scope stubs, double-counting) and the architecture skeleton (the load-bearing forks and the relative sizing everything downstream inherits). After the design gate the deal hands to the SSSL for roadmap, pricing, narrative and SOW. Two touch-points, not a full run.
 
-**Speed B — SSSL-led.** The SSSL runs the whole flow, front to back. The DL reviews the output and signs the estimate.
+**Speed B — SSSL-led.** The SSSL runs the whole flow, front to back. The DL reviews the output based on tooling signals and signs the estimate.
 
 **The two speeds differ over exactly three steps** — discovery, the epic skeleton and the architecture skeleton. Everything downstream of them is the SSSL's in both speeds. The only step the DL runs outright in either is the formal risk review, because the recommended rating carries their name at the gate.
 
@@ -71,7 +71,7 @@ The speeds differ in **where the DL's time sits**, not whether the DL is involve
 
 ## The review, and the return leg
 
-The DL approves the **delivery** of the deal, across all of it and not only its architecture: scope, governance, assumptions and risk. The commercials — rate, price, margin, commercial terms — are the SSSL's and are explicitly **not** in this review.
+The DL approves the **delivery** of the deal, across all of it and not only its architecture: scope, governance, assumptions and risk. The commercials — rate, price, margin, commercial terms — are the SSSL's/APs/Services Leadership and are explicitly **not** in this review. Leverage the existing `/deal-review` skill or enhance it to suit.
 
 ### It leads with whether the scope declares its own uncertainty
 
@@ -168,7 +168,7 @@ Output is produced by a script or a render. There is no judgment call and theref
 
 ## A2. Implementation judgment — the DL's
 
-**The two speeds differ over exactly three steps** — discovery and the two skeletons. Everything after them is the SSSL's in both speeds, with the DL reviewing and signing rather than running.
+Only the first three rows change between speeds. Everything below them is the SSSL's in both, with the DL reviewing and signing rather than running.
 
 | Step | What the judgment is | Who runs it | DL involvement |
 |---|---|---|---|
