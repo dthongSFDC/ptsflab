@@ -45,7 +45,9 @@ The speeds differ in **where the DL's time sits**, not whether the DL is involve
 
 **Speed A — DL-paired.** The DL is present at the two points where implementation judgment does its work: the epic skeleton (epic boundaries, scope stubs, double-counting) and the architecture skeleton (the load-bearing forks and the relative sizing everything downstream inherits). After the design gate the deal hands to the SSSL for roadmap, pricing, narrative and SOW. Two touchpoints, not a full run.
 
-**Speed B — SSSL-led.** The SSSL runs the flow. The DL reviews the output and signs the estimate.
+**Speed B — SSSL-led.** The SSSL runs the whole flow, front to back. The DL reviews the output and signs the estimate.
+
+**The two speeds differ over exactly three steps** — discovery, the epic skeleton and the architecture skeleton. Everything downstream of them is the SSSL's in both speeds. The only step the DL runs outright in either is the formal risk review, because the recommended rating carries their name at the gate.
 
 **Routing is the DL's call at intake, on risk and complexity.** The SSSL completes a one-screen deal shape and proposes a speed; the DL confirms or overrides within a stated turnaround, or the bottleneck simply moves to the routing decision. Judgment, not a scorecard — but informed by a consistent set of factors:
 
@@ -166,17 +168,19 @@ Output is produced by a script or a render. There is no judgment call and theref
 
 ## A2. Implementation judgment — the DL's
 
-| Step | What the judgment is | Speed A | Speed B | DL involvement |
-|---|---|---|---|---|
-| `discover` | Extraction audit, gaps and assumptions | DL | SSSL | Read at the review |
-| **`requirements`** | **Epic boundaries, scope stubs, double-counting, gap register** | **DL** | SSSL | **Speed A: approves the skeleton live. Speed B: at the review** |
-| **`design`** | **Architecture forks, grounding, T-shirt sizing** | **DL** | SSSL | **Speed A: approves the skeleton live. Speed B: at the review** |
-| `roadmap` | Phasing, dependencies, duration basis | DL | SSSL | Reviews the duration basis and the Phase 0 call |
-| `efficiency` | AI delivery bands, which set the AI-native lane | DL | DL | Owns |
-| **`estimate`** | **Named roster with justified counts; Solution Lead sign-off** | **DL** | **DL** | **Signs — this is the delivery approval** |
-| `grill-me-on-scope` | Over- and under-sizing, confidence resolution | DL | DL | Owns |
-| `risk-review` | Overall risk rating and its basis | DL | DL | Owns |
-| `revise` | Blast radius of an approved change | Step owner | Step owner | Re-approves what it touches |
+**The two speeds differ over exactly three steps** — discovery and the two skeletons. Everything after them is the SSSL's in both speeds, with the DL reviewing and signing rather than running.
+
+| Step | What the judgment is | Who runs it | DL involvement |
+|---|---|---|---|
+| `discover` | Extraction audit, gaps and assumptions | **Speed A: DL · Speed B: SSSL** | Read at the review |
+| **`requirements`** | **Epic boundaries, scope stubs, double-counting, gap register** | **Speed A: DL · Speed B: SSSL** | **Speed A: approves the skeleton live. Speed B: at the review** |
+| **`design`** | **Architecture forks, grounding, T-shirt sizing** | **Speed A: DL · Speed B: SSSL** | **Speed A: approves the skeleton live. Speed B: at the review** |
+| `roadmap` | Phasing, dependencies, duration basis | SSSL | Reviews the duration basis and the Phase 0 call |
+| `efficiency` | AI delivery bands, which set the AI-native lane | SSSL | Confirms the band — an AI-native compression is a delivery claim we will be held to |
+| **`estimate`** | **Named roster with justified counts; Solution Lead sign-off** | **SSSL drafts the roster** | **Signs — this is the delivery approval** |
+| `grill-me-on-scope` | Over- and under-sizing, confidence resolution | SSSL | Directs it through the review findings rather than running it |
+| `risk-review` | Overall risk rating and its basis | DL | Owns outright — the recommended rating carries the DL's name at the risk gate |
+| `revise` | Blast radius of an approved change | Step owner | Re-approves what it touches |
 
 ## A3. Commercial judgment — the SSSL's, in both speeds
 
