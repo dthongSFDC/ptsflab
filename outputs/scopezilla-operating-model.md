@@ -43,7 +43,7 @@ Two consequences have surfaced from the DLs. **Work is being done twice** — an
 
 The speeds differ in **where the DL's time sits**, not whether the DL is involved. Both end at the same delivery approval.
 
-**Speed A — DL-SSSL paired.** The DL is present at the two points where implementation judgment does its work: the epic skeleton (epic boundaries, scope stubs, double-counting) and the architecture skeleton (the load-bearing forks and the relative sizing everything downstream inherits). After the design gate the deal hands to the SSSL for roadmap, pricing, narrative and SOW. Two touch-points, not a full run.
+**Speed A — DL-SSSL paired.** The DL is present through the front end, where implementation judgment does its work: discovery, the epic skeleton (epic boundaries, scope stubs, double-counting), the architecture skeleton (the load-bearing forks and the relative sizing everything downstream inherits), and the scope stress-test that follows. After that the deal hands to the SSSL for roadmap, pricing, narrative and SOW. One contiguous sitting, not a full run.
 
 **Speed B — SSSL-led.** The SSSL runs the whole flow, front to back. The DL reviews the output based on tooling signals and signs the estimate.
 
@@ -172,7 +172,7 @@ Only the front-end rows change between speeds. Everything below them is the SSSL
 
 | Step | What the judgment is | Who runs it | DL involvement |
 |---|---|---|---|
-| `discover` | Extraction audit, gaps and assumptions | **Speed A: DL · Speed B: SSSL** | Read at the review |
+| `discover` | Extraction audit, gaps and assumptions | **Speed A: DL · Speed B: SSSL** | Speed A: runs the gap interview. Speed B: read at the review. The SSSL prepares the document ingest either way |
 | **`requirements`** | **Epic boundaries, scope stubs, double-counting, gap register** | **Speed A: DL · Speed B: SSSL** | **Speed A: approves the skeleton live. Speed B: at the review** |
 | **`design`** | **Architecture forks, grounding, T-shirt sizing** | **Speed A: DL · Speed B: SSSL** | **Speed A: approves the skeleton live. Speed B: at the review** |
 | `roadmap` | Phasing, dependencies, duration basis | SSSL | Reviews the duration basis and the Phase 0 call |
