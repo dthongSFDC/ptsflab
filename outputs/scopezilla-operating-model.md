@@ -6,20 +6,18 @@
 
 ## Executive summary
 
-Scopezilla removed the old division of labour without replacing it. Solution scoping and estimation used to sit with the Delivery Leader (DL); SOW creation and negotiation sat with the Services Solution Sales Lead (SSSL). The tool now lets either role run the entire flow, and no one has said who should. The result is three patterns, all of them slower than the model they replaced, and none of them agreed.
+Scopezilla removed the old division of labour without replacing it. Solution scoping and estimation used to sit with the Delivery Leader (DL); SOW creation and negotiation sat with the Services Solution Sales Lead (SSSL). The tool now lets either role run the entire flow, and no one has said who should.
 
-**The constraint is capacity, in both roles.** We have 10 full-time SSSLs who also carry SOW writing and negotiation, and 24 DLs who each lead a delivery team of around fifteen people and pick up presales alongside sponsorship and escalations. Moving scoping between two saturated pools decides who queues. It does not create capacity. Any plan that reallocates work between the DL and the SSSL is therefore not a plan.
+Two consequences have surfaced, and they are the same problem seen from two sides. **Work is being done twice** — an SSSL scopes a deal and the architect re-runs it before approving. And **there is no confidence in the output** — the approver cannot see which claims were confirmed, which were assumed, and how the load-bearing decisions were reached, so re-deriving the scope is cheaper than auditing it. The duplication is not carelessness. It is the rational response to an artifact you cannot inspect.
 
-**Proposal: two speeds, set by the confidence the deal needs.** The only lever available to us in the near term is to do less per deal. Most deals need a rough order of magnitude, not a due-diligence estimate, and today many of them get the full treatment anyway.
+**Proposal, in two parts.**
 
-- **Speed 1 — ROM at ±30%.** One pass through the chain on the information we already have. Assumptions disclosed rather than resolved. Time-boxed, no gap-closing loop, no SOW. Reviewed by a DL as a **fifteen-minute sanity check** on whether the uncertainty is honestly priced into the range.
-- **Speed 2 — Committed.** Iterate on the gaps that materially move the number until the range tightens, then the SOW. The full premises review and the estimate sign-off.
+- **Two speeds, routed on risk and complexity.** On a higher-risk or more complex deal the DL is present when the shape of the solution is decided. On a lower-risk deal the SSSL runs it and the DL reviews the output. The DL makes the call at intake.
+- **A standardised review that makes the scope inspectable** — and that leads with whether the scope declares its own uncertainty honestly. This is what ends the re-run, and it is the only build item in the plan.
 
-**The difference is not which steps run — it is whether we chase the gaps.** A priced ROM needs the whole chain, because the tool will not produce a number from a short one. Running the tool was never the expensive part; the expensive part is the human loop of interviews and follow-ups that converts assumed into confirmed. That is where the weeks go, and it is why Scopezilla can feel like it costs a DL more time rather than less: the tool got fast, the loop did not.
+**Ask:** agreement on the two speeds, the ownership split, and sponsorship for the actions below, all achievable inside a month.
 
-**Ask:** agreement on the two speeds and the ownership rule, and sponsorship for the five actions below, all achievable inside a month.
-
-**What this is not.** It recovers duplicated effort and stops us over-investing in deals that will not close. It does not add capacity. If demand exceeds what these five items recover, the queue returns, and that is a demand and headcount conversation above this paper.
+**What this is not.** It removes duplicated senior effort and makes the delivery approval mean something. It does not add capacity. With 10 full-time SSSLs and 24 DLs who each lead a delivery team, if demand exceeds what this recovers, the queue returns — and that is a demand and headcount conversation above this paper.
 
 ---
 
@@ -28,63 +26,67 @@ Scopezilla removed the old division of labour without replacing it. Solution sco
 | Pattern | What it costs |
 |---|---|
 | DL runs the whole flow, hands to SSSL for SOW and Org62 | Pulls the DL away from a delivery team of fifteen. Sustainable on a few deals, not as a default. |
-| SSSL runs the whole flow, architect re-runs it | The expensive one, and the source of the DL complaint that Scopezilla costs them *more* time than before: they used to scope a deal once, and now they review someone else's scoping and re-do it anyway. Senior time spent twice on the same deal. |
+| SSSL runs the whole flow, architect re-runs it | The expensive one, and the source of the complaint that Scopezilla costs a DL *more* time than before: they used to scope a deal once, and now they review someone else's scoping and re-do it anyway. |
 | Both work the deal simultaneously | Ownership collision. Scopezilla is git-backed, so concurrent editing of the same step produces conflicts, not collaboration. |
 
 ## Root cause
 
-**Every deal gets the gap-closing loop, regardless of the confidence it needs.** An early-stage qualification and a deal we are about to commit to receive the same treatment. Chasing answers is the expensive part of scoping — not running the tool — and we have never made an explicit decision about when to stop chasing and price the uncertainty instead.
+**The approval has no audit surface.** The DL is asked to approve a conclusion — a scope, a size, a set of assumptions — without visibility of the premises it rests on. Everything needed is already captured in the project repository and has never been surfaced as a review. Until it is, re-running the work is the cheaper option, and the duplication will continue no matter who owns which step.
 
 **No named owner per step.** A Scopezilla step has one author by construction. Shared ownership of a step is not a collaboration model, it is a merge conflict.
 
-**The approval has no audit surface.** The DL is asked to approve a conclusion without visibility of the premises it rests on. Re-deriving the scope is cheaper than reading it, so that is what happens. Everything needed is already captured in the project repository; it has never been surfaced as a review. This is why the re-run happens, and it is what makes Scopezilla a net cost to a DL rather than a saving.
+**Neither is a tooling gap.** Both are decisions we have not made.
 
 ---
 
 ## The model: two speeds
 
-**Speed 1 — ROM at ±30%, and the default.** A single pass through the chain — scope, sizing, duration basis, roster, price — on the information already available. The load-bearing assumptions are disclosed rather than chased, and the ±30% band is what buys the right to stop. Time-boxed, with no gap-closing loop and no SOW. SSSL-led, and sanity-checked by a DL before it is shared.
+The speeds differ in **where the DL's time sits**, not whether the DL is involved. Both end at the same delivery approval.
 
-**Speed 2 — Committed.** The same chain, but now we iterate: close the gaps that materially move the number, tighten the range, then the SOW. This is where the full premises review and the estimate sign-off sit.
+**Speed A — DL-paired.** The DL is present at the two points where implementation judgment does its work: the epic skeleton (epic boundaries, scope stubs, double-counting) and the architecture skeleton (the load-bearing forks and the relative sizing everything downstream inherits). After the design gate the deal hands to the SSSL for roadmap, pricing, narrative and SOW. Two touchpoints, not a full run.
 
-**Both speeds run essentially the same steps.** A priced ROM needs the whole derivation — the tool refuses to manufacture a number from a short chain, which is deliberate and correct. What separates the speeds is iteration and gap closure, not step selection. Anyone looking for the saving in "fewer steps" will not find it there.
+**Speed B — SSSL-led.** The SSSL runs the flow. The DL reviews the output and signs the estimate.
 
-**DL involvement scales in three steps:**
+**Routing is the DL's call at intake, on risk and complexity.** The SSSL completes a one-screen deal shape and proposes a speed; the DL confirms or overrides within a stated turnaround, or the bottleneck simply moves to the routing decision. Judgment, not a scorecard — but informed by a consistent set of factors:
 
-| | Review | What the DL does |
-|---|---|---|
-| ROM | Sanity check | A fifteen-minute read off the standardised page |
-| Committed, simple | Full premises review | Reads the page, signs the estimate |
-| Committed, complex | Full premises review | Approves the design skeleton live, then reads and signs |
+- Clouds in scope, and whether we have delivered them locally
+- Single-cloud or multi-cloud
+- Net-new integration surface
+- Greenfield or brownfield
+- Configuration-shaped or build-shaped, particularly on industry clouds where the platform ships capability that can be mis-scoped as a build
+- Fixed, regulatory or immovable date
+- Regulated environment, data residency or sovereignty constraints
+- Data migration volume
+- Client governance maturity and decision velocity
 
-Simple and complex is the DL's call at intake, and it is a judgment rather than a scorecard.
+**Default is Speed B**, and Speed A requires a stated reason. That puts the burden of proof on the more expensive option rather than the cheaper one, which is the mechanism that makes the default hold under pressure.
 
-**The ROM sanity check asks one thing: is the uncertainty honestly priced into the range?** A ±30% ROM is defensible when the load-bearing assumptions are visible and the band genuinely covers them. It is indefensible when it is ±30% around a wrong premise. Four questions, and nothing more:
+**The AP has no vote.** Their incentive runs one way — architect coverage de-risks their deal at no cost to them, so left open they will request it every time, entirely rationally. Speed is an internal resourcing decision, not a deal-team decision, and "the AP asked" is not a stated reason for Speed A.
 
-1. Are the load-bearing assumptions visible, and are they the right ones?
-2. Is anything scoped as a build that the platform actually ships — the error a ±30% band will not absorb?
-3. Does the band actually cover the identified risk, or is the ±30% cosmetic?
-4. Is there an obvious delivery-readiness red flag — an immovable date, absent sponsorship, a dependency nobody owns?
+**The speed is revisable.** A call made at intake rests on very little; discovery is what reveals whether a deal is hard. After the epics land, the SSSL flags anything that changed the shape and the DL can move it to Speed A. This is the insurance against discovering a bad routing call at final review, which is the re-run we are trying to eliminate.
 
-Output is "fine to share as a ROM" or "not yet". It is a read, not a meeting.
-
-**Speed is set at intake and defaults to ROM.** Speed 2 requires a stated reason, which puts the burden of proof on the expensive option rather than the cheap one. That is the mechanism that makes the default hold under pressure.
-
-**Promotion from ROM to committed is the normal path, not an exception.** Most deals should reach speed 2 only once there is a reason to believe they will close, and promotion is the trigger for DL involvement.
-
-**Otherwise, who does what does not vary.** Whoever holds the deal runs the deterministic steps. The SSSL owns everything commercial. The appendix sets this out step by step.
-
-**No scoping starts without a completed intake.** A one-screen deal shape: clouds in scope, integration surface, greenfield or brownfield, fixed date or not, configuration-shaped or build-shaped, client and buying pattern, and the speed required. A deal that arrives as a verbal ask does not enter the queue. This is the cheapest rework prevention available.
-
-**Handoffs are pull requests.** Each phase runs on its own branch in the deal repository, so the handoff is a reviewable diff rather than a document drop. This is what makes the review possible and is the most direct fix for the re-run.
+**Handoffs are pull requests.** Each phase runs on its own branch in the deal repository, so the handoff is a reviewable diff rather than a document drop. This is what makes Speed B auditable and is the most direct fix for the duplication.
 
 ## The review, and the return leg
 
-This is the **full review, at speed 2**. The ROM sanity check above is the short form of it.
-
 The DL approves the **delivery** of the deal, across all of it and not only its architecture: scope, governance, assumptions and risk. The commercials — rate, price, margin, commercial terms — are the SSSL's and are explicitly **not** in this review.
 
-So the review is on the **premises, not the conclusions**, against a fixed question set and a time box:
+### It leads with whether the scope declares its own uncertainty
+
+This is the part that does the real work, and it is cheap to compute because Scopezilla already records all of it. **On a real deal, declared uncertainty is a sign of competent scoping; its absence is the warning.** A scope that arrives tidy, fully confirmed and gap-free has usually not been interrogated. So the page opens with:
+
+- Items marked confirmed with no basis recorded against them
+- A gap count implausibly low for the volume of requirements
+- Architecture decisions carrying no grounding
+- Named clouds, integrations or personas with nothing buildable behind them
+- Sizes with no complexity rationale
+- Assumptions absent on a deal with thin discovery
+
+None of that judges the author. It reads the artifact, it reads the same way on every deal, and it points the reviewer straight at what to test.
+
+### Then the premises
+
+Against a fixed question set and a time box:
 
 - Confirmed / assumed / unknown split, particularly on the epics driving the size
 - Every load-bearing architecture decision and how it was grounded
@@ -95,9 +97,9 @@ So the review is on the **premises, not the conclusions**, against a fixed quest
 
 The failure mode is not the model, it is an approver signing quickly under volume. A fixed question set and a time box keep it a check rather than a signature.
 
-**The review is surfaced as one standardised page**, generated from the deal's own data rather than written by hand. Same layout every deal, so any two are comparable and the DL is never reading a bespoke document. It reports; the DL decides.
+**The review is one standardised page**, generated from the deal's own data rather than written by hand. Same layout every deal, so any two are comparable and the DL is never reading a bespoke document. It reports; the DL decides.
 
-**Findings return to the SSSL as review comments on the pull request.** No separate rework process: the diff is already the handoff, so objections attach to it, resolution is tracked, and approval is the merge.
+**Findings return to the SSSL as review comments on the pull request.** No separate rework process: the diff is already the handoff, so objections attach to it, resolution is tracked, and approval is the merge. This also produces a durable record of every objection raised.
 
 **Findings are triaged into three kinds,** because they need different work to close, and naming them stops the return leg reproducing the same ambiguity in reverse:
 
@@ -113,33 +115,32 @@ The failure mode is not the model, it is an approver signing quickly under volum
 
 | # | Action | Owner | By |
 |---|---|---|---|
-| 1 | Set speed at intake, defaulting to ROM. Speed 2 requires a stated reason. Time-box the ROM pass and agree the sanity check as a fifteen-minute read against four questions | DL lead + SSSL lead | Week 1 |
-| 2 | Publish the step ownership map (appendix), one named owner per step, with a stated turnaround on anything crossing roles | DL lead + SSSL lead | Week 2 |
+| 1 | Publish the step ownership map (appendix), one named owner per step, with a stated turnaround on anything crossing roles | DL lead + SSSL lead | Week 2 |
+| 2 | Agree the routing factors and the intake shape. Default Speed B; Speed A requires a stated reason | DL lead + SSSL lead | Week 1 |
 | 3 | No scoping starts without a completed intake | SSSL lead | Week 1 |
-| 4 | Build the review artifact and kill the re-run: the standardised page the DL reads at both intensities, and the triaged return of findings. A report over data we already hold, built as a skill on Scopezilla | | Week 4 |
-| 5 | Record the speed chosen, simple or complex, and one line of rationale on every deal | SSSL lead | Week 1 |
+| 4 | Build the review artifact and end the re-run: the standardised page, leading with the uncertainty signals, plus the triaged return of findings. A report over data we already hold, built as a skill on Scopezilla | | Week 4 |
+| 5 | Adopt branch-per-phase handoffs so every handoff is a reviewable diff | DL lead | Week 3 |
+| 6 | Record the speed proposed, the speed decided, and one line of rationale on every deal | SSSL lead | Week 1 |
 
-Items 1, 2, 3 and 5 are conventions we can publish this week at no cost. Item 4 is the only build, and it is load-bearing for all of them: a fifteen-minute ROM review is only possible if the page is good enough to read instead of re-derive. If it is not, DLs will keep re-running and nothing else here matters.
+Items 1, 2, 3 and 6 are conventions we can publish this week at no cost. Item 4 is the only build, and it is load-bearing for the rest: if the page is not good enough to read instead of re-derive, DLs will keep re-running and nothing else here matters. Its acceptance test is simple — can a DL clear a Speed B deal without opening the repository.
 
-Action 5 matters most over time. We are designing from anecdote because we have no data. Twenty recorded decisions tell us whether the ROM default is holding, how many deals actually reach speed 2, and therefore what the real DL load is.
+Action 6 matters most over time. We are designing from anecdote because we have no data. Twenty recorded decisions turn the routing judgment into an observable pattern, and the escalation criteria then write themselves from real calls rather than being invented up front.
 
 ## What this does not solve
 
-**It does not create capacity.** It recovers duplicated effort and stops us over-investing in deals that will not close. With both roles saturated, if Account Partner demand exceeds what these items recover, the queue returns. Managing that demand, or funding the capacity, sits above this paper.
+**Routing on the deal does not screen the scoping.** Risk and complexity are the right signal for deciding where an architect's time is best spent, but they only correlate with where a scope goes wrong. A thin or over-confident scope on a straightforward deal will route to Speed B untouched. That is precisely why the review leads with the uncertainty signals — the review is what catches it, and it is the reason Action 4 is not optional.
 
 **The review verifies process, not correctness.** It can confirm the gates were run and the decisions grounded. It cannot confirm they were resolved correctly. A confirmed tag attests that someone stood behind a claim, not that they were right.
 
-**ROM is a disclosed trade, and the ±30% is the whole of it.** Stopping before the gaps are closed buys speed and pays for it in range. That only works if the assumptions behind the band are stated on the output rather than discovered later by whoever quotes it, and if the band is never quietly narrowed on the way to a client. A ROM that has passed the sanity check is a ±30% number, not a commitment and not a basis for a SOW.
+**It does not create capacity.** It removes duplicated senior effort. With both roles saturated, if Account Partner demand exceeds what that recovers, the queue returns. Managing that demand, or funding the capacity, sits above this paper.
 
-**The saving is smaller than "two speeds" makes it sound.** Both speeds run the same steps, so the recovered time comes from three places only: not re-running someone else's work, not iterating on deals that will not close, and holding the ROM pass inside its time box so it cannot quietly become a committed estimate. That third one is a discipline, not a mechanism, and it will need enforcing.
-
-**Tooling is not a lever this quarter.** SolutionIQ is the next-generation app being built on the Scopezilla engine, and it brings scope, estimate, risk and approval into one workflow. Its published roadmap does not cover Public Sector, Health or Nonprofit, and multi-cloud scoping arrives in the October release. Scopezilla remains required until SolutionIQ reaches global availability. Because SolutionIQ is a fork of the same engine, the review artifact in Action 4 is reusable — and worth submitting to the CoE while their approval process design is still open.
+**Tooling is not a lever this quarter.** SolutionIQ is the next-generation app being built on the Scopezilla engine, and it brings scope, estimate, risk and approval into one workflow. Its published roadmap does not cover Public Sector, Health or Nonprofit, and multi-cloud scoping arrives in the October release. Scopezilla remains required until SolutionIQ reaches global availability. Because SolutionIQ is a fork of the same engine, the review artifact in Action 4 is reusable — and worth submitting to the CoE while their Deal Review and Approval Process design is still open.
 
 ---
 
 # Appendix — Draft step ownership map
 
-Draft for agreement under Action 2. Roles: **DL** Delivery Leader / Architect, **SSSL** Services Solution Sales Lead.
+Draft for agreement under Action 1. Roles: **DL** Delivery Leader / Architect, **SSSL** Services Solution Sales Lead.
 
 Three principles behind the assignments:
 
@@ -163,23 +164,19 @@ Output is produced by a script or a render. There is no judgment call and theref
 
 ## A2. Implementation judgment — the DL's
 
-These run at **both** speeds — a priced ROM needs the whole chain. At ROM they run once on the information available, with assumptions disclosed. At committed, we iterate until the gaps that move the number are closed. The two exceptions are marked.
+| Step | What the judgment is | Speed A | Speed B | DL involvement |
+|---|---|---|---|---|
+| `discover` | Extraction audit, gaps and assumptions | DL | SSSL | Read at the review |
+| **`requirements`** | **Epic boundaries, scope stubs, double-counting, gap register** | **DL** | SSSL | **Speed A: approves the skeleton live. Speed B: at the review** |
+| **`design`** | **Architecture forks, grounding, T-shirt sizing** | **DL** | SSSL | **Speed A: approves the skeleton live. Speed B: at the review** |
+| `roadmap` | Phasing, dependencies, duration basis | DL | SSSL | Reviews the duration basis and the Phase 0 call |
+| `efficiency` | AI delivery bands, which set the AI-native lane | DL | DL | Owns |
+| **`estimate`** | **Named roster with justified counts; Solution Lead sign-off** | **DL** | **DL** | **Signs — this is the delivery approval** |
+| `grill-me-on-scope` | Over- and under-sizing, confidence resolution | DL | DL | Owns |
+| `risk-review` | Overall risk rating and its basis | DL | DL | Owns |
+| `revise` | Blast radius of an approved change | Step owner | Step owner | Re-approves what it touches |
 
-| Step | What the judgment is | DL involvement |
-|---|---|---|
-| `discover` | Extraction audit, gaps and assumptions | Read at the review; SSSL runs it |
-| `requirements` | Epic boundaries, scope stubs, double-counting, gap register | Read at the review; approves the skeleton live on a complex deal |
-| **`design`** | **Architecture forks, grounding, T-shirt sizing** | **Approves the skeleton on a complex deal.** At ROM, unresolved forks are disclosed as assumptions rather than closed |
-| `roadmap` | Phasing, dependencies, duration basis | Reviews the duration basis and the Phase 0 call |
-| `efficiency` | AI delivery bands, which set the AI-native lane | Owns; only when an AI-native lane is being priced |
-| **`estimate`** | **Named roster with justified counts; Solution Lead sign-off** | **Signs — this is the delivery approval** |
-| `grill-me-on-scope` | Over- and under-sizing, confidence resolution | Owns — **speed 2 only**, it is the gap-closing pass |
-| `risk-review` | Overall risk rating and its basis | Owns — **speed 2 only**; at ROM, risks are noted, not rated |
-| `revise` | Blast radius of an approved change | Re-approves what it touches |
-
-## A3. Commercial judgment — the SSSL's
-
-`commercials` runs at **both** speeds — a priced ROM needs a validated rate, so it cannot be skipped. `sow-scope` is speed 2 only: the SOW is the one thing a ROM genuinely does not include.
+## A3. Commercial judgment — the SSSL's, in both speeds
 
 | Step | Note |
 |---|---|
@@ -193,11 +190,11 @@ These run at **both** speeds — a priced ROM needs the whole chain. At ROM they
 
 ## Notes on the contested points
 
-**The `estimate` sign-off is the delivery approval, and the tool's own boundary matches ours.** Scopezilla keeps rates out of `estimate` entirely — the roster, effort and duration live there, and rates exist only in `commercials`. So the sign-off it already stops for is a delivery sign-off, not a commercial one, which is exactly the line we are drawing. Running that sign-off and a separate delivery approval as two distinct gates is duplicated latency, and a candidate cause of the slowness we are trying to explain. Merge them.
+**The `estimate` sign-off is the delivery approval, and the tool's own boundary matches ours.** Scopezilla keeps rates out of `estimate` entirely — roster, effort and duration live there, and rates exist only in `commercials`. So the sign-off it already stops for is a delivery sign-off, not a commercial one, which is exactly the line we are drawing. Running that sign-off and a separate delivery approval as two distinct gates is duplicated latency, and a candidate cause of the slowness we are trying to explain. Merge them.
 
 **Roadmap, sponsorship and customer obligations are DL-owned** because the DL owns delivery governance and the delivery managers. They are not commercial steps.
 
-**The AP has no vote in the speed.** Their incentive runs one way — more scoping coverage de-risks their deal at no cost to them. Speed is an internal capacity decision, not a deal-team decision, and "the AP asked" is not a stated reason for speed 2.
+**A ROM is a priced ±30% estimate.** It runs the same chain as any other estimate — the tool will not manufacture a number from a short one — and the only thing it omits is the SOW. Speed is therefore about where the architect's time sits, not about producing a cheaper artifact.
 
 **Post-award steps are out of this map.** `quantum-leap` (build handoff) and `backlog` (user stories for a delivery team) belong to the delivery operating model.
 
