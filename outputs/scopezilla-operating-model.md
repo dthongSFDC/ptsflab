@@ -91,3 +91,65 @@ Action 5 is the cheapest and the most important over time. We are designing from
 **Lane B is only safe where being wrong is recoverable.** The fence is tighter than any artifact can tell us, particularly in verticals where we have limited local delivery experience to draw on.
 
 **Routing adds a touchpoint.** Small, but real. It needs a stated turnaround or it becomes the new queue.
+
+---
+
+# Appendix — Draft step ownership map
+
+Draft for agreement under Action 1. Roles: **DL** Delivery Leader / Architect, **SSSL** Services Solution Sales Lead, **AP** Account Partner.
+
+Three principles behind the assignments:
+
+1. **One named owner per step.** Not one per deal. Shared ownership of a step is a merge conflict.
+2. **Hang the model on the stops the tool already has.** Scopezilla already halts for a human at four places: the epic skeleton, the architecture skeleton, the estimate sign-off, and rate validation. We do not need to invent gates; we need to say who stands at the existing ones.
+3. **Judgment is not all delivery judgment.** Rate validation and deal shaping are the SSSL's expertise, not an architect's, and should not route to a DL.
+
+## A1. Deterministic — no approval, whoever holds the deal runs it
+
+Output is produced by a script or a render. There is no judgment call and therefore no handoff. Some current delay is people queueing for a human on these.
+
+| Step | What it does |
+|---|---|
+| Project setup, repository setup | Creates the project and the shared repository |
+| Validate | Runs the data consistency checker |
+| Export | Produces the workbook and packages deliverables |
+| Deal review page, capability map | Renders internal views from existing data; report-only, mutates nothing |
+| Share, slides | Publishes a deliverable or builds a deck |
+| Org62 load | Derives the load file from an already-approved roster |
+| Tidy-up, session wrap | Housekeeping |
+
+## A2. Implementation judgment — the DL's, in both lanes
+
+| Step | Lane A runs | Lane B runs | DL involvement |
+|---|---|---|---|
+| Discovery ingest | SSSL | SSSL | None |
+| Gap and assumption interview | DL | SSSL | At the gate |
+| **Scope definition (epic skeleton)** | **DL** | SSSL | **Lane A: approves live. Lane B: at the gate** |
+| **Solution design (architecture forks, relative sizing)** | **DL** | SSSL | **Lane A: approves live. Lane B: at the gate** |
+| Roadmap, phasing and duration basis | DL | SSSL | Reviews the duration basis |
+| AI delivery efficiency bands | DL | DL | Owns |
+| **Estimate — roster and sign-off** | **DL** | **DL** | **Signs, both lanes** |
+| Scope stress-test, risk review | DL | DL | Owns |
+| Propagating an approved change | Step owner | Step owner | Re-approves what it touches |
+
+## A3. Commercial judgment — the SSSL's, in both lanes
+
+| Step | Owner | Note |
+|---|---|---|
+| Business case and value framing | SSSL | AP contributes; not a DL step |
+| **Rate validation and indicative pricing** | **SSSL** | The tool requires a rate the human supplies and validates. This is the SSSL's expertise |
+| Deal shaping and commercial strategy | SSSL | |
+| RFP cycle: bid decision, win strategy, compliance | SSSL | Requirement fit and gap classification within it is a DL input |
+| SOW scope language | SSSL | DL reviews exclusions and assumptions, which are delivery commitments |
+| Narratives and executive summary | SSSL | DL reviews technical sections |
+| Deal qualification brief, packaged offerings | SSSL / AP | Pre-scoping; produces no price, ROM or committed timeline |
+
+## Notes on the contested points
+
+**Merge the estimate sign-off with the existing delivery approval.** The tool already stops and asks for one name at the estimate. That is the natural home for the delivery approval we run today as a separate step, and it is where the Lane B review should sit. Running both as distinct approvals is pure duplicated latency, and it is a candidate cause of the slowness we are trying to explain.
+
+**The AP is not a Scopezilla user.** They supply relationship and commercial context into the business case and receive the client-facing narrative. Routing work through them adds a handoff and buys nothing.
+
+**Post-award steps are out of this map.** Build handoff and backlog generation sit after the deal is won and belong to the delivery operating model, not this one.
+
+**Where the split is genuinely arguable:** roadmap sequencing (delivery judgment, but the SSSL can draft it once sizes exist) and the efficiency bands (they set the AI-native lane and therefore the price, so we have placed them with the DL). Both are worth a decision rather than a default.
