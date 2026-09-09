@@ -17,7 +17,7 @@ Scopezilla removed the old division of labour without replacing it. Solution sco
 
 The governing principle is that **the DL gate attaches to the commitment, not to the scoping.** That makes DL involvement proportional to the deals that actually progress rather than to every deal that gets looked at, which is where the DL time comes back. Alongside it, one named owner per step removes the collision, and a real review gate removes the architect re-run.
 
-**Ask:** agreement on the two depths and the ownership rule, and sponsorship for the five actions below, all achievable inside a month.
+**Ask:** agreement on the two speeds and the ownership rule, and sponsorship for the five actions below, all achievable inside a month.
 
 **What this is not.** It recovers duplicated effort and reduces work per deal. It does not add capacity. If demand exceeds what these five items recover, the queue returns, and that is a demand and headcount conversation above this paper.
 
@@ -33,7 +33,7 @@ The governing principle is that **the DL gate attaches to the commitment, not to
 
 ## Root cause
 
-**Every deal runs at full depth regardless of the confidence it needs.** An early-stage qualification and a deal we are about to commit to receive the same treatment. This is the largest single source of avoidable work, and nothing in the tool prevents it — depth is a decision we have never made explicitly.
+**Every deal runs at full depth, and pulls in a DL, regardless of the confidence it needs.** An early-stage qualification and a deal we are about to commit to receive the same treatment. This is the largest single source of avoidable work, and nothing in the tool prevents it — how far to take a deal has never been an explicit decision.
 
 **No named owner per step.** A Scopezilla step has one author by construction. Shared ownership of a step is not a collaboration model, it is a merge conflict.
 
@@ -62,7 +62,7 @@ Zero touches, one touch, three touches. Simple and complex is the DL's call at i
 
 **Otherwise, who does what does not vary.** Whoever holds the deal runs the deterministic steps. The SSSL owns everything commercial. The appendix sets this out step by step.
 
-**No scoping starts without a completed intake.** A one-screen deal shape: clouds in scope, integration surface, greenfield or brownfield, fixed date or not, configuration-shaped or build-shaped, client and buying pattern, and the depth required. A deal that arrives as a verbal ask does not enter the queue. This is the cheapest rework prevention available.
+**No scoping starts without a completed intake.** A one-screen deal shape: clouds in scope, integration surface, greenfield or brownfield, fixed date or not, configuration-shaped or build-shaped, client and buying pattern, and the speed required. A deal that arrives as a verbal ask does not enter the queue. This is the cheapest rework prevention available.
 
 **Handoffs are pull requests.** Each phase runs on its own branch in the deal repository, so the handoff is a reviewable diff rather than a document drop. This is what makes the review possible and is the most direct fix for the re-run.
 
@@ -145,7 +145,7 @@ Output is produced by a script or a render. There is no judgment call and theref
 
 ## A2. Implementation judgment — the DL's
 
-The **ROM** column is the work reduction: at ROM depth, only the steps marked yes are run.
+The **ROM** column is the work reduction: at speed 1, only the steps marked yes are run, and none of them require a DL.
 
 | Step | What the judgment is | Runs at ROM | DL involvement (committed only) |
 |---|---|---|---|
