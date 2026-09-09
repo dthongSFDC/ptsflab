@@ -12,10 +12,10 @@ Scopezilla removed the old division of labour without replacing it. Solution sco
 
 **Proposal: two speeds, set by the confidence the deal needs.** The only lever available to us in the near term is to do less per deal. Most deals need a rough order of magnitude, not a due-diligence estimate, and today many of them get the full treatment anyway.
 
-- **Speed 1 — ROM, SSSL-led with no delivery gate.** Discovery, epics, relative sizing, stop. Nothing is committed, so there is nothing for a delivery approver to approve. The DL is available on request, not required.
-- **Speed 2 — Committed, DL-gated.** The full chain to the estimate sign-off, because a number anyone will be held to needs the confidence behind it.
+- **Speed 1 — ROM.** Discovery, epics, relative sizing, stop. SSSL-led, and reviewed by a DL as a **time-boxed sanity check** — a fifteen-minute read, not the full delivery approval. A ROM still anchors a client, so it is still reviewed.
+- **Speed 2 — Committed.** The full chain to the estimate sign-off and the full premises review, because a number anyone will be held to needs the confidence behind it.
 
-The governing principle is that **the DL gate attaches to the commitment, not to the scoping.** That makes DL involvement proportional to the deals that actually progress rather than to every deal that gets looked at, which is where the DL time comes back. Alongside it, one named owner per step removes the collision, and a real review gate removes the architect re-run.
+The governing principle is that **the depth of the review scales with the commitment.** The DL sees every deal; what changes is what reviewing one costs them. The time comes back because they stop re-running someone else's work, stop attending skeleton gates on simple deals, and stop reviewing roadmap, roster and risk depth on deals that never progress. Per-deal DL time falls sharply even though the number of deals they touch does not.
 
 **Ask:** agreement on the two speeds and the ownership rule, and sponsorship for the five actions below, all achievable inside a month.
 
@@ -43,18 +43,28 @@ The governing principle is that **the DL gate attaches to the commitment, not to
 
 ## The model: two speeds
 
-**Speed 1 — ROM, and the default.** Discovery, epics and gaps, relative sizing. Stop there. No phase durations, no roster, no commercial model, no priced estimate, no SOW. The output is explicitly low-confidence, disclosed as such, and cannot be quoted or committed. SSSL-led end to end, with **no DL gate** — nothing is being committed, so there is nothing for a delivery approver to approve. The DL is available if the SSSL wants a view; it is a request, not a step.
+**Speed 1 — ROM, and the default.** Discovery, epics and gaps, relative sizing. Stop there. No phase durations, no roster, no commercial model, no priced estimate, no SOW. The output is explicitly low-confidence and disclosed as such. SSSL-led, and reviewed by a DL as a time-boxed sanity check before it is shared.
 
-**Speed 2 — Committed.** The full chain through to the estimate sign-off, because a number anyone will be held to needs the confidence behind it. This is where the DL enters.
+**Speed 2 — Committed.** The full chain through to the estimate sign-off, because a number anyone will be held to needs the confidence behind it.
 
-**Within speed 2, DL involvement scales with complexity:**
+**DL involvement scales in three steps:**
 
-| | ROM | Committed |
+| | Review | What the DL does |
 |---|---|---|
-| Simple | No DL involvement | DL signs the estimate |
-| Complex | No DL involvement (available on request) | DL at the design skeleton, then signs the estimate |
+| ROM | Sanity check | A fifteen-minute read off the standardised page |
+| Committed, simple | Full premises review | Reads the page, signs the estimate |
+| Committed, complex | Full premises review | Approves the design skeleton live, then reads and signs |
 
-Zero touches, one touch, three touches. Simple and complex is the DL's call at intake, and it is a judgment rather than a scorecard.
+Simple and complex is the DL's call at intake, and it is a judgment rather than a scorecard.
+
+**The ROM sanity check is four questions, and nothing more.** Anything longer is not a sanity check:
+
+1. Is anything material missing from scope?
+2. Are the top size drivers plausible — in particular, is anything scoped as a build that the platform actually ships?
+3. Is the confidence honestly labelled, with the range it deserves?
+4. Is there an obvious delivery-readiness red flag — an immovable date, absent sponsorship, a dependency nobody owns?
+
+Output is "fine to share as a ROM" or "not yet". It is a read, not a meeting.
 
 **Speed is set at intake and defaults to ROM.** Speed 2 requires a stated reason, which puts the burden of proof on the expensive option rather than the cheap one. That is the mechanism that makes the default hold under pressure.
 
@@ -67,6 +77,8 @@ Zero touches, one touch, three touches. Simple and complex is the DL's call at i
 **Handoffs are pull requests.** Each phase runs on its own branch in the deal repository, so the handoff is a reviewable diff rather than a document drop. This is what makes the review possible and is the most direct fix for the re-run.
 
 ## The review, and the return leg
+
+This is the **full review, at speed 2**. The ROM sanity check above is the short form of it.
 
 The DL is accountable for end-to-end deal approval, not only its architecture. So the review is on the **premises, not the conclusions**, and it covers both halves of that accountability, against a fixed question set and a time box:
 
@@ -97,13 +109,13 @@ The failure mode is not the model, it is an approver signing quickly under volum
 
 | # | Action | Owner | By |
 |---|---|---|---|
-| 1 | Set speed at intake, defaulting to ROM. Speed 2 requires a stated reason. ROM deals carry no DL gate | DL lead + SSSL lead | Week 1 |
+| 1 | Set speed at intake, defaulting to ROM. Speed 2 requires a stated reason. Agree the ROM sanity check as a fifteen-minute read against four questions | DL lead + SSSL lead | Week 1 |
 | 2 | Publish the step ownership map (appendix), one named owner per step, with a stated turnaround on anything crossing roles | DL lead + SSSL lead | Week 2 |
 | 3 | No scoping starts without a completed intake | SSSL lead | Week 1 |
-| 4 | Build the review artifact and kill the re-run: the standardised page the DL reads, and the triaged return of findings. A report over data we already hold, built as a skill on Scopezilla | | Week 4 |
+| 4 | Build the review artifact and kill the re-run: the standardised page the DL reads at both intensities, and the triaged return of findings. A report over data we already hold, built as a skill on Scopezilla | | Week 4 |
 | 5 | Record the speed chosen, simple or complex, and one line of rationale on every deal | SSSL lead | Week 1 |
 
-Items 1, 2, 3 and 5 are conventions we can publish this week at no cost. Item 4 is the only build, and it is the one that returns duplicated senior time.
+Items 1, 2, 3 and 5 are conventions we can publish this week at no cost. Item 4 is the only build, and it is load-bearing for all of them: a fifteen-minute ROM review is only possible if the page is good enough to read instead of re-derive. If it is not, DLs will keep re-running and nothing else here matters.
 
 Action 5 matters most over time. We are designing from anecdote because we have no data. Twenty recorded decisions tell us whether the ROM default is holding, how many deals actually reach speed 2, and therefore what the real DL load is.
 
@@ -113,7 +125,7 @@ Action 5 matters most over time. We are designing from anecdote because we have 
 
 **The review verifies process, not correctness.** It can confirm the gates were run and the decisions grounded. It cannot confirm they were resolved correctly. A confirmed tag attests that someone stood behind a claim, not that they were right.
 
-**ROM is a disclosed trade, and it has an ungated failure mode.** A short chain produces a wider, less certain answer — that is the point, and it has to be stated on the output rather than discovered later by whoever quotes it. The risk to manage is a ROM being treated as a number: nothing at speed 1 has passed a delivery approval, so the discipline that a ROM cannot be quoted, SOW'd or committed has to hold absolutely, or the gate we removed reappears as a problem in front of a client.
+**ROM is a disclosed trade.** A short chain produces a wider, less certain answer. That is the point, and it has to be stated on the output rather than discovered later by whoever quotes it. A ROM that has passed the sanity check is fine to share as a ROM; it is not a price, a committed timeline, or a basis for a SOW.
 
 **Tooling is not a lever this quarter.** SolutionIQ is the next-generation app being built on the Scopezilla engine, and it brings scope, estimate, risk and approval into one workflow. Its published roadmap does not cover Public Sector, Health or Nonprofit, and multi-cloud scoping arrives in the October release. Scopezilla remains required until SolutionIQ reaches global availability. Because SolutionIQ is a fork of the same engine, the review artifact in Action 4 is reusable — and worth submitting to the CoE while their approval process design is still open.
 
@@ -145,11 +157,11 @@ Output is produced by a script or a render. There is no judgment call and theref
 
 ## A2. Implementation judgment — the DL's
 
-The **ROM** column is the work reduction: at speed 1, only the steps marked yes are run, and none of them require a DL.
+The **ROM** column is the work reduction: at speed 1, only the steps marked yes are run, and the DL reads the result rather than approving each step.
 
 | Step | What the judgment is | Runs at ROM | DL involvement (committed only) |
 |---|---|---|---|
-| `discover` | Extraction audit, gaps and assumptions | Yes | None; SSSL runs it |
+| `discover` | Extraction audit, gaps and assumptions | Yes | Read at the review; SSSL runs it |
 | `requirements` | Epic boundaries, scope stubs, double-counting, gap register | Yes | Read at the review; approves the skeleton live on a complex deal |
 | **`design`** | **Architecture forks, grounding, T-shirt sizing** | **Sizing only — forks flagged, not resolved** | **Approves the skeleton on a complex deal** |
 | `roadmap` | Phasing, dependencies, duration basis | No — sequence only, no durations | Reviews the duration basis and the Phase 0 call |
