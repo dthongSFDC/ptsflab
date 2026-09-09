@@ -65,9 +65,9 @@ The failure mode here is not the model, it is an approver signing quickly under 
 
 | Finding | What it means | How it closes |
 |---|---|---|
-| Wrong | A decision resolved incorrectly, or an epic mis-sized | Recompute the downstream impact and re-run what it touches |
-| Unproven | Stated as confirmed with no basis, or a capability named with nothing behind it | Stress-test and resolve, or demote it to a recorded gap |
-| Missing | An implied activity nobody surfaced, typically change, testing or release management | Back to scope definition |
+| Wrong | A decision resolved incorrectly, or an epic mis-sized | `revise` — recomputes the downstream impact and re-runs what it touches |
+| Unproven | Stated as confirmed with no basis, or a capability named with nothing behind it | `grill-me-on-scope` — resolves it, or demotes it to a recorded gap |
+| Missing | An implied activity nobody surfaced, typically change, testing or release management | `requirements` — back to scope definition |
 
 ---
 
@@ -101,7 +101,7 @@ Draft for agreement under Action 1. Roles: **DL** Delivery Leader / Architect, *
 Three principles behind the assignments:
 
 1. **One named owner per step.** Not one per deal. Shared ownership of a step is a merge conflict.
-2. **Hang the model on the stops the tool already has.** Scopezilla already halts for a human at four places: the epic skeleton, the architecture skeleton, the estimate sign-off, and rate validation. We do not need to invent gates; we need to say who stands at the existing ones.
+2. **Hang the model on the stops the tool already has.** Scopezilla already halts for a human at four places: the epic skeleton in `requirements`, the architecture skeleton in `design`, the Solution Lead sign-off in `estimate`, and rate validation in `commercials`. We do not need to invent gates; we need to say who stands at the existing ones.
 3. **Judgment is not all delivery judgment.** Rate validation and deal shaping are the SSSL's expertise, not an architect's, and should not route to a DL.
 
 ## A1. Deterministic — no approval, whoever holds the deal runs it
@@ -110,46 +110,48 @@ Output is produced by a script or a render. There is no judgment call and theref
 
 | Step | What it does |
 |---|---|
-| Project setup, repository setup | Creates the project and the shared repository |
-| Validate | Runs the data consistency checker |
-| Export | Produces the workbook and packages deliverables |
-| Deal review page, capability map | Renders internal views from existing data; report-only, mutates nothing |
-| Share, slides | Publishes a deliverable or builds a deck |
-| Org62 load | Derives the load file from an already-approved roster |
-| Tidy-up, session wrap | Housekeeping |
+| `setup`, `collaborate` | Creates the project and the shared repository |
+| `validate` | Runs the data consistency checker |
+| `export` | Produces the workbook and packages deliverables |
+| `deal-review`, `capability-map` | Renders internal views from existing data; report-only, mutates nothing |
+| `share`, `slides` | Publishes a deliverable or builds a deck |
+| `org62` | Derives the load file from an already-approved roster |
+| `cleanup`, `wrapup` | Housekeeping |
 
 ## A2. Implementation judgment — the DL's, in both lanes
 
-| Step | Lane A runs | Lane B runs | DL involvement |
-|---|---|---|---|
-| Discovery ingest | SSSL | SSSL | None |
-| Gap and assumption interview | DL | SSSL | At the gate |
-| **Scope definition (epic skeleton)** | **DL** | SSSL | **Lane A: approves live. Lane B: at the gate** |
-| **Solution design (architecture forks, relative sizing)** | **DL** | SSSL | **Lane A: approves live. Lane B: at the gate** |
-| Roadmap, phasing and duration basis | DL | SSSL | Reviews the duration basis |
-| AI delivery efficiency bands | DL | DL | Owns |
-| **Estimate — roster and sign-off** | **DL** | **DL** | **Signs, both lanes** |
-| Scope stress-test, risk review | DL | DL | Owns |
-| Propagating an approved change | Step owner | Step owner | Re-approves what it touches |
+| Step | What the judgment is | Lane A runs | Lane B runs | DL involvement |
+|---|---|---|---|---|
+| `discover` | Extraction audit, gaps and assumptions | DL | SSSL | At the gate. SSSL prepares the document ingest in either lane |
+| **`requirements`** | **Epic boundaries, scope stubs, double-counting, gap register** | **DL** | SSSL | **Lane A: approves the skeleton live. Lane B: at the gate** |
+| **`design`** | **Architecture forks, grounding, T-shirt sizing** | **DL** | SSSL | **Lane A: approves the skeleton live. Lane B: at the gate** |
+| `roadmap` | Phasing, dependencies, duration basis | DL | SSSL | Reviews the duration basis and the Phase 0 call |
+| `efficiency` | AI delivery bands, which set the AI-native lane | DL | DL | Owns |
+| **`estimate`** | **Named roster with justified counts; Solution Lead sign-off** | **DL** | **DL** | **Signs, both lanes** |
+| `grill-me-on-scope` | Over- and under-sizing, confidence resolution | DL | DL | Owns |
+| `risk-review` | Overall risk rating and its basis | DL | DL | Owns |
+| `revise` | Blast radius of an approved change | Step owner | Step owner | Re-approves what it touches |
 
 ## A3. Commercial judgment — the SSSL's, in both lanes
 
 | Step | Owner | Note |
 |---|---|---|
-| Business case and value framing | SSSL | AP contributes; not a DL step |
-| **Rate validation and indicative pricing** | **SSSL** | The tool requires a rate the human supplies and validates. This is the SSSL's expertise |
-| Deal shaping and commercial strategy | SSSL | |
-| RFP cycle: bid decision, win strategy, compliance | SSSL | Requirement fit and gap classification within it is a DL input |
-| SOW scope language | SSSL | DL reviews exclusions and assumptions, which are delivery commitments |
-| Narratives and executive summary | SSSL | DL reviews technical sections |
-| Deal qualification brief, packaged offerings | SSSL / AP | Pre-scoping; produces no price, ROM or committed timeline |
+| `strategy` | SSSL | Business case and value framing. AP contributes; not a DL step |
+| **`commercials`** | **SSSL** | **Rate validation and indicative pricing. The tool requires a rate the human supplies and validates — this is the SSSL's expertise, not an architect's** |
+| `commercials` (deal-strategy mode) | SSSL | Shaping the deal commercially: levers beyond rate, value anchoring |
+| `rfp` | SSSL | Bid decision, win strategy, compliance matrix. Fit and gap classification is delegated to `requirements`, so that part is a DL input |
+| `sow-scope` | SSSL | DL reviews exclusions and assumptions, which are delivery commitments |
+| `narratives` | SSSL | DL reviews technical sections |
+| `seller-essentials`, `packaged-offerings` | SSSL / AP | Pre-scoping. Produces no price, ROM or committed timeline by design |
 
 ## Notes on the contested points
 
-**Merge the estimate sign-off with the existing delivery approval.** The tool already stops and asks for one name at the estimate. That is the natural home for the delivery approval we run today as a separate step, and it is where the Lane B review should sit. Running both as distinct approvals is pure duplicated latency, and it is a candidate cause of the slowness we are trying to explain.
+**Merge the `estimate` sign-off with the existing delivery approval.** The tool already stops and asks for one name at `estimate`. That is the natural home for the delivery approval we run today as a separate step, and it is where the Lane B review should sit. Running both as distinct approvals is pure duplicated latency, and it is a candidate cause of the slowness we are trying to explain.
 
 **The AP is not a Scopezilla user.** They supply relationship and commercial context into the business case and receive the client-facing narrative. Routing work through them adds a handoff and buys nothing.
 
-**Post-award steps are out of this map.** Build handoff and backlog generation sit after the deal is won and belong to the delivery operating model, not this one.
+**Post-award steps are out of this map.** `quantum-leap` (build handoff) and `backlog` (user stories for a delivery team) sit after the deal is won and belong to the delivery operating model, not this one.
 
-**Where the split is genuinely arguable:** roadmap sequencing (delivery judgment, but the SSSL can draft it once sizes exist) and the efficiency bands (they set the AI-native lane and therefore the price, so we have placed them with the DL). Both are worth a decision rather than a default.
+**`discover` has one owner, not two.** The ingest half is mechanical and the interview half is judgment, but it is a single step, so it takes a single owner per the first principle. The SSSL can prepare the documents in either lane; who runs the interview is what the lane decides.
+
+**Where the split is genuinely arguable:** `roadmap` (delivery judgment, but the SSSL can draft the sequencing once sizes exist) and `efficiency` (the bands set the AI-native lane and therefore the price, so we have placed them with the DL). Both are worth a decision rather than a default.
