@@ -6,21 +6,15 @@
 
 ## Executive summary
 
-Scopezilla removed the old division of labour without replacing it. Solution scoping and estimation used to sit with the Delivery Leader (DL); SOW creation and negotiation sat with the Services Solution Sales Lead (SSSL). The tool now lets either role run the entire flow, and no one has said who should.
+Scopezilla removed the old division of labour without replacing it. Solution scoping and estimation used to sit with the Delivery Leader (DL); SOW creation and negotiation sat with the Services Solution Sales Lead (SSSL). The tool now lets either role run the entire flow, and no one has said who should. The result is three patterns, all of them slower than the model they replaced, and none of them agreed.
 
-The result is three patterns, all of them slower than the model they replaced. The cost is not the number of handoffs. It is that the handoffs are unbounded: no named owner, no defined input, no defined output. The most expensive pattern is the SSSL running the flow and the architect re-running it before approving, and the re-run is the diagnostic. The architect re-derives the scope because they cannot audit it, so redoing the work is cheaper than reading it.
+**The constraint is capacity, in both roles.** We have 10 full-time SSSLs who also carry SOW writing and negotiation, and 24 DLs who each lead a delivery team of around fifteen people and pick up presales alongside sponsorship and escalations. Moving scoping between two saturated pools decides who queues. It does not create capacity. Any plan that reallocates work between the DL and the SSSL is therefore not a plan.
 
-**Proposal:** two speeds, assigned at intake, both running to a single common review artifact, with one clean handoff in each.
+**Proposal: two depths, not two lanes.** The only lever available to us in the near term is to do less per deal. Most deals need a rough order of magnitude, not a due-diligence estimate, and today many of them get the full treatment anyway. Setting the required depth at intake, defaulting to the shorter one, is the single largest reduction in scoping load available — and it needs no new role, no retraining, and no new tooling. Alongside it, one named owner per step removes the collision, and a real review gate removes the architect re-run, which is duplicated senior time on every deal.
 
-**Lane A — Architect-started.** For deals where risk or complexity means the shape of the solution is the commercial risk. The DL is in the room for the two decisions that set scope and size, then hands the deal to the SSSL for pricing, narrative and SOW. Two architect touchpoints, not a full run — this is materially cheaper than the DL owning the deal end to end, which is what we do today.
+**Ask:** agreement on the two depths and the ownership rule, and sponsorship for the five actions below, all achievable inside a month.
 
-**Lane B — SSSL-led.** The SSSL runs the deal from discovery to SOW. The DL's involvement is a single review, reading the premises the scope rests on rather than re-deriving the scope. This is the lane that has to work, because it is the only one that adds capacity.
-
-**Routing: the SSSL proposes, the DL decides.** The SSSL completes a one-screen deal shape and proposes a lane; the DL confirms or overrides and records the reason in one line. Asymmetric on purpose — the SSSL holds the commercial context the DL does not have at intake, and the DL carries the delivery outcome, so input and decision rights sit in different places. Not a joint decision, which would be a negotiation, and not the AP's call. Default is Lane B, and Lane A requires a stated reason, which puts the burden of proof on the more expensive option. Either lane can change once the scope is defined.
-
-Nothing about the tool changes. What changes is who owns which step, and what the approver actually reads at the gate.
-
-**Ask:** agreement on the two-lane model and the ownership split, and sponsorship for the five actions below.
+**What this is not.** It recovers duplicated effort and reduces work per deal. It does not add capacity. If demand exceeds what these five items recover, the queue returns, and that is a demand and headcount conversation above this paper.
 
 ---
 
@@ -28,52 +22,54 @@ Nothing about the tool changes. What changes is who owns which step, and what th
 
 | Pattern | What it costs |
 |---|---|
-| DL runs the whole flow, hands to SSSL for SOW and Org62 | The pre-Scopezilla model with a new tool. DL is the bottleneck; the SSSL adds nothing until the end. |
-| SSSL runs the whole flow, architect re-runs it | The expensive one. Duplicated effort, and the delivery approval is made on an output whose inputs the approver cannot see. |
+| DL runs the whole flow, hands to SSSL for SOW and Org62 | Pulls the DL away from a delivery team of fifteen. Sustainable on a few deals, not as a default. |
+| SSSL runs the whole flow, architect re-runs it | The expensive one. Senior time spent twice on the same deal, and the approval is still made on an output whose inputs the approver cannot see. |
 | Both work the deal simultaneously | Ownership collision. Scopezilla is git-backed, so concurrent editing of the same step produces conflicts, not collaboration. |
 
 ## Root cause
 
+**Every deal runs at full depth regardless of the confidence it needs.** An early-stage qualification and a deal we are about to commit to receive the same treatment. This is the largest single source of avoidable work, and nothing in the tool prevents it — depth is a decision we have never made explicitly.
+
 **No named owner per step.** A Scopezilla step has one author by construction. Shared ownership of a step is not a collaboration model, it is a merge conflict.
 
-**The approval has no audit surface.** The DL is asked to approve a conclusion (a scope, a size, a SOW) without visibility of the premises it rests on: which claims were confirmed versus assumed, how the load-bearing architecture decisions were resolved, and what is still open. Everything needed is already captured in the project repository. It has never been surfaced as a review.
+**The approval has no audit surface.** The DL is asked to approve a conclusion without visibility of the premises it rests on. Re-deriving the scope is cheaper than reading it, so that is what happens. Everything needed is already captured in the project repository; it has never been surfaced as a review.
 
 ---
 
-## The model: two speeds
+## The model: two depths, one process
 
-The lanes differ in **where the architect's time sits**, not whether the architect is involved. Both end at the same delivery approval.
+**ROM depth — the default.** Discovery, epics and gaps, relative sizing. Stop there. No phase durations, no roster, no commercial model, no priced estimate. The output is explicitly low-confidence and disclosed as such. This is enough to qualify a deal, shape it, and decide whether to invest further.
 
-**Lane A — Architect-started.** The DL is present at the two gates where implementation judgment does its work: the epic skeleton (epic boundaries, scope stubs, double-counting) and the architecture skeleton (the load-bearing forks and the relative sizing everything downstream inherits). After the design gate, the deal hands to the SSSL for roadmap, commercials, narratives, packaging and the SOW. This is two touchpoints, not a full run.
+**Committed depth.** The full chain through to the estimate sign-off, because a number anyone will be held to needs the confidence behind it.
 
-**Lane B — SSSL-led.** The SSSL runs the flow. The DL's involvement is the review at the end.
+**Depth is set at intake and defaults to ROM.** Committed depth requires a stated reason. That puts the burden of proof on the expensive option rather than the cheap one, which is the mechanism that makes the default hold under pressure.
 
-**Routing.** The SSSL completes a one-screen deal shape at intake — clouds in scope, integration surface, greenfield or brownfield, fixed date or not, configuration-shaped or build-shaped, client and buying pattern — and proposes a lane. The DL confirms or overrides within a stated turnaround, or the bottleneck simply moves to the routing decision. Judgment, not a scorecard: the DL owns the delivery outcome, so the DL owns the routing into it, while the SSSL holds the commercial context the DL does not have on day one.
+**A deal can be promoted from ROM to committed** when it firms up. That is the normal path, not an exception — most deals should reach committed depth only once there is a reason to believe they will close.
 
-Default is Lane B. Lane A requires a stated reason, so the burden of proof sits on the more expensive option rather than the cheaper one. The SSSL's proposal is also a signal worth tracking: an SSSL who proposes Lane A on every deal is visible, and one who proposes Lane B and is proven right is demonstrating readiness to run more deals unaided. That is how a pairing arrangement stays temporary instead of becoming a permanent dependency.
+**Who does what does not vary by depth.** Whoever holds the deal runs the deterministic steps. The DL makes the judgment calls at the four points the tool already stops for a human. The SSSL owns everything commercial. The appendix sets this out step by step.
 
-**The AP has no vote in the routing.** Their incentive runs one way — architect coverage de-risks their deal at no cost to them, so left open they will request it on every deal, entirely rationally. Lane choice is an internal resourcing decision, not a deal-team decision. An AP who wants architect coverage on a Lane B deal raises a capacity escalation with the DL lead; it is not an input to the lane, and "the AP asked" is not a stated reason for Lane A.
+**No scoping starts without a completed intake.** A one-screen deal shape: clouds in scope, integration surface, greenfield or brownfield, fixed date or not, configuration-shaped or build-shaped, client and buying pattern, and the depth required. A deal that arrives as a verbal ask does not enter the queue. This is the cheapest rework prevention available.
 
-**Promotion.** The lane is revisable. A call made at intake rests on very little; discovery is what reveals whether a deal is hard. After the epics land, the SSSL flags anything that changed the shape and the DL can pull the deal into Lane A. This is the insurance against discovering a bad routing call at final review, which is the re-run we are trying to eliminate.
-
-**Handoffs are pull requests.** Each phase runs on its own branch in the deal repository. The handoff is a reviewable diff, not a document drop. This is what makes Lane B auditable and is the single most direct fix for the re-run pattern.
+**Handoffs are pull requests.** Each phase runs on its own branch in the deal repository, so the handoff is a reviewable diff rather than a document drop. This is what makes the review possible and is the most direct fix for the re-run.
 
 ## The review, and the return leg
 
-The review is on the **premises, not the conclusions**, against a fixed question set and a time box:
+The DL is accountable for end-to-end deal approval, not only its architecture. So the review is on the **premises, not the conclusions**, and it covers both halves of that accountability, against a fixed question set and a time box:
 
 - Confirmed / assumed / unknown split, particularly on the epics driving the size
 - Every load-bearing architecture decision and how it was grounded
-- Open gaps and source conflicts against the Phase 0 trigger
-- What the scope excludes, and whether the exclusions are deliberate
+- Whether the roadmap is achievable, not merely sequenced
+- Sponsorship, and the customer obligations the deal assumes the client can meet
+- The governance and delivery-management load the shape implies
+- Open gaps and source conflicts, and what the scope deliberately excludes
 
-The failure mode here is not the model, it is an approver signing quickly under volume. A fixed question set and a time box keep it a check rather than a signature.
+The failure mode is not the model, it is an approver signing quickly under volume. A fixed question set and a time box keep it a check rather than a signature.
 
-**The review is surfaced as one standardised page**, generated from the deal's own data rather than written by hand. Same layout on every deal, so any two are comparable and the DL is never reading a bespoke document. It reports; the DL decides.
+**The review is surfaced as one standardised page**, generated from the deal's own data rather than written by hand. Same layout every deal, so any two are comparable and the DL is never reading a bespoke document. It reports; the DL decides.
 
-**Findings return to the SSSL as review comments on the pull request.** No separate rework process: the diff is already the handoff, so the objections attach to it, threading and resolution are tracked, and approval is the merge. This also produces a durable record of every objection raised, which is what Action 5 needs to turn judgment into an observable pattern.
+**Findings return to the SSSL as review comments on the pull request.** No separate rework process: the diff is already the handoff, so objections attach to it, resolution is tracked, and approval is the merge.
 
-**Findings are triaged into three kinds, because they need different work to close.** Naming them is what stops the return leg reproducing the same ambiguity in reverse:
+**Findings are triaged into three kinds,** because they need different work to close, and naming them stops the return leg reproducing the same ambiguity in reverse:
 
 | Finding | What it means | How it closes |
 |---|---|---|
@@ -83,49 +79,35 @@ The failure mode here is not the model, it is an approver signing quickly under 
 
 ---
 
-## Actions
+## Actions — all inside a month
 
 | # | Action | Owner | By |
 |---|---|---|---|
-| 1 | Publish the step ownership map: every Scopezilla step tagged deterministic / implementation judgment / commercial judgment, one named owner each | DL lead + SSSL lead | |
-| 2 | Adopt branch-per-phase handoffs on deal repositories so every handoff is a reviewable diff | DL lead | |
-| 3 | Stand up the delivery review gate, both directions: the standardised page the DL reads, and the triaged return of findings to the SSSL. Build it as a skill on Scopezilla, adapting the existing review reporting rather than building new | | |
-| 3a | Test pull-request review with two DLs before standardising on it; agree the written-findings fallback if it does not land | DL lead | |
-| 4 | Curate the implementation and developer guides for our clouds into every deal's knowledge base | | |
-| 5 | Record the lane proposed, the lane decided, and one line of rationale on every deal | SSSL lead | Immediate |
-| 6 | Engage the SolutionIQ CoE while the approval design is open: submit the review gate as a working prototype, and offer ANZ ownership of the Public Sector, Health and Nonprofit effort matrices | DL lead | Sep |
+| 1 | Set depth at intake, defaulting to ROM. Committed depth requires a stated reason | DL lead + SSSL lead | Week 1 |
+| 2 | Publish the step ownership map (appendix), one named owner per step, with a stated turnaround on anything crossing roles | DL lead + SSSL lead | Week 2 |
+| 3 | No scoping starts without a completed intake | SSSL lead | Week 1 |
+| 4 | Build the review artifact and kill the re-run: the standardised page the DL reads, and the triaged return of findings. A report over data we already hold, built as a skill on Scopezilla | | Week 4 |
+| 5 | Record the depth chosen and one line of rationale on every deal | SSSL lead | Week 1 |
 
-Action 5 is the cheapest and the most important over time. We are designing from anecdote because we have no data. Twenty recorded decisions turn the DL's judgment into an observable pattern, and the escalation criteria then write themselves from real calls rather than being invented up front.
+Items 1, 2, 3 and 5 are conventions we can publish this week at no cost. Item 4 is the only build, and it is the one that returns duplicated senior time.
+
+Action 5 matters most over time. We are designing from anecdote because we have no data. Twenty recorded decisions tell us whether the ROM default is holding, and where the depth calls are really being made.
 
 ## What this does not solve
 
-**The review verifies process, not correctness.** It can confirm the gates were run and the decisions were grounded. It cannot confirm they were resolved correctly. A confirmed tag attests that someone stood behind a claim, not that they were right.
+**It does not create capacity.** It recovers duplicated effort and reduces work per deal. With both roles saturated, if Account Partner demand exceeds what these items recover, the queue returns. Managing that demand, or funding the capacity, sits above this paper.
 
-**Lane B is only safe where being wrong is recoverable.** The fence is tighter than any artifact can tell us, particularly in verticals where we have limited local delivery experience to draw on.
+**The review verifies process, not correctness.** It can confirm the gates were run and the decisions grounded. It cannot confirm they were resolved correctly. A confirmed tag attests that someone stood behind a claim, not that they were right.
 
-**Routing adds a touchpoint.** Small, but real. It needs a stated turnaround or it becomes the new queue.
+**ROM depth is a disclosed trade.** A short chain produces a wider, less certain answer. That is the point, and it has to be stated on the output rather than discovered later by whoever quotes it.
 
----
-
-## Why proceed now, given SolutionIQ
-
-SolutionIQ is the next-generation app being built on the Scopezilla engine: a desktop wrapper that unifies Scopezilla's estimation with Guided Scoping's field workflow into one chain — Scope, Solution, Commercial Model, Estimate and scenario modelling, plus Risk and Approval. It is not a replacement to wait for, for three reasons.
-
-**Scopezilla remains required until SolutionIQ reaches global availability**, with Org62 the system of record. Whatever we agree has to work on today's tooling regardless.
-
-**There is no roadmap for our clouds.** The 30 September release covers Agentforce, Sales, Service, Consumer Goods, Life Science and the Marketing clouds, single-cloud only, with multi-cloud scoping arriving in the October release for November scoping. Public Sector, Health and Nonprofit are not on it. For our pipeline, SolutionIQ is not a scoping tool this half.
-
-**Because it is a fork of the same engine, nothing we build is wasted.** The data model, the confidence tagging and the skill format are common ancestry, and both run the same underlying engine. A capability we add for ourselves now is a working reference implementation for SolutionIQ later, not a throwaway. One item to confirm with the SolutionIQ team: whether the fork re-syncs from Scopezilla or has permanently diverged. Reuse is straightforward in the first case and a porting exercise in the second.
-
-That gives the review gate a better shape than either building it locally or waiting for it. Build it as a skill on Scopezilla, use it on real deals, and submit the working thing — with the evidence of it running — as the ANZ input to SolutionIQ's Deal Review and Approval Process, which is in design and taking OU input now. A prototype with usage behind it is a stronger submission than a requirements document, and it is the prototype-first approach we are being asked to adopt anyway.
-
-The same logic applies to the coverage gap. The effort matrices that ground SolutionIQ's estimates do not exist for Public Sector, Health or Nonprofit, and someone has to build them. Offering to own them for our clouds turns a gap we would otherwise be raising as a complaint into the contribution that gets our verticals onto the roadmap, and the material is harvested from engagements we are delivering anyway.
+**Tooling is not a lever this quarter.** SolutionIQ is the next-generation app being built on the Scopezilla engine, and it brings scope, estimate, risk and approval into one workflow. Its published roadmap does not cover Public Sector, Health or Nonprofit, and multi-cloud scoping arrives in the October release. Scopezilla remains required until SolutionIQ reaches global availability. Because SolutionIQ is a fork of the same engine, the review artifact in Action 4 is reusable — and worth submitting to the CoE while their approval process design is still open.
 
 ---
 
 # Appendix — Draft step ownership map
 
-Draft for agreement under Action 1. Roles: **DL** Delivery Leader / Architect, **SSSL** Services Solution Sales Lead, **AP** Account Partner.
+Draft for agreement under Action 2. Roles: **DL** Delivery Leader / Architect, **SSSL** Services Solution Sales Lead.
 
 Three principles behind the assignments:
 
@@ -147,40 +129,44 @@ Output is produced by a script or a render. There is no judgment call and theref
 | `org62` | Derives the load file from an already-approved roster |
 | `cleanup`, `wrapup` | Housekeeping |
 
-## A2. Implementation judgment — the DL's, in both lanes
+## A2. Implementation judgment — the DL's
 
-| Step | What the judgment is | Lane A runs | Lane B runs | DL involvement |
-|---|---|---|---|---|
-| `discover` | Extraction audit, gaps and assumptions | DL | SSSL | At the gate. SSSL prepares the document ingest in either lane |
-| **`requirements`** | **Epic boundaries, scope stubs, double-counting, gap register** | **DL** | SSSL | **Lane A: approves the skeleton live. Lane B: at the gate** |
-| **`design`** | **Architecture forks, grounding, T-shirt sizing** | **DL** | SSSL | **Lane A: approves the skeleton live. Lane B: at the gate** |
-| `roadmap` | Phasing, dependencies, duration basis | DL | SSSL | Reviews the duration basis and the Phase 0 call |
-| `efficiency` | AI delivery bands, which set the AI-native lane | DL | DL | Owns |
-| **`estimate`** | **Named roster with justified counts; Solution Lead sign-off** | **DL** | **DL** | **Signs, both lanes** |
-| `grill-me-on-scope` | Over- and under-sizing, confidence resolution | DL | DL | Owns |
-| `risk-review` | Overall risk rating and its basis | DL | DL | Owns |
-| `revise` | Blast radius of an approved change | Step owner | Step owner | Re-approves what it touches |
+The **ROM** column is the work reduction: at ROM depth, only the steps marked yes are run.
 
-## A3. Commercial judgment — the SSSL's, in both lanes
+| Step | What the judgment is | Runs at ROM | DL involvement |
+|---|---|---|---|
+| `discover` | Extraction audit, gaps and assumptions | Yes | Reviews at the gate; SSSL prepares the document ingest |
+| **`requirements`** | **Epic boundaries, scope stubs, double-counting, gap register** | **Yes** | **Approves the skeleton** |
+| **`design`** | **Architecture forks, grounding, T-shirt sizing** | **Sizing only — forks flagged, not resolved** | **Approves the skeleton** |
+| `roadmap` | Phasing, dependencies, duration basis | No — sequence only, no durations | Reviews the duration basis and the Phase 0 call |
+| `efficiency` | AI delivery bands, which set the AI-native lane | No | Owns |
+| **`estimate`** | **Named roster with justified counts; Solution Lead sign-off** | **No** | **Signs — this is the delivery approval** |
+| `grill-me-on-scope` | Over- and under-sizing, confidence resolution | No | Owns |
+| `risk-review` | Overall risk rating and its basis | No — risks noted, not rated | Owns |
+| `revise` | Blast radius of an approved change | As needed | Re-approves what it touches |
 
-| Step | Owner | Note |
-|---|---|---|
-| `strategy` | SSSL | Business case and value framing. AP contributes; not a DL step |
-| **`commercials`** | **SSSL** | **Rate validation and indicative pricing. The tool requires a rate the human supplies and validates — this is the SSSL's expertise, not an architect's** |
-| `commercials` (deal-strategy mode) | SSSL | Shaping the deal commercially: levers beyond rate, value anchoring |
-| `rfp` | SSSL | Bid decision, win strategy, compliance matrix. Fit and gap classification is delegated to `requirements`, so that part is a DL input |
-| `sow-scope` | SSSL | DL reviews exclusions and assumptions, which are delivery commitments |
-| `narratives` | SSSL | DL reviews technical sections |
-| `seller-essentials`, `packaged-offerings` | SSSL / AP | Pre-scoping. Produces no price, ROM or committed timeline by design |
+## A3. Commercial judgment — the SSSL's
+
+Nothing in this table runs at ROM depth. A ROM produces no price, no committed timeline and no SOW.
+
+| Step | Note |
+|---|---|
+| `strategy` | Business case and value framing. AP contributes; not a DL step |
+| **`commercials`** | **Rate validation and indicative pricing. The tool requires a rate the human supplies and validates — the SSSL's expertise, not an architect's** |
+| `commercials` (deal-strategy mode) | Shaping the deal commercially: levers beyond rate, value anchoring |
+| `rfp` | Bid decision, win strategy, compliance matrix. Fit and gap classification is delegated to `requirements`, so that part is a DL input |
+| `sow-scope` | DL reviews exclusions and assumptions, which are delivery commitments |
+| `narratives` | DL reviews technical sections |
+| `seller-essentials`, `packaged-offerings` | Pre-scoping. Produces no price, ROM or committed timeline by design |
 
 ## Notes on the contested points
 
-**Merge the `estimate` sign-off with the existing delivery approval.** The tool already stops and asks for one name at `estimate`. That is the natural home for the delivery approval we run today as a separate step, and it is where the Lane B review should sit. Running both as distinct approvals is pure duplicated latency, and it is a candidate cause of the slowness we are trying to explain.
+**The `estimate` sign-off is the delivery approval.** The tool already stops and asks for one name there. Running the sign-off and a separate delivery approval as two distinct gates is duplicated latency, and a candidate cause of the slowness we are trying to explain. Merge them.
 
-**The AP is not a Scopezilla user.** They supply relationship and commercial context into the business case and receive the client-facing narrative. Routing work through them adds a handoff and buys nothing.
+**Roadmap, sponsorship and customer obligations are DL-owned** because the DL owns delivery governance and the delivery managers. They are not commercial steps.
 
-**Post-award steps are out of this map.** `quantum-leap` (build handoff) and `backlog` (user stories for a delivery team) sit after the deal is won and belong to the delivery operating model, not this one.
+**The AP has no vote in depth or routing.** Their incentive runs one way — more scoping coverage de-risks their deal at no cost to them. Depth is an internal capacity decision, not a deal-team decision, and "the AP asked" is not a stated reason for committed depth.
 
-**`discover` has one owner, not two.** The ingest half is mechanical and the interview half is judgment, but it is a single step, so it takes a single owner per the first principle. The SSSL can prepare the documents in either lane; who runs the interview is what the lane decides.
+**Post-award steps are out of this map.** `quantum-leap` (build handoff) and `backlog` (user stories for a delivery team) belong to the delivery operating model.
 
 **Where the split is genuinely arguable:** `roadmap` (delivery judgment, but the SSSL can draft the sequencing once sizes exist) and `efficiency` (the bands set the AI-native lane and therefore the price, so we have placed them with the DL). Both are worth a decision rather than a default.
