@@ -80,7 +80,9 @@ Output is "fine to share as a ROM" or "not yet". It is a read, not a meeting.
 
 This is the **full review, at speed 2**. The ROM sanity check above is the short form of it.
 
-The DL is accountable for end-to-end deal approval, not only its architecture. So the review is on the **premises, not the conclusions**, and it covers both halves of that accountability, against a fixed question set and a time box:
+The DL approves the **delivery** of the deal, across all of it and not only its architecture: scope, governance, assumptions and risk. The commercials — rate, price, margin, commercial terms — are the SSSL's and are explicitly **not** in this review.
+
+So the review is on the **premises, not the conclusions**, against a fixed question set and a time box:
 
 - Confirmed / assumed / unknown split, particularly on the epics driving the size
 - Every load-bearing architecture decision and how it was grounded
@@ -178,7 +180,7 @@ Nothing in this table runs at ROM. A ROM produces no price, no committed timelin
 | Step | Note |
 |---|---|
 | `strategy` | Business case and value framing. AP contributes; not a DL step |
-| **`commercials`** | **Rate validation and indicative pricing. The tool requires a rate the human supplies and validates — the SSSL's expertise, not an architect's** |
+| **`commercials`** | **Rate validation and indicative pricing. The tool requires a rate the human supplies and validates — the SSSL's expertise, not an architect's. Not reviewed by the DL** |
 | `commercials` (deal-strategy mode) | Shaping the deal commercially: levers beyond rate, value anchoring |
 | `rfp` | Bid decision, win strategy, compliance matrix. Fit and gap classification is delegated to `requirements`, so that part is a DL input |
 | `sow-scope` | DL reviews exclusions and assumptions, which are delivery commitments |
@@ -187,7 +189,7 @@ Nothing in this table runs at ROM. A ROM produces no price, no committed timelin
 
 ## Notes on the contested points
 
-**The `estimate` sign-off is the delivery approval.** The tool already stops and asks for one name there. Running the sign-off and a separate delivery approval as two distinct gates is duplicated latency, and a candidate cause of the slowness we are trying to explain. Merge them.
+**The `estimate` sign-off is the delivery approval, and the tool's own boundary matches ours.** Scopezilla keeps rates out of `estimate` entirely — the roster, effort and duration live there, and rates exist only in `commercials`. So the sign-off it already stops for is a delivery sign-off, not a commercial one, which is exactly the line we are drawing. Running that sign-off and a separate delivery approval as two distinct gates is duplicated latency, and a candidate cause of the slowness we are trying to explain. Merge them.
 
 **Roadmap, sponsorship and customer obligations are DL-owned** because the DL owns delivery governance and the delivery managers. They are not commercial steps.
 
