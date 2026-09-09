@@ -118,11 +118,13 @@ The failure mode is not the model, it is an approver signing quickly under volum
 | 1 | Publish the step ownership map (appendix), one named owner per step, with a stated turnaround on anything crossing roles | DL lead + SSSL lead | Week 2 |
 | 2 | Agree the routing factors and the intake shape. Default Speed B; Speed A requires a stated reason | DL lead + SSSL lead | Week 1 |
 | 3 | No scoping starts without a completed intake | SSSL lead | Week 1 |
-| 4 | Build the review artifact and end the re-run: the standardised page, leading with the uncertainty signals, plus the triaged return of findings. A report over data we already hold, built as a skill on Scopezilla | | Week 4 |
+| 4 | Build the review artifact and end the re-run: the standardised page, leading with the uncertainty signals, plus the triaged return of findings. A report over data we already hold, built as a skill on Scopezilla | DL lead, with a named DL building it | Week 4 |
 | 5 | Adopt branch-per-phase handoffs so every handoff is a reviewable diff | DL lead | Week 3 |
 | 6 | Record the speed proposed, the speed decided, and one line of rationale on every deal | SSSL lead | Week 1 |
 
 Items 1, 2, 3 and 6 are conventions we can publish this week at no cost. Item 4 is the only build, and it is load-bearing for the rest: if the page is not good enough to read instead of re-derive, DLs will keep re-running and nothing else here matters. Its acceptance test is simple — can a DL clear a Speed B deal without opening the repository.
+
+**Item 4 sits with delivery because the approver has to own the acceptance test**; nobody else can say when the page is sufficient to review from rather than re-derive. It needs a named individual rather than a lead, or it will not land inside the month. Two conditions on it: the uncertainty signals are **agreed with the SSSL lead before first use**, so it is a shared standard rather than an instrument aimed at their team and so the signals are not relitigated deal by deal; and it reports only — it never scores a person, and the record it produces is for coaching, not comparison.
 
 Action 6 matters most over time. We are designing from anecdote because we have no data. Twenty recorded decisions turn the routing judgment into an observable pattern, and the escalation criteria then write themselves from real calls rather than being invented up front.
 
