@@ -10,7 +10,15 @@ Scopezilla removed the old division of labour without replacing it. Solution sco
 
 The result is three patterns, all of them slower than the model they replaced. The cost is not the number of handoffs. It is that the handoffs are unbounded: no named owner, no defined input, no defined output. The most expensive pattern is the SSSL running the flow and the architect re-running it before approving, and the re-run is the diagnostic. The architect re-derives the scope because they cannot audit it, so redoing the work is cheaper than reading it.
 
-**Proposal:** two speeds, chosen by the DL at intake, both running to a single common review artifact, with one clean handoff in each. Nothing about the tool changes. What changes is who owns which step, and what the approver actually reads at the gate.
+**Proposal:** two speeds, chosen by the DL at intake, both running to a single common review artifact, with one clean handoff in each.
+
+**Lane A — Architect-started.** For deals where risk or complexity means the shape of the solution is the commercial risk. The DL is in the room for the two decisions that set scope and size, then hands the deal to the SSSL for pricing, narrative and SOW. Two architect touchpoints, not a full run — this is materially cheaper than the DL owning the deal end to end, which is what we do today.
+
+**Lane B — SSSL-led.** The SSSL runs the deal from discovery to SOW. The DL's involvement is a single review, reading the premises the scope rests on rather than re-deriving the scope. This is the lane that has to work, because it is the only one that adds capacity.
+
+The DL chooses the lane at intake from a one-screen deal shape, records the reason in one line, and can move a deal between lanes once the scope is defined and the deal is better understood. Judgment, not a scorecard: the DL carries the delivery outcome, so the DL owns the routing into it.
+
+Nothing about the tool changes. What changes is who owns which step, and what the approver actually reads at the gate.
 
 **Ask:** agreement on the two-lane model and the ownership split, and sponsorship for the five actions below.
 
