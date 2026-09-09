@@ -46,7 +46,7 @@ The lanes differ in **where the architect's time sits**, not whether the archite
 
 **Handoffs are pull requests.** Each phase runs on its own branch in the deal repository. The handoff is a reviewable diff, not a document drop. This is what makes Lane B auditable and is the single most direct fix for the re-run pattern.
 
-## What the architect reviews
+## The review, and the return leg
 
 The review is on the **premises, not the conclusions**, against a fixed question set and a time box:
 
@@ -57,6 +57,18 @@ The review is on the **premises, not the conclusions**, against a fixed question
 
 The failure mode here is not the model, it is an approver signing quickly under volume. A fixed question set and a time box keep it a check rather than a signature.
 
+**The review is surfaced as one standardised page**, generated from the deal's own data rather than written by hand. Same layout on every deal, so any two are comparable and the DL is never reading a bespoke document. It reports; the DL decides.
+
+**Findings return to the SSSL as review comments on the pull request.** No separate rework process: the diff is already the handoff, so the objections attach to it, threading and resolution are tracked, and approval is the merge. This also produces a durable record of every objection raised, which is what Action 5 needs to turn judgment into an observable pattern.
+
+**Findings are triaged into three kinds, because they need different work to close.** Naming them is what stops the return leg reproducing the same ambiguity in reverse:
+
+| Finding | What it means | How it closes |
+|---|---|---|
+| Wrong | A decision resolved incorrectly, or an epic mis-sized | Recompute the downstream impact and re-run what it touches |
+| Unproven | Stated as confirmed with no basis, or a capability named with nothing behind it | Stress-test and resolve, or demote it to a recorded gap |
+| Missing | An implied activity nobody surfaced, typically change, testing or release management | Back to scope definition |
+
 ---
 
 ## Actions
@@ -65,7 +77,8 @@ The failure mode here is not the model, it is an approver signing quickly under 
 |---|---|---|---|
 | 1 | Publish the step ownership map: every Scopezilla step tagged deterministic / implementation judgment / commercial judgment, one named owner each | DL lead + SSSL lead | |
 | 2 | Adopt branch-per-phase handoffs on deal repositories so every handoff is a reviewable diff | DL lead | |
-| 3 | Stand up the delivery review artifact: a standardised page the DL reads at the gate, covering the premises listed above | | |
+| 3 | Stand up the delivery review gate, both directions: the standardised page the DL reads, and the triaged return of findings to the SSSL. Adapt the existing review reporting rather than building new | | |
+| 3a | Test pull-request review with two DLs before standardising on it; agree the written-findings fallback if it does not land | DL lead | |
 | 4 | Curate the implementation and developer guides for our clouds into every deal's knowledge base | | |
 | 5 | Record the lane decision and one line of rationale on every deal | SSSL lead | Immediate |
 
