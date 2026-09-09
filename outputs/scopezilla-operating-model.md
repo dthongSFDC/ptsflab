@@ -16,7 +16,7 @@ The result is three patterns, all of them slower than the model they replaced. T
 
 **Lane B — SSSL-led.** The SSSL runs the deal from discovery to SOW. The DL's involvement is a single review, reading the premises the scope rests on rather than re-deriving the scope. This is the lane that has to work, because it is the only one that adds capacity.
 
-The DL chooses the lane at intake from a one-screen deal shape, records the reason in one line, and can move a deal between lanes once the scope is defined and the deal is better understood. Judgment, not a scorecard: the DL carries the delivery outcome, so the DL owns the routing into it.
+**Routing: the SSSL proposes, the DL decides.** The SSSL completes a one-screen deal shape and proposes a lane; the DL confirms or overrides and records the reason in one line. Asymmetric on purpose — the SSSL holds the commercial context the DL does not have at intake, and the DL carries the delivery outcome, so input and decision rights sit in different places. Not a joint decision, which would be a negotiation, and not the AP's call. Default is Lane B, and Lane A requires a stated reason, which puts the burden of proof on the more expensive option. Either lane can change once the scope is defined.
 
 Nothing about the tool changes. What changes is who owns which step, and what the approver actually reads at the gate.
 
@@ -48,7 +48,11 @@ The lanes differ in **where the architect's time sits**, not whether the archite
 
 **Lane B — SSSL-led.** The SSSL runs the flow. The DL's involvement is the review at the end.
 
-**Routing.** The DL makes the call, at intake, from a one-screen deal shape the SSSL provides: clouds in scope, integration surface, greenfield or brownfield, fixed date or not, configuration-shaped or build-shaped, client and buying pattern. Judgment, not a scorecard — the DL owns the delivery outcome, so the DL owns the routing into it. Default is Lane B; the DL escalates on risk and complexity. A stated turnaround applies, or the bottleneck simply moves to the routing decision.
+**Routing.** The SSSL completes a one-screen deal shape at intake — clouds in scope, integration surface, greenfield or brownfield, fixed date or not, configuration-shaped or build-shaped, client and buying pattern — and proposes a lane. The DL confirms or overrides within a stated turnaround, or the bottleneck simply moves to the routing decision. Judgment, not a scorecard: the DL owns the delivery outcome, so the DL owns the routing into it, while the SSSL holds the commercial context the DL does not have on day one.
+
+Default is Lane B. Lane A requires a stated reason, so the burden of proof sits on the more expensive option rather than the cheaper one. The SSSL's proposal is also a signal worth tracking: an SSSL who proposes Lane A on every deal is visible, and one who proposes Lane B and is proven right is demonstrating readiness to run more deals unaided. That is how a pairing arrangement stays temporary instead of becoming a permanent dependency.
+
+**The AP has no vote in the routing.** Their incentive runs one way — architect coverage de-risks their deal at no cost to them, so left open they will request it on every deal, entirely rationally. Lane choice is an internal resourcing decision, not a deal-team decision. An AP who wants architect coverage on a Lane B deal raises a capacity escalation with the DL lead; it is not an input to the lane, and "the AP asked" is not a stated reason for Lane A.
 
 **Promotion.** The lane is revisable. A call made at intake rests on very little; discovery is what reveals whether a deal is hard. After the epics land, the SSSL flags anything that changed the shape and the DL can pull the deal into Lane A. This is the insurance against discovering a bad routing call at final review, which is the re-run we are trying to eliminate.
 
@@ -88,7 +92,7 @@ The failure mode here is not the model, it is an approver signing quickly under 
 | 3 | Stand up the delivery review gate, both directions: the standardised page the DL reads, and the triaged return of findings to the SSSL. Adapt the existing review reporting rather than building new | | |
 | 3a | Test pull-request review with two DLs before standardising on it; agree the written-findings fallback if it does not land | DL lead | |
 | 4 | Curate the implementation and developer guides for our clouds into every deal's knowledge base | | |
-| 5 | Record the lane decision and one line of rationale on every deal | SSSL lead | Immediate |
+| 5 | Record the lane proposed, the lane decided, and one line of rationale on every deal | SSSL lead | Immediate |
 
 Action 5 is the cheapest and the most important over time. We are designing from anecdote because we have no data. Twenty recorded decisions turn the DL's judgment into an observable pattern, and the escalation criteria then write themselves from real calls rather than being invented up front.
 
