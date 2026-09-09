@@ -12,14 +12,14 @@ Scopezilla removed the old division of labour without replacing it. Solution sco
 
 **Proposal: two speeds, set by the confidence the deal needs.** The only lever available to us in the near term is to do less per deal. Most deals need a rough order of magnitude, not a due-diligence estimate, and today many of them get the full treatment anyway.
 
-- **Speed 1 — ROM.** Discovery, epics, relative sizing, stop. SSSL-led, and reviewed by a DL as a **time-boxed sanity check** — a fifteen-minute read, not the full delivery approval. A ROM still anchors a client, so it is still reviewed.
-- **Speed 2 — Committed.** The full chain to the estimate sign-off and the full premises review, because a number anyone will be held to needs the confidence behind it.
+- **Speed 1 — ROM at ±30%.** One pass through the chain on the information we already have. Assumptions disclosed rather than resolved. Time-boxed, no gap-closing loop, no SOW. Reviewed by a DL as a **fifteen-minute sanity check** on whether the uncertainty is honestly priced into the range.
+- **Speed 2 — Committed.** Iterate on the gaps that materially move the number until the range tightens, then the SOW. The full premises review and the estimate sign-off.
 
-The governing principle is that **the depth of the review scales with the commitment.** The DL sees every deal; what changes is what reviewing one costs them. The time comes back because they stop re-running someone else's work, stop attending skeleton gates on simple deals, and stop reviewing roadmap, roster and risk depth on deals that never progress. Per-deal DL time falls sharply even though the number of deals they touch does not.
+**The difference is not which steps run — it is whether we chase the gaps.** A priced ROM needs the whole chain, because the tool will not produce a number from a short one. Running the tool was never the expensive part; the expensive part is the human loop of interviews and follow-ups that converts assumed into confirmed. That is where the weeks go, and it is why Scopezilla can feel like it costs a DL more time rather than less: the tool got fast, the loop did not.
 
 **Ask:** agreement on the two speeds and the ownership rule, and sponsorship for the five actions below, all achievable inside a month.
 
-**What this is not.** It recovers duplicated effort and reduces work per deal. It does not add capacity. If demand exceeds what these five items recover, the queue returns, and that is a demand and headcount conversation above this paper.
+**What this is not.** It recovers duplicated effort and stops us over-investing in deals that will not close. It does not add capacity. If demand exceeds what these five items recover, the queue returns, and that is a demand and headcount conversation above this paper.
 
 ---
 
@@ -33,7 +33,7 @@ The governing principle is that **the depth of the review scales with the commit
 
 ## Root cause
 
-**Every deal runs at full depth, and pulls in a DL, regardless of the confidence it needs.** An early-stage qualification and a deal we are about to commit to receive the same treatment. This is the largest single source of avoidable work, and nothing in the tool prevents it — how far to take a deal has never been an explicit decision.
+**Every deal gets the gap-closing loop, regardless of the confidence it needs.** An early-stage qualification and a deal we are about to commit to receive the same treatment. Chasing answers is the expensive part of scoping — not running the tool — and we have never made an explicit decision about when to stop chasing and price the uncertainty instead.
 
 **No named owner per step.** A Scopezilla step has one author by construction. Shared ownership of a step is not a collaboration model, it is a merge conflict.
 
@@ -43,9 +43,11 @@ The governing principle is that **the depth of the review scales with the commit
 
 ## The model: two speeds
 
-**Speed 1 — ROM, and the default.** Discovery, epics and gaps, relative sizing. Stop there. No phase durations, no roster, no commercial model, no priced estimate, no SOW. The output is explicitly low-confidence and disclosed as such. SSSL-led, and reviewed by a DL as a time-boxed sanity check before it is shared.
+**Speed 1 — ROM at ±30%, and the default.** A single pass through the chain — scope, sizing, duration basis, roster, price — on the information already available. The load-bearing assumptions are disclosed rather than chased, and the ±30% band is what buys the right to stop. Time-boxed, with no gap-closing loop and no SOW. SSSL-led, and sanity-checked by a DL before it is shared.
 
-**Speed 2 — Committed.** The full chain through to the estimate sign-off, because a number anyone will be held to needs the confidence behind it.
+**Speed 2 — Committed.** The same chain, but now we iterate: close the gaps that materially move the number, tighten the range, then the SOW. This is where the full premises review and the estimate sign-off sit.
+
+**Both speeds run essentially the same steps.** A priced ROM needs the whole derivation — the tool refuses to manufacture a number from a short chain, which is deliberate and correct. What separates the speeds is iteration and gap closure, not step selection. Anyone looking for the saving in "fewer steps" will not find it there.
 
 **DL involvement scales in three steps:**
 
@@ -57,11 +59,11 @@ The governing principle is that **the depth of the review scales with the commit
 
 Simple and complex is the DL's call at intake, and it is a judgment rather than a scorecard.
 
-**The ROM sanity check is four questions, and nothing more.** Anything longer is not a sanity check:
+**The ROM sanity check asks one thing: is the uncertainty honestly priced into the range?** A ±30% ROM is defensible when the load-bearing assumptions are visible and the band genuinely covers them. It is indefensible when it is ±30% around a wrong premise. Four questions, and nothing more:
 
-1. Is anything material missing from scope?
-2. Are the top size drivers plausible — in particular, is anything scoped as a build that the platform actually ships?
-3. Is the confidence honestly labelled, with the range it deserves?
+1. Are the load-bearing assumptions visible, and are they the right ones?
+2. Is anything scoped as a build that the platform actually ships — the error a ±30% band will not absorb?
+3. Does the band actually cover the identified risk, or is the ±30% cosmetic?
 4. Is there an obvious delivery-readiness red flag — an immovable date, absent sponsorship, a dependency nobody owns?
 
 Output is "fine to share as a ROM" or "not yet". It is a read, not a meeting.
@@ -111,7 +113,7 @@ The failure mode is not the model, it is an approver signing quickly under volum
 
 | # | Action | Owner | By |
 |---|---|---|---|
-| 1 | Set speed at intake, defaulting to ROM. Speed 2 requires a stated reason. Agree the ROM sanity check as a fifteen-minute read against four questions | DL lead + SSSL lead | Week 1 |
+| 1 | Set speed at intake, defaulting to ROM. Speed 2 requires a stated reason. Time-box the ROM pass and agree the sanity check as a fifteen-minute read against four questions | DL lead + SSSL lead | Week 1 |
 | 2 | Publish the step ownership map (appendix), one named owner per step, with a stated turnaround on anything crossing roles | DL lead + SSSL lead | Week 2 |
 | 3 | No scoping starts without a completed intake | SSSL lead | Week 1 |
 | 4 | Build the review artifact and kill the re-run: the standardised page the DL reads at both intensities, and the triaged return of findings. A report over data we already hold, built as a skill on Scopezilla | | Week 4 |
@@ -123,11 +125,13 @@ Action 5 matters most over time. We are designing from anecdote because we have 
 
 ## What this does not solve
 
-**It does not create capacity.** It recovers duplicated effort and reduces work per deal. With both roles saturated, if Account Partner demand exceeds what these items recover, the queue returns. Managing that demand, or funding the capacity, sits above this paper.
+**It does not create capacity.** It recovers duplicated effort and stops us over-investing in deals that will not close. With both roles saturated, if Account Partner demand exceeds what these items recover, the queue returns. Managing that demand, or funding the capacity, sits above this paper.
 
 **The review verifies process, not correctness.** It can confirm the gates were run and the decisions grounded. It cannot confirm they were resolved correctly. A confirmed tag attests that someone stood behind a claim, not that they were right.
 
-**ROM is a disclosed trade.** A short chain produces a wider, less certain answer. That is the point, and it has to be stated on the output rather than discovered later by whoever quotes it. A ROM that has passed the sanity check is fine to share as a ROM; it is not a price, a committed timeline, or a basis for a SOW.
+**ROM is a disclosed trade, and the ±30% is the whole of it.** Stopping before the gaps are closed buys speed and pays for it in range. That only works if the assumptions behind the band are stated on the output rather than discovered later by whoever quotes it, and if the band is never quietly narrowed on the way to a client. A ROM that has passed the sanity check is a ±30% number, not a commitment and not a basis for a SOW.
+
+**The saving is smaller than "two speeds" makes it sound.** Both speeds run the same steps, so the recovered time comes from three places only: not re-running someone else's work, not iterating on deals that will not close, and holding the ROM pass inside its time box so it cannot quietly become a committed estimate. That third one is a discipline, not a mechanism, and it will need enforcing.
 
 **Tooling is not a lever this quarter.** SolutionIQ is the next-generation app being built on the Scopezilla engine, and it brings scope, estimate, risk and approval into one workflow. Its published roadmap does not cover Public Sector, Health or Nonprofit, and multi-cloud scoping arrives in the October release. Scopezilla remains required until SolutionIQ reaches global availability. Because SolutionIQ is a fork of the same engine, the review artifact in Action 4 is reusable — and worth submitting to the CoE while their approval process design is still open.
 
@@ -159,23 +163,23 @@ Output is produced by a script or a render. There is no judgment call and theref
 
 ## A2. Implementation judgment — the DL's
 
-The **ROM** column is the work reduction: at speed 1, only the steps marked yes are run, and the DL reads the result rather than approving each step.
+These run at **both** speeds — a priced ROM needs the whole chain. At ROM they run once on the information available, with assumptions disclosed. At committed, we iterate until the gaps that move the number are closed. The two exceptions are marked.
 
-| Step | What the judgment is | Runs at ROM | DL involvement (committed only) |
-|---|---|---|---|
-| `discover` | Extraction audit, gaps and assumptions | Yes | Read at the review; SSSL runs it |
-| `requirements` | Epic boundaries, scope stubs, double-counting, gap register | Yes | Read at the review; approves the skeleton live on a complex deal |
-| **`design`** | **Architecture forks, grounding, T-shirt sizing** | **Sizing only — forks flagged, not resolved** | **Approves the skeleton on a complex deal** |
-| `roadmap` | Phasing, dependencies, duration basis | No — sequence only, no durations | Reviews the duration basis and the Phase 0 call |
-| `efficiency` | AI delivery bands, which set the AI-native lane | No | Owns |
-| **`estimate`** | **Named roster with justified counts; Solution Lead sign-off** | **No** | **Signs — this is the delivery approval** |
-| `grill-me-on-scope` | Over- and under-sizing, confidence resolution | No | Owns |
-| `risk-review` | Overall risk rating and its basis | No — risks noted, not rated | Owns |
-| `revise` | Blast radius of an approved change | As needed | Re-approves what it touches |
+| Step | What the judgment is | DL involvement |
+|---|---|---|
+| `discover` | Extraction audit, gaps and assumptions | Read at the review; SSSL runs it |
+| `requirements` | Epic boundaries, scope stubs, double-counting, gap register | Read at the review; approves the skeleton live on a complex deal |
+| **`design`** | **Architecture forks, grounding, T-shirt sizing** | **Approves the skeleton on a complex deal.** At ROM, unresolved forks are disclosed as assumptions rather than closed |
+| `roadmap` | Phasing, dependencies, duration basis | Reviews the duration basis and the Phase 0 call |
+| `efficiency` | AI delivery bands, which set the AI-native lane | Owns; only when an AI-native lane is being priced |
+| **`estimate`** | **Named roster with justified counts; Solution Lead sign-off** | **Signs — this is the delivery approval** |
+| `grill-me-on-scope` | Over- and under-sizing, confidence resolution | Owns — **speed 2 only**, it is the gap-closing pass |
+| `risk-review` | Overall risk rating and its basis | Owns — **speed 2 only**; at ROM, risks are noted, not rated |
+| `revise` | Blast radius of an approved change | Re-approves what it touches |
 
 ## A3. Commercial judgment — the SSSL's
 
-Nothing in this table runs at ROM. A ROM produces no price, no committed timeline and no SOW.
+`commercials` runs at **both** speeds — a priced ROM needs a validated rate, so it cannot be skipped. `sow-scope` is speed 2 only: the SOW is the one thing a ROM genuinely does not include.
 
 | Step | Note |
 |---|---|
