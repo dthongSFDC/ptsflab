@@ -47,7 +47,7 @@ The speeds differ in **where the DL's time sits**, not whether the DL is involve
 
 **Speed B — SSSL-led.** The SSSL runs the whole flow, front to back. The DL reviews the output based on tooling signals and signs the estimate.
 
-**The two speeds differ over exactly three steps** — discovery, the epic skeleton and the architecture skeleton. Everything downstream of them is the SSSL's in both speeds. The only step the DL runs outright in either is the formal risk review, because the recommended rating carries their name at the gate.
+**Speed A means the DL is in the room for the front end** — discovery, the epic skeleton, the architecture skeleton, and the scope stress-test that follows them. Everything downstream is derivation and commercial work, and it is the SSSL's in both speeds. The only step the DL runs outright in either speed is the formal risk review, because the recommended rating carries their name at the gate.
 
 **Routing is the DL's call at intake, on risk and complexity.** The SSSL completes a one-screen deal shape and proposes a speed; the DL confirms or overrides within a stated turnaround, or the bottleneck simply moves to the routing decision. Judgment, not a scorecard — but informed by a consistent set of factors:
 
@@ -168,7 +168,7 @@ Output is produced by a script or a render. There is no judgment call and theref
 
 ## A2. Implementation judgment — the DL's
 
-Only the first three rows change between speeds. Everything below them is the SSSL's in both, with the DL reviewing and signing rather than running.
+Only the front-end rows change between speeds. Everything below them is the SSSL's in both, with the DL reviewing and signing rather than running.
 
 | Step | What the judgment is | Who runs it | DL involvement |
 |---|---|---|---|
@@ -178,7 +178,7 @@ Only the first three rows change between speeds. Everything below them is the SS
 | `roadmap` | Phasing, dependencies, duration basis | SSSL | Reviews the duration basis and the Phase 0 call |
 | `efficiency` | AI delivery bands, which set the AI-native lane | SSSL | Confirms the band — an AI-native compression is a delivery claim we will be held to |
 | **`estimate`** | **Named roster with justified counts; Solution Lead sign-off** | **SSSL drafts the roster** | **Signs — this is the delivery approval** |
-| `grill-me-on-scope` | Over- and under-sizing, confidence resolution | SSSL | Directs it through the review findings rather than running it |
+| `grill-me-on-scope` | Over- and under-sizing, confidence resolution | **Speed A: DL · Speed B: SSSL** | **Speed A: runs it in the same sitting as the design gate** — not a separate handoff. Speed B: directs it through the review findings |
 | `risk-review` | Overall risk rating and its basis | DL | Owns outright — the recommended rating carries the DL's name at the risk gate |
 | `revise` | Blast radius of an approved change | Step owner | Re-approves what it touches |
 
