@@ -10,7 +10,7 @@ Scopezilla removed the old division of labour without replacing it. Solution sco
 
 The result is three patterns, all of them slower than the model they replaced. The cost is not the number of handoffs. It is that the handoffs are unbounded: no named owner, no defined input, no defined output. The most expensive pattern is the SSSL running the flow and the architect re-running it before approving, and the re-run is the diagnostic. The architect re-derives the scope because they cannot audit it, so redoing the work is cheaper than reading it.
 
-**Proposal:** two speeds, chosen by the DL at intake, both running to a single common review artifact, with one clean handoff in each.
+**Proposal:** two speeds, assigned at intake, both running to a single common review artifact, with one clean handoff in each.
 
 **Lane A — Architect-started.** For deals where risk or complexity means the shape of the solution is the commercial risk. The DL is in the room for the two decisions that set scope and size, then hands the deal to the SSSL for pricing, narrative and SOW. Two architect touchpoints, not a full run — this is materially cheaper than the DL owning the deal end to end, which is what we do today.
 
@@ -89,10 +89,11 @@ The failure mode here is not the model, it is an approver signing quickly under 
 |---|---|---|---|
 | 1 | Publish the step ownership map: every Scopezilla step tagged deterministic / implementation judgment / commercial judgment, one named owner each | DL lead + SSSL lead | |
 | 2 | Adopt branch-per-phase handoffs on deal repositories so every handoff is a reviewable diff | DL lead | |
-| 3 | Stand up the delivery review gate, both directions: the standardised page the DL reads, and the triaged return of findings to the SSSL. Adapt the existing review reporting rather than building new | | |
+| 3 | Stand up the delivery review gate, both directions: the standardised page the DL reads, and the triaged return of findings to the SSSL. Build it as a skill on Scopezilla, adapting the existing review reporting rather than building new | | |
 | 3a | Test pull-request review with two DLs before standardising on it; agree the written-findings fallback if it does not land | DL lead | |
 | 4 | Curate the implementation and developer guides for our clouds into every deal's knowledge base | | |
 | 5 | Record the lane proposed, the lane decided, and one line of rationale on every deal | SSSL lead | Immediate |
+| 6 | Engage the SolutionIQ CoE while the approval design is open: submit the review gate as a working prototype, and offer ANZ ownership of the Public Sector, Health and Nonprofit effort matrices | DL lead | Sep |
 
 Action 5 is the cheapest and the most important over time. We are designing from anecdote because we have no data. Twenty recorded decisions turn the DL's judgment into an observable pattern, and the escalation criteria then write themselves from real calls rather than being invented up front.
 
@@ -103,6 +104,22 @@ Action 5 is the cheapest and the most important over time. We are designing from
 **Lane B is only safe where being wrong is recoverable.** The fence is tighter than any artifact can tell us, particularly in verticals where we have limited local delivery experience to draw on.
 
 **Routing adds a touchpoint.** Small, but real. It needs a stated turnaround or it becomes the new queue.
+
+---
+
+## Why proceed now, given SolutionIQ
+
+SolutionIQ is the next-generation app being built on the Scopezilla engine: a desktop wrapper that unifies Scopezilla's estimation with Guided Scoping's field workflow into one chain — Scope, Solution, Commercial Model, Estimate and scenario modelling, plus Risk and Approval. It is not a replacement to wait for, for three reasons.
+
+**Scopezilla remains required until SolutionIQ reaches global availability**, with Org62 the system of record. Whatever we agree has to work on today's tooling regardless.
+
+**There is no roadmap for our clouds.** The 30 September release covers Agentforce, Sales, Service, Consumer Goods, Life Science and the Marketing clouds, single-cloud only, with multi-cloud scoping arriving in the October release for November scoping. Public Sector, Health and Nonprofit are not on it. For our pipeline, SolutionIQ is not a scoping tool this half.
+
+**Because it is a fork of the same engine, nothing we build is wasted.** The data model, the confidence tagging and the skill format are common ancestry, and both run the same underlying engine. A capability we add for ourselves now is a working reference implementation for SolutionIQ later, not a throwaway. One item to confirm with the SolutionIQ team: whether the fork re-syncs from Scopezilla or has permanently diverged. Reuse is straightforward in the first case and a porting exercise in the second.
+
+That gives the review gate a better shape than either building it locally or waiting for it. Build it as a skill on Scopezilla, use it on real deals, and submit the working thing — with the evidence of it running — as the ANZ input to SolutionIQ's Deal Review and Approval Process, which is in design and taking OU input now. A prototype with usage behind it is a stronger submission than a requirements document, and it is the prototype-first approach we are being asked to adopt anyway.
+
+The same logic applies to the coverage gap. The effort matrices that ground SolutionIQ's estimates do not exist for Public Sector, Health or Nonprofit, and someone has to build them. Offering to own them for our clouds turns a gap we would otherwise be raising as a complaint into the contribution that gets our verticals onto the roadmap, and the material is harvested from engagements we are delivering anyway.
 
 ---
 
