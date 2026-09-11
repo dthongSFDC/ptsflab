@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<!--
+  SCOPEZILLA DEAL REVIEW — TEMPLATE
+  The chrome (CSS, tab shell, JS) is fixed so every deal review looks identical and
+  scans the same way. The skill fills ONLY the marked injection zones with the honest,
+  reconciled read (see SKILL.md). Do not restyle; do not add tabs. Keep it one file.
+
+  Placeholders to replace in the header: {{CLIENT_TITLE}}, {{SUB_LINE}}, {{STAMP_GENERATED}},
+  {{STAMP_VERSION}}, {{STAMP_DATA_DATE}}. Each <!-- INJECT:x --> marker is replaced by the
+  cards for that tab. Remove any tab whose data is entirely absent (button + section together).
+  The Decisions tab has two zones: INJECT:premises (architecture-premise ADRs, first) then
+  INJECT:decisions (decision-log + open threads). Drop the premises card if there's no decisions/ folder.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deal Review — Patient Travel Support Foundation</title>
+<style>
+  :root{
+    --navy:#032d60; --blue:#0176d3; --sky:#eef4fb; --ink:#181818; --muted:#5c6b7a;
+    --line:#e5eaf0; --ok:#2e844a; --warn:#dd7a01; --bad:#ba0517; --chipbg:#f3f6fa;
+    --good-bg:#eafce9; --warn-bg:#fff7e6; --bad-bg:#fdeceb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:#f5f7fa;line-height:1.5}
+  header{background:var(--navy);color:#fff;padding:22px 28px}
+  header .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+  header h1{margin:4px 0 2px;font-size:24px}
+  header .sub{opacity:.85;font-size:14px}
+  header code{background:rgba(255,255,255,.14);color:#fff}
+  .stampline{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:12px;opacity:.9}
+  .stampline b{opacity:1}
+  .internal{display:inline-block;margin-top:10px;background:#c23934;color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;padding:3px 8px;border-radius:3px;text-transform:uppercase}
+  .whatis{margin-top:10px;font-size:13px;line-height:1.5;opacity:.9;max-width:760px}
+  nav.tabs{display:flex;gap:4px;background:#fff;padding:0 20px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:4;overflow-x:auto}
+  nav.tabs button{border:0;background:none;padding:13px 15px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+  nav.tabs button.active{color:var(--navy);border-bottom-color:var(--blue)}
+  main{max-width:1200px;margin:0 auto;padding:24px 20px 50px}
+  .tab{display:none} .tab.active{display:block}
+  .card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin-bottom:16px}
+  .card h2{margin:0 0 4px;font-size:16px;color:var(--navy)}
+  .card .hint{font-size:12px;color:var(--muted);margin:0 0 14px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);font-weight:600}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .kv{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;gap:12px}
+  .kv:last-child{border-bottom:0}
+  .kv .k{color:var(--muted)} .kv .v{font-weight:600;text-align:right}
+  .pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px}
+  .pill.ok{background:var(--good-bg);color:var(--ok)} .pill.warn{background:var(--warn-bg);color:var(--warn)}
+  .pill.bad{background:var(--bad-bg);color:var(--bad)} .pill.gray{background:var(--chipbg);color:var(--muted)}
+  .pill.info{background:var(--sky);color:var(--blue)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-size:12px;padding:5px 11px;border-radius:20px;font-weight:600;background:var(--sky);color:var(--blue)}
+  .chip.dim{background:var(--chipbg);color:var(--muted)}
+  .bar{display:flex;height:22px;border-radius:5px;overflow:hidden;font-size:11px;color:#fff;font-weight:600;margin:4px 0 2px}
+  .bar span{display:flex;align-items:center;justify-content:center;min-width:24px}
+  .seg-ok{background:var(--ok)} .seg-warn{background:var(--warn)} .seg-bad{background:var(--bad)}
+  .legend{font-size:11px;color:var(--muted);display:flex;gap:14px;margin-top:2px;flex-wrap:wrap}
+  .legend i{font-style:normal;display:inline-flex;align-items:center;gap:4px}
+  .dot{width:9px;height:9px;border-radius:2px;display:inline-block}
+  .quote{border-left:3px solid var(--blue);background:var(--sky);padding:12px 16px;border-radius:0 6px 6px 0;font-size:14px;margin:0 0 8px}
+  .quote .src{display:block;margin-top:6px;font-size:11px;color:var(--muted)}
+  .ask{margin-top:14px;border:1px dashed var(--blue);background:#f7fbff;border-radius:8px;padding:12px 15px}
+  .ask .lead{font-size:12px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.04em;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+  .ask ul{margin:0;padding-left:0;list-style:none}
+  .ask li{font-size:13px;padding:4px 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--navy)}
+  .ask li::before{content:"›";color:var(--blue);font-weight:700;margin-right:8px}
+  .contra{border-left:3px solid var(--bad);background:var(--bad-bg);padding:11px 15px;border-radius:0 6px 6px 0;font-size:13px;margin-bottom:10px}
+  .contra b{color:var(--bad)}
+  .stale{font-size:11px;color:var(--warn);font-weight:600}
+  .declist{margin:0;padding:0;list-style:none}
+  .declist li{padding:9px 0;border-bottom:1px solid var(--line);font-size:13px;display:flex;gap:10px}
+  .declist li:last-child{border-bottom:0}
+  .declist .d{color:var(--muted);font-size:11px;white-space:nowrap;min-width:78px;font-weight:600}
+  .thread{padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;display:flex;gap:9px}
+  .thread:last-child{border-bottom:0}
+  .thread .ic{color:var(--warn)}
+  details.epic{border:1px solid var(--line);border-radius:7px;margin-bottom:8px;overflow:hidden}
+  details.epic>summary{list-style:none;cursor:pointer;padding:11px 14px;display:flex;align-items:center;gap:10px;font-size:13px;background:#fff}
+  details.epic>summary::-webkit-details-marker{display:none}
+  details.epic[open]>summary{border-bottom:1px solid var(--line);background:var(--sky)}
+  details.epic .eid{font-weight:700;color:var(--navy);min-width:34px}
+  details.epic .ename{font-weight:600;flex:1}
+  details.epic .sz{font-weight:700;color:var(--navy);width:26px;text-align:center}
+  .epic-body{padding:12px 16px;font-size:13px;background:#fcfdfe}
+  .epic-body h4{margin:12px 0 3px;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .epic-body h4:first-child{margin-top:0}
+  .epic-body p{margin:0}
+  .caret{color:var(--muted);transition:transform .15s} details[open] .caret{transform:rotate(90deg)}
+  .heat{display:flex;align-items:center} .heat .h{height:14px;border-radius:2px;background:var(--warn)}
+  /* gantt / calendar */
+  .gantt{margin:6px 0 4px}
+  .gantt-months{display:grid;grid-template-columns:150px 1fr;font-size:10px;color:var(--muted)}
+  .gantt-months .mrow{display:grid;border-left:1px solid var(--line)}
+  .gantt-months .mrow span{padding:3px 0 4px 3px;border-right:1px solid var(--line);white-space:nowrap;overflow:hidden}
+  .gantt-row{display:grid;grid-template-columns:150px 1fr;align-items:center;margin-top:5px}
+  .gantt-row .glabel{font-size:12px;font-weight:600;color:var(--navy);padding-right:8px}
+  .gantt-track{position:relative;min-height:34px;background:linear-gradient(90deg,var(--chipbg) 0 1px,transparent 1px);border-left:1px solid var(--line);border-radius:3px}
+  .gbar{position:absolute;top:3px;bottom:3px;border-radius:4px;display:flex;align-items:center;padding:2px 8px;font-size:10.5px;line-height:1.15;font-weight:600;color:#fff;white-space:normal;overflow:hidden}
+  .gbar.p1{background:#0176d3} .gbar.p2{background:#1a8fe0} .gbar.p3{background:#57a5c9}
+  .gbar.p4{background:repeating-linear-gradient(45deg,#8a9aa8,#8a9aa8 6px,#9caab6 6px,#9caab6 12px)}
+  .gmark{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--bad);z-index:2}
+  .gmark span{position:absolute;top:-16px;left:-30px;font-size:10px;color:var(--bad);font-weight:700;white-space:nowrap}
+  .glegend{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:14px}
+  .glegend i{font-style:normal;display:inline-flex;align-items:center;gap:5px}
+  .gkey{width:16px;height:11px;border-radius:2px;display:inline-block}
+  /* estimate comparison — 2 or 3 lanes (traditional / augmented / AI-native) */
+  .lanes{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+  .lane{border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+  .lane.trad{background:#fafbfc} .lane.aug{background:#fbfaf5;border-color:#e6ddc0}
+  .lane.ql{background:#f5faff;border-color:#bcd9f0}
+  .lane.ql.conditional{background:#fff9f2;border-color:#f0d6bc;border-style:dashed}
+  .lane .badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 7px;border-radius:10px;margin-bottom:8px}
+  .lane .badge.cond{background:#f0d6bc;color:#7a4a12}
+  .lane .badge.prov{background:#e4e8ef;color:#42506a}
+  .lane h3{margin:0 0 2px;font-size:14px;color:var(--navy)}
+  .lane .tag{font-size:11px;color:var(--muted);margin-bottom:10px}
+  .lane .big{font-size:20px;font-weight:700;color:var(--navy);line-height:1.2}
+  .lane .biglbl{font-size:11px;color:var(--muted);margin-bottom:10px}
+  .lane .line{font-size:12px;padding:5px 0;border-top:1px solid var(--line)}
+  .lane .line b{color:var(--navy)}
+  /* efficiency bars */
+  .eff{margin-top:4px}
+  .effrow{display:grid;grid-template-columns:230px 1fr 74px;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:12px}
+  .effrow:last-child{border-bottom:0}
+  .effrow .ename2{font-weight:600;color:var(--navy)}
+  .effbar{height:16px;background:var(--chipbg);border-radius:3px;position:relative;overflow:hidden}
+  .effbar .fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#0176d3,#57a5c9);border-radius:3px}
+  .effrow .val{text-align:right;font-weight:700;color:var(--blue)}
+  /* doc excerpt (verbatim from a spine output) */
+  .excerpt{font-size:13px;line-height:1.6}
+  .excerpt p{margin:0 0 10px}
+  .docref{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--blue);background:var(--sky);padding:5px 11px;border-radius:5px;margin-top:4px;text-decoration:none}
+  .recon{border-left:3px solid var(--warn);background:var(--warn-bg);padding:10px 14px;border-radius:0 6px 6px 0;font-size:12px;margin:0 0 12px}
+  /* resource rows on the shared phase-calendar grid */
+  .roster .gantt-months{grid-template-columns:480px 1fr}
+  .rg-row{display:grid;grid-template-columns:190px 290px 1fr;align-items:center;margin-top:3px;border-top:1px solid var(--line);padding-top:3px}
+  .rg-row .rgl{font-size:12px;font-weight:600;color:var(--navy);padding-right:10px}
+  .rg-row .rgl .cnt{display:block;color:var(--muted);font-weight:400;font-size:11px;margin-top:1px}
+  .rg-row .rgd{font-size:11px;line-height:1.4;color:var(--muted);padding-right:12px}
+  .rg-hdr{display:grid;grid-template-columns:190px 290px 1fr;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;font-weight:700;margin-top:6px}
+  .rg-track{position:relative;height:20px;background:linear-gradient(90deg,var(--chipbg) 0 1px,transparent 1px);border-left:1px solid var(--line)}
+  .rg-bar{position:absolute;top:3px;height:14px;border-radius:3px;background:#0176d3;opacity:.9}
+  .rg-bar.frac{background:repeating-linear-gradient(45deg,#7fb3dd,#7fb3dd 4px,#a9cdea 4px,#a9cdea 8px)}
+  .rg-sub{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin:14px 0 2px;font-weight:700}
+  .muted{color:var(--muted)} .small{font-size:12px}
+  code{background:var(--chipbg);padding:1px 5px;border-radius:3px;font-size:12px}
+  /* copy-as-image button (chart cards only) */
+  .card{position:relative}
+  .shot-btn{position:absolute;top:14px;right:16px;font-size:11px;font-weight:600;color:var(--blue);background:#fff;border:1px solid var(--line);border-radius:5px;padding:4px 9px;cursor:pointer;z-index:2}
+  .shot-btn:hover{background:var(--sky)}
+  [data-shot]{background:#fff}
+  @media print{
+    nav.tabs,.shot-btn{display:none} .tab{display:block!important;page-break-inside:avoid} body{background:#fff}
+    details.epic{page-break-inside:avoid} details.epic>summary{background:#fff!important} .ask{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Scopezilla Deal Review</div>
+  <h1>Patient Travel Support Foundation (PTSF)</h1>
+  <div class="sub">Project <code>PTSFLab</code> · vertical not set · client: Patient Travel Support Foundation</div>
+  <div class="stampline">
+    <span><b>Generated:</b> Sep 11, 2026, 1:06 PM AEST (UTC+10:00)</span>
+    <span><b>Scopezilla:</b> v1.18.1</span>
+    <span><b>Project data last updated:</b> Aug 31, 2026 (<code>data/memory.json</code>, 5:11 PM)</span>
+  </div>
+  <div class="internal">Internal only — not client-facing</div>
+  <div class="whatis">A snapshot of Claude's honest read of this project — reconciled and sourced, the same answer you'd get by asking in the repo. Where the data conflicts, it says so rather than guessing. For anything deeper, open the project and ask.</div>
+</header>
+
+<nav class="tabs">
+  <button class="active" data-tab="glance">At a Glance</button>
+  <button data-tab="discovery">Discovery</button>
+  <button data-tab="epics">Epics &amp; Solution</button>
+  <button data-tab="delivery">Roadmap &amp; Team</button>
+  <button data-tab="gaps">Gaps &amp; Risk</button>
+  <button data-tab="decisions">Decisions &amp; Open Threads</button>
+  <button data-tab="signals">Scoping Signals</button>
+  <button data-tab="diag">Diagnostics</button>
+</nav>
+
+<main>
+  <section class="tab active" id="glance">
+    <div class="card">
+      <h2>The headline, in the scoping author's words</h2>
+      <p class="hint">Verbatim from the project record — not a summary written for this page.</p>
+      <blockquote class="quote">Patient Travel Support Foundation (PTSF) needs to replace fragmented, office-level bespoke systems with a scalable Salesforce-based platform that can support high growth and sensitive patient-facing operations. The scope centers on patient onboarding, subsidy request processing, practitioner assessment workflows, and internal case handling, with clear integration and migration complexity. Discovery confirms strong functional direction but leaves key planning inputs open, including funding posture, named executive sponsors, and measurable success targets.
+        <span class="src">— <code>outputs/00-discovery-brief.md</code>, Executive Summary</span></blockquote>
+      <blockquote class="quote">Front-load policy and dependency closure, then deliver identity, lifecycle, operations, and cutover in sequence.
+        <span class="src">— <code>data/memory.json</code>, decision_log 2026-08-31, rationale for the five-phase roadmap</span></blockquote>
+    </div>
+
+    <div class="card">
+      <h2>Facts</h2>
+      <p class="hint">Counts and markers read straight off the project data. Nothing here is synthesized.</p>
+      <div class="grid3">
+        <div>
+          <div class="kv"><span class="k">Epics</span><span class="v">5</span></div>
+          <div class="kv"><span class="k">Phases</span><span class="v">5 (incl. Phase 0)</span></div>
+          <div class="kv"><span class="k">Open gaps</span><span class="v">41</span></div>
+          <div class="kv"><span class="k">Build intents</span><span class="v">9</span></div>
+        </div>
+        <div>
+          <div class="kv"><span class="k">Program duration</span><span class="v">12 weeks</span></div>
+          <div class="kv"><span class="k">Duration basis</span><span class="v"><span class="pill info">User commitment</span></span></div>
+          <div class="kv"><span class="k">Go-live date</span><span class="v">not captured</span></div>
+          <div class="kv"><span class="k">Vertical pack</span><span class="v">not set</span></div>
+        </div>
+        <div>
+          <div class="kv"><span class="k">Clouds in scope</span><span class="v">Experience, Sales, Service</span></div>
+          <div class="kv"><span class="k">Target org</span><span class="v">PTSFDemo-test</span></div>
+          <div class="kv"><span class="k">Org posture</span><span class="v">Production · greenfield</span></div>
+          <div class="kv"><span class="k">Build handoff</span><span class="v">Quantum Leap (Custom blueprint)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>What this deal does not have yet</h2>
+      <p class="hint">Omitted rather than guessed. Each is a file that was never written.</p>
+      <div class="kv"><span class="k">T-shirt sizing per epic (<code>estimates.json</code>)</span><span class="v"><span class="pill gray">not captured</span></span></div>
+      <div class="kv"><span class="k">Named roster / team counts (<code>resource-plan.json</code>)</span><span class="v"><span class="pill gray">not captured</span></span></div>
+      <div class="kv"><span class="k">Dual-track estimate (<code>estimate-comparison.json</code>)</span><span class="v"><span class="pill gray">not captured</span></span></div>
+      <div class="kv"><span class="k">Indicative pricing (<code>commercials.json</code>)</span><span class="v"><span class="pill gray">not captured</span></span></div>
+      <div class="kv"><span class="k">AI efficiency bands (<code>efficiency.json</code>)</span><span class="v"><span class="pill gray">not captured</span></span></div>
+      <div class="kv"><span class="k">Business case / value drivers (<code>strategy.json</code>)</span><span class="v"><span class="pill gray">not captured</span></span></div>
+      <div class="kv"><span class="k">Risk register (<code>risks.json</code>)</span><span class="v"><span class="pill gray">not captured</span></span></div>
+      <div class="kv"><span class="k">Architecture ADRs (<code>decisions/</code>)</span><span class="v"><span class="pill gray">folder absent</span></span></div>
+      <p class="small muted" style="margin-top:12px">The Estimate tab is absent from this review for that reason — there is no estimate data to render, and this page never fabricates one.</p>
+    </div>
+
+    <div class="contra"><b>Worth knowing before you read further.</b> The scope jumped from <code>design</code> straight to <code>quantum-leap</code> build handoff without <code>estimate</code>, <code>efficiency</code>, or <code>validate</code>. The 12-week number is a user commitment allocated across phases by complexity — it is not derived from sized work, and no roster stands behind it.</div>
+
+    <div class="ask">
+      <div class="lead">Ask Claude in the repo</div>
+      <ul>
+        <li>Why was estimate skipped before the quantum-leap handoff?</li>
+        <li>Does the 12-week commitment survive 41 open gaps and a 2-week Phase 0?</li>
+        <li>Run estimate to author the named roster for this roadmap.</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="discovery">
+    <div class="card">
+      <h2>Discovery brief — verbatim overview</h2>
+      <p class="hint">Pulled unedited from the brief. Open the full file for the rest.</p>
+      <div class="excerpt">
+        <p><b>Company and industry.</b> PTSF is a not-for-profit focused on subsidized patient travel for medical treatment access in remote regions. Headquarters is in Singapore with operations across APAC, EMEA, and AMER. Regional operating model includes satellite offices handling intake, approval, and booking. Scale indicators are high: millions of patients and continued growth pressure on current processes.</p>
+        <p><b>Current state.</b> Existing process backbone is TAMS (Travel Application Management System), customized separately by local offices. Current web channel is static and relies on downloadable medical assessment forms. Internal identity is split across region-specific Active Directory instances. Health Insurance Checker API is already in use but exhibits peak latency.</p>
+        <p><b>Target state (discovery-level).</b> Move core patient subsidy processes to Salesforce for scalability and standardization. User-confirmed target scope: Experience Cloud plus Sales and Service capabilities. Digital onboarding and application workflows replace PDF and email-heavy operational steps. Patient and practitioner interactions include conversational support with assessor access.</p>
+      </div>
+      <a class="docref" href="../00-discovery-brief.md">📄 outputs/00-discovery-brief.md</a>
+    </div>
+
+    <div class="card">
+      <h2>Who and how many</h2>
+      <p class="hint">Population figures as stated in the discovery brief's extraction audit.</p>
+      <table>
+        <tr><th>Population</th><th>Figure</th><th>Basis</th></tr>
+        <tr><td>Medical practitioners</td><td>4,000</td><td>Confirmed — extraction audit, "User count and personas"</td></tr>
+        <tr><td>Internal users</td><td>~500</td><td>Confirmed — extraction audit, "User count and personas"</td></tr>
+        <tr><td>Patients</td><td>3.5M or 5M — <b>disputed</b></td><td>Source conflict, see below</td></tr>
+      </table>
+      <div class="contra" style="margin-top:12px"><b>Unresolved source conflict on the patient baseline.</b> The project overview says 3.5 million patients; the data assumptions say 5 million. This is logged twice as a gap (<code>G0201</code>, <code>G0301</code>) and never resolved. It drives eligibility-check throughput, queue design, and assignment SLA capacity. This page does not pick a winner.</div>
+    </div>
+
+    <div class="card">
+      <h2>Named stakeholders and decision owners</h2>
+      <p class="hint">What the record actually says.</p>
+      <p class="small">Role-level stakeholders are identified — assessors, managers, practitioners, patients — but <b>no named executive sponsor, business owner, or technology decision owner is captured</b>. The brief marks Stakeholders as <span class="pill warn">Assumed</span> and Governance signals as <span class="pill bad">Unknown</span>. Nine of the 41 gaps are explicitly governance-ownership questions ("who owns and approves…"), one per epic area plus identity.</p>
+      <div class="recon" style="margin-top:12px"><b>Reconciliation note.</b> The brief's extraction audit marks Compliance as "Assumed — no named regulation provided; baseline enterprise controls assumed." That is consistent with the later grill, which parked regional residency as an assumption rather than a confirmed constraint. Treat "no named regulatory framework" as unverified, not as an absence of regulation — a patient-travel-subsidy body operating across APAC/EMEA/AMER will almost certainly have one.</div>
+    </div>
+
+    <div class="card">
+      <h2>Open questions carried out of discovery</h2>
+      <p class="hint">All five, verbatim.</p>
+      <ol class="small" style="margin:0;padding-left:20px;line-height:1.8">
+        <li>What is the approved budget envelope and funding path (for example, single program budget vs. staged release funding)?</li>
+        <li>Who are the named executive sponsor, business owner, and technology decision owner for final scope and prioritization decisions?</li>
+        <li>What measurable outcome targets define success at go-live (for example processing time, error-rate reduction, reassignment rate, satisfaction outcomes)?</li>
+        <li>Should patient authentication include social sign-in and native credentials as originally requested, or should internal single sign-on direction influence customer login strategy?</li>
+        <li>Is there a formal data residency, healthcare privacy, or audit standard that must shape architecture choices by region?</li>
+      </ol>
+      <p class="small muted" style="margin-top:10px">Question 4 was later parked by the grill (email/password first, social deferred). Questions 1, 2, 3, and 5 remain open as of the last session.</p>
+    </div>
+
+    <div class="ask">
+      <div class="lead">Ask Claude in the repo</div>
+      <ul>
+        <li>Which patient baseline should we use — 3.5M or 5M — and what changes if it's the larger one?</li>
+        <li>Who are the named decision owners, and what stalls without them?</li>
+        <li>What regulatory regime should we assume for patient health data across APAC, EMEA, and AMER?</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="epics">
+    <div class="card">
+      <h2>Architecture foundations — verbatim</h2>
+      <p class="hint">The cross-cutting calls the epic approaches rest on.</p>
+      <div class="excerpt">
+        <p><b>Org strategy.</b> Use a single Salesforce org for onboarding, subsidy lifecycle, practitioner operations, and assessor operations, with regional controls handled through sharing and federation. This keeps operating data unified while residency/legal isolation requirements are confirmed. <code>[assumption: validate legal requirement for org-level regional isolation]</code></p>
+        <p><b>Identity and access.</b> Experience Cloud login and self-registration for patients, with policy-controlled social sign-in where approved. SAML federation for internal users from Active Directory.</p>
+        <p><b>Service operations backbone.</b> Service Cloud queues and Omni-Channel routing for assessor work distribution, prioritization, and escalation visibility.</p>
+        <p><b>Integration baseline.</b> Synchronous API checks for in-journey eligibility decisions, asynchronous patterns for non-blocking downstream updates and reconciliation. <code>[assumption: validate health-insurance API latency and retry contract]</code></p>
+        <p><b>Complexity posture.</b> "This architecture implies medium-to-high complexity overall due to identity policy forks, lifecycle orchestration, queue-based operations, cross-system dependencies, and migration/security controls. Final per-epic T-shirt sizing follows after estimate review."</p>
+      </div>
+      <a class="docref" href="../01-solution.md">📄 outputs/01-solution.md</a>
+      <div class="contra" style="margin-top:12px"><b>The sizing the solution doc promises was never produced.</b> "Final per-epic T-shirt sizing follows after estimate review" — <code>estimates.json</code> does not exist and <code>estimate</code> never ran. The size column below is empty for every epic because there is no size to show, not because it was trimmed.</div>
+    </div>
+
+    <div class="card">
+      <h2>All five epics</h2>
+      <p class="hint">Every epic in <code>data/epics.json</code>, expanded. Description and solution approach are verbatim; the gap count is computed from <code>data/gaps.json</code>.</p>
+
+      <details class="epic">
+        <summary><span class="caret">›</span><span class="eid">E01</span><span class="ename">Patient Identity And Onboarding Experience</span><span class="pill ok">Confirmed</span><span class="sz">—</span></summary>
+        <div class="epic-body">
+          <h4>Scope (verbatim)</h4>
+          <p>Deliver patient-facing registration and authentication with email/password and social sign-in, plus an onboarding wizard that captures profile, language, and insurance details. Include address validation, onboarding completion gating, and multilingual welcome communications to establish a complete patient profile before subsidy requests.</p>
+          <h4>Solution approach (verbatim, 01-solution.md)</h4>
+          <p>Use Experience Cloud for registration, authentication, multilingual onboarding steps, and completion gating. Keep a canonical patient identity record and prevent duplicate identity fragmentation across email/password and social login. <code>[assumption: validate duplicate-account prevention policy]</code></p>
+          <h4>Sizing</h4>
+          <p class="muted">Not captured — no <code>estimates.json</code> in this project.</p>
+          <h4>Dependencies · gaps</h4>
+          <p>No upstream dependency. <b>9 open gaps</b> — the heaviest epic in the set. Grounded in <code>[KB:experience_cloud_4-2-2026.md]</code>.</p>
+          <h4>Live tension</h4>
+          <p>The epic scope says "email/password <em>and</em> social sign-in"; the grill on 2026-08-31 landed on email/password first with social deferred, and intent <code>INT-001</code> carries the guardrail "Must not enable social sign-in in this phase." The epic text was never updated to match.</p>
+        </div>
+      </details>
+
+      <details class="epic">
+        <summary><span class="caret">›</span><span class="eid">E02</span><span class="ename">Subsidy Application Lifecycle And Eligibility Decisions</span><span class="pill ok">Confirmed</span><span class="sz">—</span></summary>
+        <div class="epic-body">
+          <h4>Scope (verbatim)</h4>
+          <p>Implement end-to-end subsidy application capture for treatment type, reason, and medical history verification. Orchestrate health insurance entitlement checks with automated rejection logic where coverage exists and standardize application states across regions.</p>
+          <h4>Solution approach (verbatim, 01-solution.md)</h4>
+          <p>Implement a stateful subsidy application lifecycle with declarative automation first, plus targeted Apex for complex orchestration and exception handling. Model treatment, entitlement outcome, decision reason, and appeal path explicitly so policy changes are governable.</p>
+          <h4>Sizing</h4>
+          <p class="muted">Not captured.</p>
+          <h4>Dependencies · gaps</h4>
+          <p>Depends on E01. <b>8 open gaps.</b> One KB citation plus <code>[extends: workflow-driven case/application lifecycle using standard platform automation patterns]</code> — general platform guidance, not client-confirmed.</p>
+          <h4>Live tension</h4>
+          <p>"Automated rejection logic where coverage exists" has no defined threshold (<code>G0202</code>: full vs. partial coverage, policy exclusions, assessor override). On a subsidy program for vulnerable patients, wrongful auto-rejection is the expensive failure mode.</p>
+        </div>
+      </details>
+
+      <details class="epic">
+        <summary><span class="caret">›</span><span class="eid">E03</span><span class="ename">Practitioner Assignment And Assessment Operations</span><span class="pill warn">Assumed</span><span class="sz">—</span></summary>
+        <div class="epic-body">
+          <h4>Scope (verbatim)</h4>
+          <p>Automate practitioner assignment by treatment type and nearest-practice criteria, with SLA-driven acceptance tracking, reassignment logic, and escalation for overdue assessments. Support multi-practitioner and specialist assessment flows where additional expertise is required.</p>
+          <h4>Solution approach (verbatim, 01-solution.md)</h4>
+          <p>Build automated assignment by treatment eligibility plus proximity, with SLA-aware acceptance/reassignment/escalation flows. External geospatial matching may be required depending on address quality and distance-calculation policy. <code>[assumption: validate geo-matching provider and tie-break rules]</code></p>
+          <h4>Sizing</h4>
+          <p class="muted">Not captured.</p>
+          <h4>Dependencies · gaps</h4>
+          <p>Depends on E02. <b>8 open gaps.</b> Epic confidence is <b>Assumed</b>, carrying <code>[assumption: confirm geospatial matching and reassignment strategy in solution design]</code> — the solution design ran and did not close it.</p>
+          <h4>Live tension</h4>
+          <p>The central mechanism is undefined at three levels: how distance is computed (<code>G0302</code>), whether the platform can do it at scale or an external service is needed (<code>G0303</code>), and what the reassignment policy bounds are (<code>G0304</code>). Intent <code>INT-005</code> declares full geospatial optimization out of scope, which narrows the build but does not answer what <em>is</em> being built.</p>
+        </div>
+      </details>
+
+      <details class="epic">
+        <summary><span class="caret">›</span><span class="eid">E04</span><span class="ename">Assessor Work Management And Collaboration Support</span><span class="pill warn">Assumed</span><span class="sz">—</span></summary>
+        <div class="epic-body">
+          <h4>Scope (verbatim)</h4>
+          <p>Provide internal assessor workflows for application handling, subsidy review support, and manager escalation visibility. Enable patient and practitioner collaboration with assessor teams through digital support channels and support-request deflection for common questions.</p>
+          <h4>Solution approach (verbatim, 01-solution.md)</h4>
+          <p>Use Service Cloud work queues and escalation pathways, with digital collaboration channels for patient/practitioner support. Channel pattern remains a decision fork (enhanced chat vs embedded messaging vs form-first); finalize based on operating hours, concurrency, and transcript-governance needs. <code>[assumption: validate channel architecture and routing policy]</code></p>
+          <h4>Sizing</h4>
+          <p class="muted">Not captured.</p>
+          <h4>Dependencies · gaps</h4>
+          <p>Depends on E03. <b>8 open gaps.</b> Confidence <b>Assumed</b> on the channel architecture question.</p>
+          <h4>Live tension</h4>
+          <p>Two things are named with nothing buildable behind them yet. The <b>channel</b> is an open three-way fork that changes the build materially. <b>Support deflection</b> (<code>G0406</code>) has no knowledge-quality bar, no fallback-to-human threshold, and no success criteria — it reads as a stub in the current record.</p>
+        </div>
+      </details>
+
+      <details class="epic">
+        <summary><span class="caret">›</span><span class="eid">E05</span><span class="ename">Migration, Security, And Regional Operating Model</span><span class="pill ok">Confirmed</span><span class="sz">—</span></summary>
+        <div class="epic-body">
+          <h4>Scope (verbatim)</h4>
+          <p>Plan and deliver migration of patients, subsidy applications, and assessments while enforcing data-access constraints around sensitive medical history. Integrate internal identity with regional Active Directory patterns and define transition controls for in-flight applications that remain in legacy processing.</p>
+          <h4>Solution approach (verbatim, 01-solution.md)</h4>
+          <p>Run phased migration with explicit in-flight case handling, identity federation alignment, and auditable access controls for sensitive fields. Expose verification outcomes to internal teams while restricting raw medical-history visibility to approved roles and windows. <code>[assumption: validate compliance-approved evidence model]</code></p>
+          <h4>Sizing</h4>
+          <p class="muted">Not captured.</p>
+          <h4>Dependencies · gaps</h4>
+          <p>Depends on E01. <b>8 open gaps.</b> This epic is spread across four of the five phases (1, 2, and 4 in the roadmap), which makes it the widest-reaching and the one least likely to behave like a single sized unit.</p>
+          <h4>Live tension</h4>
+          <p>The data-access paradox sits here (<code>G0501</code>): every application requires medical-history verification, and internal PTSF users may not view medical history at all. The grill parked a tokenized-evidence answer as <em>endorsed but unconfirmed</em>. Nobody has designed the verification service or named its control owner.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="card">
+      <h2>Open architecture decisions — verbatim</h2>
+      <p class="hint">Carried forward unresolved from <code>01-solution.md</code>.</p>
+      <ul class="small" style="margin:0;padding-left:20px;line-height:1.9">
+        <li>Regional residency and legal isolation model (single-org with controls vs org-level partitioning).</li>
+        <li>External collaboration channel architecture and deflection governance model.</li>
+        <li>Geospatial assignment engine design and fallback logic.</li>
+        <li>Medical-history verification evidence model for internal assessor decisioning.</li>
+      </ul>
+      <p class="small muted" style="margin-top:10px">All four are load-bearing architecture forks and all four were handed to the build bundle open. The Quantum Leap session notes this: "High-volume requirements and governance gaps remain open and should be resolved during Plan mode before Build mode."</p>
+    </div>
+
+    <div class="ask">
+      <div class="lead">Ask Claude in the repo</div>
+      <ul>
+        <li>Run design again to persist estimates.json with per-epic T-shirt sizes.</li>
+        <li>E01 says social sign-in is in scope but the grill deferred it — which is right?</li>
+        <li>Is support deflection in E04 real scope or a stub we should move to gaps?</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="delivery">
+    <div class="card" data-shot>
+      <h2>Phase calendar — 12 weeks</h2>
+      <p class="hint">Bars are the committed phase durations from <code>data/roadmap.json</code>, laid on a 12-week axis.</p>
+      <div class="gantt">
+        <div class="gantt-months">
+          <span></span>
+          <div class="mrow" style="grid-template-columns:repeat(12,1fr)">
+            <span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span><span>W6</span><span>W7</span><span>W8</span><span>W9</span><span>W10</span><span>W11</span><span>W12</span>
+          </div>
+        </div>
+        <div class="gantt-row">
+          <div class="glabel">Phase 0<br><span class="small muted" style="font-weight:400">Readiness</span></div>
+          <div class="gantt-track" style="background-size:calc(100%/12) 100%">
+            <div class="gbar p3" style="left:0%;width:16.6667%">Discovery Resolution &amp; Delivery Readiness</div>
+          </div>
+        </div>
+        <div class="gantt-row">
+          <div class="glabel">Phase 1<br><span class="small muted" style="font-weight:400">E01, E05</span></div>
+          <div class="gantt-track" style="background-size:calc(100%/12) 100%">
+            <div class="gbar p1" style="left:16.6667%;width:25%">Identity &amp; Onboarding Foundation</div>
+          </div>
+        </div>
+        <div class="gantt-row">
+          <div class="glabel">Phase 2<br><span class="small muted" style="font-weight:400">E02, E05</span></div>
+          <div class="gantt-track" style="background-size:calc(100%/12) 100%">
+            <div class="gbar p2" style="left:41.6667%;width:25%">Application Lifecycle &amp; Eligibility Automation</div>
+          </div>
+        </div>
+        <div class="gantt-row">
+          <div class="glabel">Phase 3<br><span class="small muted" style="font-weight:400">E03, E04</span></div>
+          <div class="gantt-track" style="background-size:calc(100%/12) 100%">
+            <div class="gbar p1" style="left:66.6667%;width:25%">Operations, Assignment &amp; Collaboration</div>
+          </div>
+        </div>
+        <div class="gantt-row">
+          <div class="glabel">Phase 4<br><span class="small muted" style="font-weight:400">E05</span></div>
+          <div class="gantt-track" style="background-size:calc(100%/12) 100%">
+            <div class="gmark" style="left:91.6667%"><span>Cutover</span></div>
+            <div class="gbar p3" style="left:91.6667%;width:8.3333%">Cutover, Stabilization &amp; Hypercare</div>
+          </div>
+        </div>
+      </div>
+      <div class="glegend">
+        <i><span class="gkey" style="background:#57a5c9"></span> Readiness / cutover</i>
+        <i><span class="gkey" style="background:#0176d3"></span> Build phase</i>
+        <i><span class="gkey" style="background:#1a8fe0"></span> Build phase</i>
+        <i><span class="gkey" style="background:#ba0517;width:3px"></span> Cutover start</i>
+      </div>
+      <p class="small muted" style="margin-top:10px">No go-live date is captured anywhere in the project, so the axis is relative weeks, not calendar dates.</p>
+    </div>
+
+    <div class="card">
+      <h2>Duration and its provenance</h2>
+      <p class="hint">Every phase duration in this project carries <code>duration_source: "user"</code>.</p>
+      <table>
+        <tr><th>Phase</th><th>Weeks</th><th>Basis</th></tr>
+        <tr><td>0 — Discovery Resolution And Delivery Readiness</td><td>2</td><td><span class="pill info">User commitment, allocated</span></td></tr>
+        <tr><td>1 — Identity And Onboarding Foundation</td><td>3</td><td><span class="pill info">User commitment, allocated</span></td></tr>
+        <tr><td>2 — Application Lifecycle And Eligibility Automation</td><td>3</td><td><span class="pill info">User commitment, allocated</span></td></tr>
+        <tr><td>3 — Operations, Assignment, And Collaboration</td><td>3</td><td><span class="pill info">User commitment, allocated</span></td></tr>
+        <tr><td>4 — Cutover, Stabilization, And Hypercare</td><td>1</td><td><span class="pill info">User commitment, allocated</span></td></tr>
+        <tr><td><b>Total</b></td><td><b>12</b></td><td>User-committed total. Rationale on file: <i>"Business priority for near-term launch."</i></td></tr>
+      </table>
+      <div class="recon" style="margin-top:12px"><b>What this number is and is not.</b> 12 weeks is a commitment the user made, then allocated across phases by complexity. It is not a benchmark-derived range and it is not built up from sized work — no per-epic sizing exists. The rejected alternative is on the record: a "benchmark-range-only timeline without a committed total" was considered and declined.</div>
+      <div class="contra"><b>The allocation is thin at both ends.</b> Phase 0 gets 2 weeks to close 41 gaps including four load-bearing architecture forks and nine unanswered governance-ownership questions. Phase 4 gets 1 week to cut over patients, applications, and assessments for a multi-million-record migration across three regions, plus hypercare. Those are the two phases most likely to overrun, and they are the two shortest.</div>
+    </div>
+
+    <div class="card">
+      <h2>Objectives and risks, per phase — verbatim</h2>
+      <p class="hint">Straight from <code>data/roadmap.json</code>.</p>
+      <table>
+        <tr><th style="width:22%">Phase</th><th>Objective</th><th style="width:32%">Named risk</th></tr>
+        <tr><td><b>0</b> Discovery Resolution And Delivery Readiness</td><td>Resolve high-impact assumptions and source conflicts that block build execution, confirm policy decisions, and finalize nonfunctional and governance baselines before implementation accelerates.</td><td>Decision latency on policy-heavy questions can delay start of build phases.</td></tr>
+        <tr><td><b>1</b> Identity And Onboarding Foundation</td><td>Establish the patient digital front door with registration, authentication, onboarding workflow, and profile gating while preparing security and migration controls that underpin later lifecycle work.</td><td>Identity-policy drift or unresolved onboarding edge cases can cascade into downstream lifecycle and migration scope.</td></tr>
+        <tr><td><b>2</b> Application Lifecycle And Eligibility Automation</td><td>Implement subsidy application orchestration, eligibility checks, and standardized status lifecycle while advancing migration/security execution for controlled cutover readiness.</td><td>External checker latency and unresolved verification evidence model can reduce automation quality and increase manual triage.</td></tr>
+        <tr><td><b>3</b> Operations, Assignment, And Collaboration</td><td>Deliver practitioner assignment and reassignment logic, assessor work management, escalation visibility, and collaboration pathways that complete the operational model.</td><td>Unconfirmed geospatial-matching approach and channel architecture can force late design changes.</td></tr>
+        <tr><td><b>4</b> Cutover, Stabilization, And Hypercare</td><td>Execute migration cutover controls, stabilize production behavior, and close readiness gaps with focused defect hardening and adoption support.</td><td>Late discovery of migration data quality issues or unresolved policy items can extend stabilization.</td></tr>
+      </table>
+      <p class="small muted" style="margin-top:10px">Critical path on file: <b>E01 → E02 → E03 → E04</b>. Slippage on any one cascades.</p>
+      <a class="docref" href="../02-delivery-plan.md">📄 outputs/02-delivery-plan.md</a>
+    </div>
+
+    <div class="card">
+      <h2>Team</h2>
+      <p class="hint">What the project says about who delivers this.</p>
+      <p class="small">Nothing. <code>data/resource-plan.json</code> does not exist, <code>estimate</code> never ran, and the delivery plan closes with the pointer rather than the answer: <i>"The disciplines and named roster to deliver this — with defensible counts, per lane — come from <code>estimate</code>."</i></p>
+      <p class="small">There is no team Gantt on this page because there is no roster to draw. A count without a justification behind it is the one thing this review will not manufacture.</p>
+      <div class="contra" style="margin-top:12px"><b>This is the largest hole in the deal.</b> A 12-week, five-phase, three-region program with a multi-million-record migration has no named roster, no disciplines, and no counts. The delivery plan does name cross-cutting work that implies owners — continuous integration/regression testing, environment promotion and release governance, and assessor/practitioner enablement before each phase release — but nobody is assigned to any of it. Change and adoption for a patient-facing rollout to 4,000 practitioners and ~500 internal users across APAC/EMEA/AMER is not represented anywhere.</div>
+    </div>
+
+    <div class="ask">
+      <div class="lead">Ask Claude in the repo</div>
+      <ul>
+        <li>Run estimate to author the named roster for this 12-week roadmap.</li>
+        <li>Is 2 weeks realistic for Phase 0 given 41 gaps and four open architecture forks?</li>
+        <li>What happens to the schedule if the migration cutover needs more than one week?</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="gaps">
+    <div class="card" data-shot>
+      <h2>Gap concentration — all 41, by epic</h2>
+      <p class="hint">Complete count from <code>data/gaps.json</code>. Every epic carries gaps; none is clean.</p>
+      <table>
+        <tr><th style="width:38%">Epic</th><th style="width:46%">Gap load</th><th>Count</th></tr>
+        <tr><td><b>E01</b> Patient Identity &amp; Onboarding</td><td><div class="heat"><div class="h" style="width:100%"></div></div></td><td><b>9</b></td></tr>
+        <tr><td><b>E02</b> Subsidy Application Lifecycle</td><td><div class="heat"><div class="h" style="width:88.9%"></div></div></td><td><b>8</b></td></tr>
+        <tr><td><b>E03</b> Practitioner Assignment</td><td><div class="heat"><div class="h" style="width:88.9%"></div></div></td><td><b>8</b></td></tr>
+        <tr><td><b>E04</b> Assessor Work &amp; Collaboration</td><td><div class="heat"><div class="h" style="width:88.9%"></div></div></td><td><b>8</b></td></tr>
+        <tr><td><b>E05</b> Migration, Security &amp; Regional Model</td><td><div class="heat"><div class="h" style="width:88.9%"></div></div></td><td><b>8</b></td></tr>
+      </table>
+      <p class="small muted" style="margin-top:10px">Flat distribution — roughly eight gaps per epic — which usually means the gaps were generated systematically per epic rather than concentrated where the real uncertainty sits. Read the categories below for the sharper signal.</p>
+    </div>
+
+    <div class="card">
+      <h2>Category split — complete</h2>
+      <p class="hint">All 41 gaps, no subsetting.</p>
+      <table>
+        <tr><th>Category</th><th style="width:52%"></th><th>Count</th></tr>
+        <tr><td><b>Missing Requirement</b></td><td><div class="heat"><div class="h" style="width:100%"></div></div></td><td><b>18</b></td></tr>
+        <tr><td>Ambiguity</td><td><div class="heat"><div class="h" style="width:33.3%"></div></div></td><td>6</td></tr>
+        <tr><td>Logical Gap</td><td><div class="heat"><div class="h" style="width:27.8%"></div></div></td><td>5</td></tr>
+        <tr><td>Source Conflict</td><td><div class="heat"><div class="h" style="width:22.2%"></div></div></td><td>4</td></tr>
+        <tr><td>Capability Gap</td><td><div class="heat"><div class="h" style="width:16.7%"></div></div></td><td>3</td></tr>
+        <tr><td>Potential Risk</td><td><div class="heat"><div class="h" style="width:16.7%"></div></div></td><td>3</td></tr>
+        <tr><td>Assumption</td><td><div class="heat"><div class="h" style="width:11.1%"></div></div></td><td>2</td></tr>
+      </table>
+      <p class="small" style="margin-top:12px"><b>Resolution state:</b> 3 of 41 carry a resolution note (<code>G0101</code> identity launch posture, <code>G0204</code> tokenized verification evidence, <code>G0502</code> regional residency) — all three from the 2026-08-31 grill, all three marked <span class="pill warn">Assumed</span> and user-endorsed rather than confirmed against a source. The remaining <b>38 are open with no disposition.</b></p>
+      <p class="small muted">Of the 18 Missing Requirements, 5 are experience-design ownership questions and 5 are governance decision-rights questions — one of each per epic. That pattern is the scoping engine correctly flagging that nobody owns user research or policy stewardship on this program.</p>
+    </div>
+
+    <div class="card">
+      <h2>The gaps that actually move the deal</h2>
+      <p class="hint">Verbatim questions — showing 8 of 41, chosen for blast radius. The full set is in <code>data/gaps.json</code>.</p>
+      <blockquote class="quote">Medical history must be verified on each application, but internal PTSF users cannot view medical history at all. What mechanism provides verification evidence to assessors without exposing restricted clinical data?<span class="src">G0204 · Logical Gap · E02 — parked as Assumed via grill, no design or control owner yet</span></blockquote>
+      <blockquote class="quote">Patient volume is inconsistent across source materials (3.5M in project overview vs 5M in data assumptions). Which baseline must drive subsidy-lifecycle sizing, insurance-check throughput, and auto-rejection volume design?<span class="src">G0201 · Source Conflict · E02 — open. Restated as G0301 for E03.</span></blockquote>
+      <blockquote class="quote">Is there a confirmed technical capability for high-scale nearest-practitioner matching by treatment plus proximity, or is an external geo-matching/routing service required?<span class="src">G0303 · Capability Gap · E03 — open. Could introduce a third-party service and cost not currently in scope.</span></blockquote>
+      <blockquote class="quote">Which external support channel architecture is in scope for patient/practitioner collaboration (Enhanced Chat, embedded messaging, case form fallback), and what exact handoff path to internal assessor work is required?<span class="src">G0401 · Ambiguity · E04 — open. Blocks assessor workflow design.</span></blockquote>
+      <blockquote class="quote">What is the regional data residency and cross-border access policy for migrated patient and assessment records across APAC, EMEA, and AMER?<span class="src">G0502 · Missing Requirement · E05 — Assumed. Constraints presumed to exist until policy says otherwise.</span></blockquote>
+      <blockquote class="quote">What is the detailed migration cutover strategy for patients/applications/assessments (historical scope, data quality rules, reconciliation, and rollback), given in-flight applications must stay in legacy for about one month?<span class="src">G0505 · Logical Gap · E05 — open, and Phase 4 has one week to execute it.</span></blockquote>
+      <blockquote class="quote">For automatic rejection when insurance covers travel, what exact coverage threshold applies (full coverage only vs partial coverage vs policy-specific exclusions), and are exceptions allowed with assessor override?<span class="src">G0202 · Ambiguity · E02 — open. Wrongful-rejection and appeals exposure.</span></blockquote>
+      <blockquote class="quote">How should the lifecycle behave when the Health Insurance Checker is slow/unavailable (timeouts, retries, asynchronous pending state, manual triage), given known peak response times up to 15 seconds?<span class="src">G0203 · Missing Requirement · E02 — partially answered by intent INT-004's fallback design, not closed in the gap record.</span></blockquote>
+    </div>
+
+    <div class="card" data-shot>
+      <h2>Risk snapshot <span class="pill warn">Derived</span></h2>
+      <p class="hint">There is no risk register on this project (<code>data/risks.json</code> absent) and no committed Overall Risk Rating. The read below is derived from the scope data the same way everything else on this page is — it is not a rating anyone has signed.</p>
+      <table>
+        <tr><th style="width:22%">Area</th><th>Signal in the data</th><th style="width:12%">Derived</th></tr>
+        <tr><td><b>Customer readiness</b></td><td>No named executive sponsor, business owner, or technology decision owner. No governance model, no change-control process across three regions. Nine gaps are "who owns and approves…" questions. Phase 0 depends entirely on decisions this client has no identified mechanism to make.</td><td><span class="pill bad">High</span></td></tr>
+        <tr><td><b>Scope definition</b></td><td>41 gaps, 38 undisposed, 4 open architecture forks handed to the build bundle. Four source conflicts including an unresolved 3.5M-vs-5M volume baseline that drives throughput sizing.</td><td><span class="pill bad">High</span></td></tr>
+        <tr><td><b>Schedule</b></td><td>12 weeks is a business-priority commitment, not a derived range. Phase 0 has 2 weeks for 41 gaps; Phase 4 has 1 week for a three-region cutover plus hypercare. Linear critical path E01→E02→E03→E04 with no float.</td><td><span class="pill bad">High</span></td></tr>
+        <tr><td><b>Data &amp; compliance</b></td><td>Sensitive health data, three jurisdictions, no named regulatory framework, residency treated as an assumption. Time-bound practitioner access to medical history with no confirmed revocation mechanism (<code>G0506</code>).</td><td><span class="pill bad">High</span></td></tr>
+        <tr><td><b>Delivery capability</b></td><td>No roster, no counts, no disciplines named. Testing, release governance, and enablement are described as continuous but unowned. Adoption and change management appear nowhere.</td><td><span class="pill bad">High</span></td></tr>
+        <tr><td><b>Third-party dependency</b></td><td>Health Insurance Checker (external owner, 15s peak latency, no SLA contract confirmed), legacy platform export and freeze window, possible external geo-matching service not yet scoped.</td><td><span class="pill warn">Medium</span></td></tr>
+        <tr><td><b>Technical complexity</b></td><td>Solution doc's own posture: "medium-to-high complexity overall." Single-org with sharing-based regional controls; standard-first automation with targeted Apex. Nothing exotic.</td><td><span class="pill warn">Medium</span></td></tr>
+      </table>
+      <p class="small muted" style="margin-top:12px">This snapshot is derived, not committed. Run <code>risk-review</code> for the real pass with an accountable rating, mitigations, and owners.</p>
+    </div>
+
+    <div class="ask">
+      <div class="lead">Ask Claude in the repo</div>
+      <ul>
+        <li>Run risk-review — this deal has no register and several High-looking areas.</li>
+        <li>Which of the 38 undisposed gaps actually block Phase 1 starting?</li>
+        <li>Run grill-me-on-scope to force dispositions on the open gaps.</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="decisions">
+    <div class="card">
+      <h2>Decision log — all 3, verbatim</h2>
+      <p class="hint">The hard-to-reverse, scope-shaping calls from <code>data/memory.json</code>. This is the complete log, not a selection.</p>
+      <ul class="declist">
+        <li><span class="d">2026-08-31<br><span class="pill gray">scope</span></span><div>
+          <b>Approved five-epic requirements baseline.</b><br>
+          <span class="muted">Rationale: "Covers full discovery scope with clean separation between onboarding, lifecycle, operations, support, and migration/security."</span><br>
+          <span class="small muted">Rejected: "No rejected alternatives captured at approval gate."</span>
+        </div></li>
+        <li><span class="d">2026-08-31<br><span class="pill gray">delivery-plan</span></span><div>
+          <b>Approved five-phase roadmap with Phase 0 and 12-week commitment.</b><br>
+          <span class="muted">Rationale: "Front-load policy and dependency closure, then deliver identity, lifecycle, operations, and cutover in sequence."</span><br>
+          <span class="small muted">Rejected: no-commitment sequencing-only roadmap · benchmark-range-only timeline without a committed total</span>
+        </div></li>
+        <li><span class="d">2026-08-31<br><span class="pill gray">project-state</span></span><div>
+          <b>Reconciled design status to complete from existing solution artifact.</b><br>
+          <span class="muted">Rationale: "outputs/01-solution.md already contains the architecture baseline used by roadmap sequencing."</span><br>
+          <span class="small muted">Rejected: leave design marked not-started despite existing architecture deliverable</span>
+        </div></li>
+      </ul>
+      <p class="small muted" style="margin-top:12px">No <code>decisions/</code> folder exists on this project, so there are no architecture-premise ADRs. The three calls above are conclusions, not standing premises — which is consistent, but it means the single-org choice and the residency posture are not written down anywhere as governing premises.</p>
+    </div>
+
+    <div class="card">
+      <h2>Session-level decisions — all 7</h2>
+      <p class="hint">Recorded on individual sessions rather than promoted to the decision log.</p>
+      <ul class="declist">
+        <li><span class="d">discover</span><div><b>Target solution scope for discovery summary</b> — "User confirmed Experience Cloud plus Sales and Service capabilities as the working scope."</div></li>
+        <li><span class="d">discover</span><div><b>Discovery research depth</b> — "User chose document-only mode and deferred external web research."</div></li>
+        <li><span class="d">requirements</span><div><b>Epic structure approved at five epics</b> — "Balanced process coverage and boundary clarity for onboarding, application lifecycle, practitioner operations, assessor collaboration, and migration/security."</div></li>
+        <li><span class="d">roadmap</span><div><b>Roadmap structure approved at five phases with an explicit Phase 0</b> — "41 open gaps and several policy-heavy assumptions require front-loaded resolution before accelerated build."</div></li>
+        <li><span class="d">roadmap</span><div><b>Timeline commitment set to 12 weeks</b> — "Business priority for near-term launch."</div></li>
+        <li><span class="d">design</span><div><b>Marked design as complete based on existing architecture artifact</b> — "The solution document captures architecture foundations, epic-level solution approaches, and open architecture decisions."</div></li>
+        <li><span class="d">quantum-leap</span><div><b>Target org and build posture captured for handoff</b> — "User selected production org type, greenfield state, org name PTSFDemo-test, and Custom blueprint for non-Meshmesh/other build tools."</div></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>The three architecture defaults set by the grill</h2>
+      <p class="hint">Verbatim from the <code>grill-me-on-scope</code> session summary — load-bearing, and all three still Assumed.</p>
+      <blockquote class="quote">Ran a short assumption grill and aligned on three load-bearing architecture defaults: launch with email/password first, tokenized eligibility verification without internal medical-history visibility, and regional residency constraints assumed until policy confirmation.<span class="src">— <code>data/memory.json</code>, session 2026-08-31, grill-me-on-scope</span></blockquote>
+      <p class="small">These three shape identity architecture, the assessor decisioning model, and the org/data partitioning strategy respectively. None was promoted to the decision log or written as an ADR, and all three flow into the build bundle as assumptions. If any one flips, it re-shapes multiple epics.</p>
+    </div>
+
+    <div class="card">
+      <h2>Open threads — all 21, by session</h2>
+      <p class="hint">The complete carried-forward list. Nothing dropped.</p>
+      <div class="rg-sub">From discover</div>
+      <div class="thread"><span class="ic">◆</span><div>No fixed go-live target date yet.</div></div>
+      <div class="thread"><span class="ic">◆</span><div>Budget/funding model not confirmed.</div></div>
+      <div class="thread"><span class="ic">◆</span><div>Named executive sponsors and decision owners not confirmed.</div></div>
+      <div class="thread"><span class="ic">◆</span><div>Success metrics/KPI targets not confirmed.</div></div>
+      <div class="thread"><span class="ic">◆</span><div>Governance and change-management model not confirmed.</div></div>
+      <div class="rg-sub">From requirements</div>
+      <div class="thread"><span class="ic">◆</span><div>Resolve patient identity policy conflict for social login vs identity governance.</div></div>
+      <div class="thread"><span class="ic">◆</span><div>Confirm address validation and geospatial assignment technical approach.</div></div>
+      <div class="thread"><span class="ic">◆</span><div>Confirm chat channel architecture and support-deflection operating model.</div></div>
+      <div class="thread"><span class="ic">◆</span><div>Confirm data residency and regional identity federation model.</div></div>
+      <div class="thread"><span class="ic">◆</span><div>Resolve medical-history visibility and verification contradiction.</div></div>
+      <div class="rg-sub">From grill-me-on-scope</div>
+      <div class="thread"><span class="ic">◆</span><div>Need explicit policy decision on if/when patient social sign-in is enabled.</div></div>
+      <div class="thread"><span class="ic">◆</span><div>Need concrete verification-service design and control ownership for medical-history-derived eligibility evidence.</div></div>
+      <div class="thread"><span class="ic">◆</span><div>Need confirmed APAC/EMEA/AMER residency and identity-federation topology.</div></div>
+      <div class="rg-sub">From roadmap</div>
+      <div class="thread"><span class="ic">◆</span><div>Confirm geospatial matching architecture for practitioner assignment.</div></div>
+      <div class="thread"><span class="ic">◆</span><div>Confirm external chat/channel architecture and routing model.</div></div>
+      <div class="thread"><span class="ic">◆</span><div>Confirm final identity policy for social sign-in enablement.</div></div>
+      <div class="thread"><span class="ic">◆</span><div>Confirm regional residency/federation policy details for cutover.</div></div>
+      <div class="rg-sub">From design</div>
+      <div class="thread"><span class="ic">◆</span><div>Generate canonical design sizing data (estimates.json) if downstream estimate comparison requires persisted T-shirt baselines.</div></div>
+      <div class="thread"><span class="ic">◆</span><div>Close remaining architecture assumptions in outputs/01-solution.md via client confirmations.</div></div>
+      <div class="rg-sub">From quantum-leap</div>
+      <div class="thread"><span class="ic">◆</span><div>Production deployment requires explicit confirmation at each deploy step.</div></div>
+      <div class="thread"><span class="ic">◆</span><div>High-volume requirements and governance gaps remain open and should be resolved during Plan mode before Build mode.</div></div>
+      <p class="small muted" style="margin-top:14px">Four themes recur in every session from requirements onward: identity/social sign-in policy, geospatial assignment, chat channel architecture, and regional residency. Six sessions have restated them and none has closed them.</p>
+    </div>
+
+    <div class="ask">
+      <div class="lead">Ask Claude in the repo</div>
+      <ul>
+        <li>Which open threads are blocking and which can ride into delivery?</li>
+        <li>Should the three grill defaults be written as ADRs in decisions/?</li>
+        <li>Run revise if any of the three architecture defaults has since changed.</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="signals">
+    <div class="card">
+      <h2>What was exercised</h2>
+      <p class="hint">Neutral chips — not a checklist and not a required order. Many deals legitimately skip most of these.</p>
+      <div class="chips" style="margin-bottom:14px">
+        <span class="chip">discover</span>
+        <span class="chip">requirements</span>
+        <span class="chip">design</span>
+        <span class="chip">roadmap</span>
+        <span class="chip">quantum-leap</span>
+        <span class="chip">grill-me-on-scope</span>
+      </div>
+      <p class="small muted">Six sessions, all on 2026-08-31. <code>grill-me-on-scope</code> ran and produced three architecture defaults, but it is a side-quest and deliberately does not appear in <code>completion_status</code> — it is shown here because the session record proves it happened.</p>
+      <div class="rg-sub">Not run</div>
+      <div class="chips">
+        <span class="chip dim">strategy</span><span class="chip dim">efficiency</span><span class="chip dim">estimate</span>
+        <span class="chip dim">commercials</span><span class="chip dim">validate</span><span class="chip dim">narratives</span>
+        <span class="chip dim">export</span><span class="chip dim">backlog</span><span class="chip dim">slides</span>
+        <span class="chip dim">rfp</span><span class="chip dim">risk-review</span><span class="chip dim">wrapup</span>
+      </div>
+      <p class="small muted" style="margin-top:12px">The shape here is a scope-to-build path: discovery through roadmap, then straight to the agentic build handoff. Nothing commercial, nothing client-facing, no validation pass. That is coherent for a lab or an internal build exercise; it would be a gap on a live pursuit.</p>
+    </div>
+
+    <div class="card">
+      <h2>Confidence split</h2>
+      <p class="hint">Counted off the <code>confidence</code> field on each item.</p>
+      <div class="grid2">
+        <div>
+          <div class="rg-sub">Epics (5)</div>
+          <div class="bar"><span class="seg-ok" style="width:60%">3 Confirmed</span><span class="seg-warn" style="width:40%">2 Assumed</span></div>
+          <p class="small muted">Assumed: E03 (geospatial matching), E04 (channel architecture).</p>
+        </div>
+        <div>
+          <div class="rg-sub">Build intents (9)</div>
+          <div class="bar"><span class="seg-ok" style="width:33.3%">3 Confirmed</span><span class="seg-warn" style="width:66.7%">6 Assumed</span></div>
+          <p class="small muted">Confirmed: INT-001, INT-003, INT-007. The other six went to the build bundle Assumed.</p>
+        </div>
+      </div>
+      <div class="rg-sub" style="margin-top:16px">Gaps (41)</div>
+      <div class="bar"><span class="seg-warn" style="width:7.3%">3</span><span class="seg-bad" style="width:92.7%">38 open, no disposition</span></div>
+      <p class="small muted">The three with a disposition are all <b>Assumed / user-endorsed</b> — nobody promoted a gap to Confirmed against a source.</p>
+      <div class="contra" style="margin-top:14px"><b>Confidence gets thinner as it moves downstream, which is backwards.</b> Epics are 60% Confirmed; the intents derived from them are 33%. The build handoff is the most Assumed artifact in the project.</div>
+    </div>
+
+    <div class="card">
+      <h2>Grounding</h2>
+      <p class="hint">Citation tags on <code>epics.json</code> and <code>roadmap.json</code>, plus what the solution doc cites.</p>
+      <table>
+        <tr><th>Tag type</th><th>Epics</th><th>Roadmap</th><th>What it means</th></tr>
+        <tr><td><code>[KB:...]</code> — project knowledge</td><td>8</td><td>6</td><td><span class="pill ok">Grounded</span> in client-supplied docs under <code>knowledge/</code></td></tr>
+        <tr><td><code>[extends:...]</code> — general guidance</td><td>1</td><td>1</td><td><span class="pill warn">Model knowledge</span>, labeled as such</td></tr>
+        <tr><td><code>[assumption:...]</code></td><td>2</td><td>3</td><td><span class="pill warn">Flagged</span>, not grounded</td></tr>
+        <tr><td><code>[KA-...]</code> — central KB atom</td><td>0</td><td>0</td><td>One atom (<code>KA-11429</code>) cited in <code>01-solution.md</code> for SAML federation</td></tr>
+      </table>
+      <p class="small" style="margin-top:12px">Three knowledge documents back the scope: <code>experience_cloud_4-2-2026.md</code>, <code>service_cloud_3-27-2026.md</code>, and <code>sales_einstein_implementation_guide.md</code>. Those are Salesforce product guides, not client documents — the grounding layer here is capability evidence, not evidence about PTSF.</p>
+      <div class="recon"><b>Worth noting on grounding quality.</b> Two citations — one on E03, one on E05 — point at <code>service_cloud_3-27-2026.md:1-18775</code>, the entire document. A whole-file range is a pointer, not a citation; it cannot be checked. The tighter ranges elsewhere (for example <code>:2153-2324</code>) are the ones a reviewer can actually verify.</div>
+    </div>
+
+    <div class="card">
+      <h2>Number provenance</h2>
+      <p class="hint">Every figure that appears anywhere in this project's data, and where it came from.</p>
+      <table>
+        <tr><th>Figure</th><th>Value</th><th>Provenance</th></tr>
+        <tr><td>Total program duration</td><td>12 weeks</td><td><span class="pill info">User commitment</span> — "Business priority for near-term launch"</td></tr>
+        <tr><td>Phase durations</td><td>2 / 3 / 3 / 3 / 1</td><td><span class="pill info">Allocated</span> from the commitment by complexity, <code>duration_source: "user"</code></td></tr>
+        <tr><td>Practitioners · internal users</td><td>4,000 · ~500</td><td><span class="pill ok">Confirmed</span> in the discovery source</td></tr>
+        <tr><td>Patient population</td><td>3.5M / 5M</td><td><span class="pill bad">Conflicted</span> — unresolved across two source documents</td></tr>
+        <tr><td>Treatment types</td><td>500+</td><td><span class="pill warn">Assumed harmonized</span> — <code>G0206</code> questions whether a master taxonomy exists</td></tr>
+        <tr><td>T-shirt sizes</td><td>—</td><td>None exist</td></tr>
+        <tr><td>Hours · rates · price</td><td>—</td><td>None exist. No <code>commercials.json</code>, no rate has been supplied or validated.</td></tr>
+        <tr><td>Resource counts</td><td>—</td><td>None exist.</td></tr>
+      </table>
+      <p class="small muted" style="margin-top:10px">Clean on the guardrails: no invented rate, no hour figure, no staffing count anywhere in the data. The 12-week number carries its provenance correctly.</p>
+    </div>
+
+    <div class="ask">
+      <div class="lead">Ask Claude in the repo</div>
+      <ul>
+        <li>Why are the intents less confident than the epics they came from?</li>
+        <li>Do we have any client documents in knowledge/, or only Salesforce product guides?</li>
+        <li>Run validate for a cross-file consistency check.</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="diag">
+    <div class="card">
+      <h2>Provenance &amp; freshness</h2>
+      <p class="hint">Last-written date per file. Everything in <code>data/</code> was written in a single sitting.</p>
+      <table>
+        <tr><th>File</th><th>Last written</th><th>Note</th></tr>
+        <tr><td><code>data/gaps.json</code></td><td>Aug 31, 2026 · 3:57 PM</td><td>41 gaps</td></tr>
+        <tr><td><code>data/epics.json</code></td><td>Aug 31, 2026 · 4:00 PM</td><td>5 epics</td></tr>
+        <tr><td><code>data/roadmap.json</code></td><td>Aug 31, 2026 · 4:00 PM</td><td>5 phases</td></tr>
+        <tr><td><code>data/intents.json</code></td><td>Aug 31, 2026 · 5:11 PM</td><td>9 build intents</td></tr>
+        <tr><td><code>data/memory.json</code></td><td>Aug 31, 2026 · 5:11 PM</td><td>6 sessions, 3 decision-log entries</td></tr>
+        <tr><td><code>outputs/00-discovery-brief.md</code></td><td>Aug 31, 2026 · 3:38 PM</td><td></td></tr>
+        <tr><td><code>outputs/01-solution.md</code></td><td>Aug 31, 2026 · 3:53 PM</td><td>Predates <code>epics.json</code> by 7 minutes</td></tr>
+        <tr><td><code>outputs/02-delivery-plan.md</code></td><td>Aug 31, 2026 · 4:00 PM</td><td></td></tr>
+        <tr><td><code>outputs/quantum-leap/</code></td><td>Aug 31, 2026 · 5:11 PM</td><td>20 files — build handoff bundle</td></tr>
+        <tr><td><code>data/estimates.json</code></td><td>—</td><td>Never written</td></tr>
+        <tr><td><code>data/resource-plan.json</code></td><td>—</td><td>Never written</td></tr>
+        <tr><td><code>data/strategy.json</code></td><td>—</td><td>Never written</td></tr>
+        <tr><td><code>data/risks.json</code></td><td>—</td><td>Never written</td></tr>
+        <tr><td><code>data/commercials.json</code></td><td>—</td><td>Never written</td></tr>
+        <tr><td><code>data/efficiency.json</code></td><td>—</td><td>Never written</td></tr>
+      </table>
+      <p class="small" style="margin-top:12px">No file is materially behind the others — the whole scope was produced within about 95 minutes on 2026-08-31. Nothing is stale relative to anything else, but nothing has been revisited since either.</p>
+      <p class="small muted"><b>One ordering note:</b> <code>01-solution.md</code> was written before <code>epics.json</code> was finalized, and the <code>design</code> session was a reconciliation — it marked design complete against a pre-existing artifact rather than generating one. That is recorded honestly in the decision log, but it means the solution doc was not derived from the final epic set.</p>
+    </div>
+
+    <div class="card">
+      <h2>Environment</h2>
+      <div class="grid2">
+        <div>
+          <div class="kv"><span class="k">Scopezilla version</span><span class="v">1.18.1</span></div>
+          <div class="kv"><span class="k">Project created</span><span class="v">Aug 31, 2026</span></div>
+          <div class="kv"><span class="k">Engagement type</span><span class="v">standard</span></div>
+          <div class="kv"><span class="k">Vertical pack</span><span class="v">none set</span></div>
+        </div>
+        <div>
+          <div class="kv"><span class="k">Benchmark source</span><span class="v">model-training-data</span></div>
+          <div class="kv"><span class="k">Target org</span><span class="v">PTSFDemo-test (production, greenfield)</span></div>
+          <div class="kv"><span class="k">Build allowed</span><span class="v">yes</span></div>
+          <div class="kv"><span class="k">QL blueprint</span><span class="v">Custom</span></div>
+        </div>
+      </div>
+      <p class="small muted" style="margin-top:12px"><code>.project-metadata.json</code> also carries <code>depth_mode: "epic-level"</code> — a legacy field that is no longer prompted for. <code>rfp_tier</code> is null and no RFP cycle ran, so it is not surfaced elsewhere on this page.</p>
+      <div class="recon" style="margin-top:4px"><b>Central Salesforce KB was degraded at the time of this review.</b> The session hook reports the cache last synced 17 days ago with a failing auth refresh. No claim on this page is grounded on a central-KB atom — everything traces to the project's own files — but if you re-run architecture work here, run <code>/kb-sync</code> first.</div>
+    </div>
+
+    <div class="card">
+      <h2>Validator</h2>
+      <p class="hint"><code>validate-data.py</code> run against this project while generating this page.</p>
+      <div class="kv"><span class="k">Result</span><span class="v"><span class="pill ok">PASS</span></span></div>
+      <div class="kv"><span class="k">Schema checks</span><span class="v">epics, gaps, roadmap, intents, memory — all pass</span></div>
+      <div class="kv"><span class="k">Cross-reference checks</span><span class="v">all 7 pass</span></div>
+      <div class="kv"><span class="k">Pricing / rate leak</span><span class="v"><span class="pill ok">Clean</span> — 39 output files scanned</span></div>
+      <div class="kv"><span class="k">Benchmark provenance</span><span class="v"><span class="pill ok">Clean</span> — no unsubstituted placeholders</span></div>
+      <div class="kv"><span class="k">Warnings</span><span class="v">2, non-blocking</span></div>
+      <p class="small" style="margin-top:12px"><b>Warning 1.</b> <code>INT-007</code> declares surface <code>reports</code>, which is not a recognized surface — a build tool would treat that intent as unclassified.<br>
+      <b>Warning 2.</b> <code>gaps.json</code> may be stale: <code>epics.json</code> was written three minutes after it, so the gap set was built against a slightly earlier epic state.</p>
+      <p class="small muted">Note that <code>validate</code> has never been run as a skill on this project — this is a one-off invocation from the review.</p>
+    </div>
+
+    <div class="card">
+      <h2>Activity</h2>
+      <div class="grid3">
+        <div>
+          <div class="kv"><span class="k">Sessions</span><span class="v">6</span></div>
+          <div class="kv"><span class="k">Session dates</span><span class="v">all Aug 31, 2026</span></div>
+        </div>
+        <div>
+          <div class="kv"><span class="k">Decision-log entries</span><span class="v">3</span></div>
+          <div class="kv"><span class="k">Open threads</span><span class="v">21</span></div>
+        </div>
+        <div>
+          <div class="kv"><span class="k">Git commits</span><span class="v">23</span></div>
+          <div class="kv"><span class="k">Last commit</span><span class="v">Sep 09, 2026</span></div>
+        </div>
+      </div>
+      <p class="small muted" style="margin-top:12px">The repo has been active for 11 days past the last scope change, but that activity is all on <code>outputs/scopezilla-operating-model.md</code> — a separate internal document, not this engagement's scope. A remote is configured, so checkpoints push.</p>
+      <p class="small" style="margin-top:8px"><b>Uncommitted at review time:</b> the entire <code>outputs/quantum-leap/</code> bundle, its archive, <code>data/intents.json</code>, and <code>outputs/01-solution.md</code> are untracked or modified in the working tree. The build handoff exists on disk but is not in version control.</p>
+    </div>
+
+    <div class="ask">
+      <div class="lead">Ask Claude in the repo</div>
+      <ul>
+        <li>Checkpoint the quantum-leap bundle — it's untracked.</li>
+        <li>Should 01-solution.md be regenerated against the final epic set?</li>
+        <li>Run /kb-sync, the central KB cache is failing auth.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<script>
+  document.querySelectorAll('nav.tabs button').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('nav.tabs button').forEach(function(x){x.classList.remove('active')});
+      document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});
+      b.classList.add('active');
+      document.getElementById(b.dataset.tab).classList.add('active');
+      window.scrollTo(0,0);
+    });
+  });
+
+  /* ── Copy-as-image ── canonical source: brand/shells/copy-as-image.html
+     (paste verbatim; only the a.download filename is per-artifact). Do not fork —
+     fix it in the canonical file, then re-paste. */
+  async function nodeToPngBlob(node){
+    var r = node.getBoundingClientRect(), w = Math.ceil(r.width), h = Math.ceil(r.height), scale = 2;
+    var clone = node.cloneNode(true), src = node.querySelectorAll('*'), dst = clone.querySelectorAll('*');
+    inlineStyle(node, clone);
+    for (var i=0;i<src.length;i++) inlineStyle(src[i], dst[i]);
+    clone.style.margin = '0';
+    var xml = new XMLSerializer().serializeToString(clone);
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+            + '<foreignObject width="100%" height="100%">'
+            + '<div xmlns="http://www.w3.org/1999/xhtml">'+xml+'</div>'
+            + '</foreignObject></svg>';
+    var img = new Image();
+    await new Promise(function(res,rej){
+      img.onload = res; img.onerror = rej;
+      img.src = 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+    });
+    var c = document.createElement('canvas'); c.width = w*scale; c.height = h*scale;
+    var ctx = c.getContext('2d'); ctx.scale(scale,scale);
+    ctx.fillStyle = '#fff'; ctx.fillRect(0,0,w,h); ctx.drawImage(img,0,0);
+    return await new Promise(function(res){ c.toBlob(res,'image/png'); });
+  }
+  function inlineStyle(from,to){
+    var cs = getComputedStyle(from), s = '';
+    for (var i=0;i<cs.length;i++){ var p = cs[i]; s += p+':'+cs.getPropertyValue(p)+';'; }
+    to.setAttribute('style', s);
+  }
+  async function copyShot(node,btn){
+    var label = btn.textContent;
+    try{
+      var blob = await nodeToPngBlob(node);
+      if (navigator.clipboard && window.ClipboardItem){
+        await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);
+        btn.textContent = '✓ Copied';
+      } else { throw new Error('no clipboard-image'); }
+    }catch(e){
+      try{
+        var blob2 = await nodeToPngBlob(node), a = document.createElement('a');
+        a.href = URL.createObjectURL(blob2); a.download = 'deal-review-chart.png'; a.click();
+        btn.textContent = '✓ Downloaded';
+      }catch(e2){ btn.textContent = '✗ Try screenshot'; }
+    }
+    setTimeout(function(){ btn.textContent = label; }, 2200);
+  }
+  document.querySelectorAll('[data-shot]').forEach(function(node){
+    var btn = document.createElement('button');
+    btn.className = 'shot-btn'; btn.textContent = '⧉ Copy as image';
+    btn.addEventListener('click', function(){ copyShot(node, btn); });
+    node.appendChild(btn);
+  });
+</script>
+</body>
+</html>

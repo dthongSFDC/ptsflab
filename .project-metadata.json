@@ -21,7 +21,7 @@
     "narratives": "not-started",
     "export": "not-started",
     "backlog": "not-started",
-    "quantum-leap": "not-started",
+    "quantum-leap": "complete",
     "slides": "not-started",
     "rfp": "not-started",
     "illuminate": "not-started",
@@ -47,5 +47,12 @@
     "experience-cloud",
     "sales-cloud",
     "service-cloud"
-  ]
+  ],
+  "target_org": {
+    "name": "PTSFDemo-test",
+    "type": "production",
+    "state": "greenfield",
+    "build_allowed": true
+  },
+  "quantum_leap_blueprint": "Custom"
 }

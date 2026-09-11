@@ -1,0 +1,96 @@
+# Open Engagement Questions — PTSFLab
+
+> Reference role: cross-phase or engagement-level open questions only. Per-phase questions live **inside** the phase brief (under "Plan-mode questions" or "Build-mode questions"). This file exists to hold what doesn't belong to a single phase.
+
+If this list is empty for an engagement, no file is generated — its absence means "no cross-phase questions remain."
+
+- [ ] **G0101 — Source Conflict**: Should patient authentication definitively include email/password plus Facebook social sign-in, or is there a policy to limit external identity providers given discovery notes that patient login direction remained open while internal identity is SSO-driven?
+  - Notes: This changes identity architecture, consent model, and delivery scope for registration flows; unresolved conflict can cause rework across security, UX, and onboarding.
+- [ ] **G0102 — Ambiguity**: How should onboarding behave when Health Insurance Checker prepopulation is slow or unavailable (the API can take up to 15 seconds): block wizard progression, allow deferred completion, or permit manual override with later verification?
+  - Notes: Directly affects conversion, abandonment, and support volume; no failure-path definition creates inconsistent implementation and uncertain gating behavior.
+- [ ] **G0103 — Capability Gap**: What is the authoritative address validation approach (provider/service, normalization rules, regional coverage, and acceptable confidence thresholds) for global patient onboarding?
+  - Notes: Without a defined capability, address quality and downstream practitioner proximity logic are at risk; global operations need country-specific formatting and validation rules.
+- [ ] **G0104 — Logical Gap**: What is the onboarding and gating path for migrated existing patients: are they forced through profile completion at first login, partially grandfathered, or allowed phased completion before subsidy requests?
+  - Notes: Affects cutover readiness, user disruption, and application throughput; missing transition logic can block large cohorts post-migration.
+- [ ] **G0105 — Potential Risk**: Welcome-email gating depends on verified sending domain/site activation and template setup; what operational controls ensure multilingual welcome emails are reliably delivered before users attempt subsidy application?
+  - Notes: Knowledge docs indicate welcome email delivery can fail on unverified sending domains; failed onboarding communications increase drop-off and contact-center load.
+- [ ] **G0106 — Assumption**: Assumption to validate: one patient maps to a single canonical identity across email/password and social sign-in without duplicate-account conflicts.
+  - Notes: If false, duplicate identities will fragment profile completeness and eligibility context, undermining onboarding gating and later subsidy processing.
+- [ ] **G0107 — Missing Requirement**: Experience design question: Who owns user research, service design, and content design for the onboarding wizard (step sequence, progressive disclosure, accessibility, multilingual copy quality, and error-state behavior), and what acceptance measures define a usable onboarding experience?
+  - Notes: Without explicit ownership and measurable UX criteria, onboarding can satisfy technical requirements but still fail adoption and completion targets.
+- [ ] **G0108 — Missing Requirement**: Governance question: Who is the decision owner for identity and onboarding policy changes (social provider approvals, registration data model, language additions, and email template approvals), and what is the change-control process across APAC/EMEA/AMER?
+  - Notes: Lack of governance creates cross-region drift and approval bottlenecks, increasing timeline risk and reducing consistency in a sensitive patient-facing flow.
+- [ ] **G0109 — Missing Requirement**: What explicit consent, retention, and lawful-basis requirements apply during onboarding for profile and insurance attributes captured or prepopulated from external services?
+  - Notes: Missing compliance requirements for sensitive patient data can force redesign late in delivery and increase legal/compliance exposure.
+- [ ] **G0201 — Source Conflict**: Patient volume is inconsistent across source materials (3.5M in project overview vs 5M in data assumptions). Which baseline must drive subsidy-lifecycle sizing, insurance-check throughput, and auto-rejection volume design?
+  - Notes: Conflicting baselines can materially distort queue design, integration load assumptions, and performance/nonfunctional targets for eligibility orchestration.
+- [ ] **G0202 — Ambiguity**: For automatic rejection when insurance covers travel, what exact coverage threshold applies (full coverage only vs partial coverage vs policy-specific exclusions), and are exceptions allowed with assessor override?
+  - Notes: Eligibility rule ambiguity creates high risk of wrongful rejection, appeals, and policy noncompliance across regions.
+- [ ] **G0203 — Missing Requirement**: How should the lifecycle behave when the Health Insurance Checker is slow/unavailable (timeouts, retries, asynchronous pending state, manual triage), given known peak response times up to 15 seconds?
+  - Notes: Without explicit failure-path design, applications may stall or fail unpredictably, degrading user trust and assessor productivity.
+- [ ] **G0204 — Logical Gap**: Medical history must be verified on each application, but internal PTSF users cannot view medical history at all. What mechanism provides verification evidence to assessors without exposing restricted clinical data?
+  - Notes: Unresolved data-access paradox can block assessor decisioning or force policy-breaking workarounds.
+- [ ] **G0205 — Missing Requirement**: What is the canonical cross-region application-state model (statuses, entry/exit criteria, SLA clock rules, terminal states, reopen behavior) that will replace satellite-office custom variations?
+  - Notes: Without a normalized state machine, lifecycle orchestration cannot be standardized and reporting/governance will remain fragmented.
+- [ ] **G0206 — Assumption**: Assumed that treatment taxonomy (500+ treatment types) is globally harmonized and can be used consistently for eligibility logic and downstream assignment. Is there an approved master taxonomy and ownership model?
+  - Notes: If taxonomy is not harmonized, rule logic and comparability across regions will drift quickly, undermining automation quality.
+- [ ] **G0207 — Missing Requirement**: Experience design question: what user-research-backed interaction pattern should guide the end-to-end subsidy application flow for vulnerable patients (wizard length, save-and-resume, plain-language prompts, error recovery, multilingual comprehension checks)?
+  - Notes: Absent experience design decisions can drive abandonment, poor data quality, and inequitable access outcomes despite correct back-end logic.
+- [ ] **G0208 — Missing Requirement**: Governance question: who owns and approves ongoing eligibility-rule changes (policy authority, release cadence, audit trail, regional exception governance) after go-live?
+  - Notes: No governance model for rule stewardship creates compliance risk, inconsistent regional decisions, and uncontrolled rule drift.
+- [ ] **G0301 — Source Conflict**: Which patient/application volume baseline should drive practitioner assignment and SLA capacity design for E03: 3.5 million patients in project overview or 5 million in data assumptions?
+  - Notes: Different baselines materially change expected assignment throughput, reassignment frequency, escalation load, and specialist assessment queue sizing.
+- [ ] **G0302 — Missing Requirement**: How exactly should 'closest distance' be calculated for practitioner assignment (distance method, geocoding source, tie-breakers, cross-border handling, and fallback when address quality is poor)?
+  - Notes: Without a deterministic matching rule, assignment outcomes will be inconsistent and difficult to defend operationally or clinically.
+- [ ] **G0303 — Capability Gap**: Is there a confirmed technical capability for high-scale nearest-practitioner matching by treatment plus proximity, or is an external geo-matching/routing service required?
+  - Notes: If capability is not confirmed early, E03 may miss SLA targets or require late architecture changes for assignment logic.
+- [ ] **G0304 — Ambiguity**: What is the full reassignment policy after decline/no-response (max attempts, exclusion windows, same-practitioner cooldown, manual override, and terminal state if no eligible practitioner exists)?
+  - Notes: Undefined reassignment boundaries can create infinite loops, delayed care decisions, and unpredictable manager intervention workload.
+- [ ] **G0305 — Logical Gap**: How should SLA clocks run across APAC/EMEA/AMER for the 3-business-day acceptance and 15-day overdue escalation rules (regional business hours, holidays, pause/resume states, and timezone ownership)?
+  - Notes: Clock logic directly affects compliance reporting, fairness of escalations, and operational trust in automated overdue handling.
+- [ ] **G0306 — Ambiguity**: For specialist assessments, what is the orchestration model: optional parallel vs sequential specialist reviews, approval authority, and final decision rule when practitioner and specialist outcomes conflict?
+  - Notes: Unclear multi-practitioner decisioning risks contradictory outcomes and manual exception handling that undermines automation goals.
+- [ ] **G0307 — Missing Requirement**: Experience design question: what practitioner-facing and assessor-facing interaction design is required for assignment acceptance/decline, specialist request, and escalation handoff (including mobile usage and multilingual needs)?
+  - Notes: Without explicit experience design scope, E03 may ship functionally correct workflows that are too slow or error-prone for day-to-day clinical operations.
+- [ ] **G0308 — Missing Requirement**: Governance question: who owns and governs practitioner directory quality, treatment-to-practitioner eligibility rules, SLA policy updates, and escalation exception approvals across regions?
+  - Notes: If governance ownership is undefined, assignment accuracy and SLA integrity will degrade over time, increasing operational risk and rework.
+- [ ] **G0401 — Ambiguity**: Which external support channel architecture is in scope for patient/practitioner collaboration (Enhanced Chat, embedded messaging, case form fallback), and what exact handoff path to internal assessor work is required?
+  - Notes: Without a confirmed channel pattern, assessor workflow design and routing cannot be finalized; current epic confidence already flags this as assumed and Experience Cloud setup requirements differ by channel.
+- [ ] **G0402 — Missing Requirement**: What are the operating hours, concurrency targets, and language coverage expectations for assessor chat support across APAC, EMEA, and AMER?
+  - Notes: Staffing model, queue design, and service-level commitments remain unscoped; risk of under-capacity or delayed response in one or more regions.
+- [ ] **G0403 — Logical Gap**: How should synchronous chat interactions map to formal work records (case/task/application update), including ownership transfer, status changes, and audit trail requirements?
+  - Notes: If chat is not consistently bound to trackable records, escalation visibility and assessor accountability will fragment across channels.
+- [ ] **G0404 — Missing Requirement**: What are the explicit escalation rules beyond the 15-day pending-assessment trigger (chat wait-time breach, unresolved inquiry age, supervisor notification channel, and reroute behavior)?
+  - Notes: Manager escalation visibility cannot be delivered as a reliable capability without measurable triggers and routing outcomes.
+- [ ] **G0405 — Potential Risk**: How will sensitive medical-history constraints be enforced in collaboration channels and transcripts, given practitioners have time-bound access while internal users cannot view medical history at all?
+  - Notes: Data exposure risk and potential non-compliance if chat content or transcript views surface restricted health details to unauthorized internal roles.
+- [ ] **G0406 — Capability Gap**: Support deflection is requested, but no capability definition exists for knowledge search quality, answer governance, fallback-to-human threshold, or deflection success criteria.
+  - Notes: Deflection may become superficial and increase repeat contacts unless knowledge governance and escalation thresholds are explicitly designed.
+- [ ] **G0407 — Missing Requirement**: Experience design question: what end-to-end conversation journeys (patient and practitioner) are required for discoverability, context carryover from application/assessment pages, and multilingual support behavior?
+  - Notes: Without explicit experience design decisions, adoption and containment targets are likely to miss, and assessor effort may increase due to poor self-service flow.
+- [ ] **G0408 — Missing Requirement**: Governance question: who owns and approves chat routing rules, escalation policy changes, and support-deflection knowledge content lifecycle (authoring, review, publishing, retirement)?
+  - Notes: Absent governance ownership creates drift in service behavior across regions and weakens control over quality, compliance, and change velocity.
+- [ ] **G0501 — Source Conflict**: How will assessors complete eligibility verification if subsidy applications require medical history validation but internal users are stated to have no medical history visibility at all?
+  - Notes: This creates a functional/security contradiction that can block core processing or force policy exceptions late in design.
+- [ ] **G0502 — Missing Requirement**: What is the regional data residency and cross-border access policy for migrated patient and assessment records across APAC, EMEA, and AMER?
+  - Notes: Without explicit residency rules, migration scope, org/data partitioning, and sharing design may violate compliance or require major rework.
+- [ ] **G0503 — Ambiguity**: What is the target AD federation model for internal users: single global identity provider, three regional identity providers, or hub-and-spoke SAML trust with region-specific routing?
+  - Notes: Knowledge docs confirm SAML/Federation ID patterns are possible, but topology is undefined; identity architecture and operational ownership remain unclear.
+- [ ] **G0504 — Missing Requirement**: What is the identity lifecycle process for AD-linked users (joiner/mover/leaver, regional transfer, and emergency access) and who approves access changes?
+  - Notes: Missing lifecycle controls increase security risk and audit exposure, especially with sensitive medical-history access windows.
+- [ ] **G0505 — Logical Gap**: What is the detailed migration cutover strategy for patients/applications/assessments (historical scope, data quality rules, reconciliation, and rollback), given in-flight applications must stay in legacy for about one month?
+  - Notes: Undefined cutover and reconciliation logic can cause duplicate/inconsistent records and disrupt reporting, assignment, and eligibility decisions.
+- [ ] **G0506 — Potential Risk**: How will security controls enforce time-bound practitioner access to medical history (open-assessment window only) and guarantee automatic revocation on reassignment/closure?
+  - Notes: If revocation is not deterministic and auditable, protected health information could remain exposed beyond authorized periods.
+- [ ] **G0507 — Missing Requirement**: Experience design question: What is the user journey and communication plan for transition states (for example, when a patient has an in-flight legacy application and cannot continue in the new system)?
+  - Notes: Without explicit transition UX/content design, users may reapply incorrectly, overwhelm support channels, or lose trust during migration.
+- [ ] **G0508 — Missing Requirement**: Governance question: What regional governance model will own security policy decisions, data stewardship, and exception approvals for migration and post-go-live operations?
+  - Notes: Lack of governance decision rights can stall cross-region rollout, create inconsistent controls, and weaken accountability for sensitive-data handling.
+
+---
+
+## How to use this file
+
+- Walk it once at engagement-start, before planning Phase 1.
+- For each item, surface to the user; capture the answer; append `**Resolved:** <answer>` underneath.
+- A question that turns out to be phase-specific should be moved into that phase's brief (Plan-mode or Build-mode questions section) and removed from this file.

@@ -1,0 +1,77 @@
+[
+  {
+    "phase_number": 0,
+    "phase_name": "Discovery Resolution And Delivery Readiness",
+    "objectives": "Resolve high-impact assumptions and source conflicts that block build execution, confirm policy decisions, and finalize nonfunctional and governance baselines before implementation accelerates.",
+    "epics_included": "",
+    "success_criteria": "Priority identity, residency, and collaboration-channel decisions are confirmed; integration and verification approach is ratified; unresolved items are explicitly accepted as assumptions with owners.",
+    "dependencies": "Inputs from discovery and requirements baseline",
+    "risks": "Decision latency on policy-heavy questions can delay start of build phases.",
+    "duration_weeks": 2,
+    "duration_source": "user",
+    "kb_sources": [
+      "[extends: >15 gaps require a structured discovery-resolution phase before full build sequencing]"
+    ]
+  },
+  {
+    "phase_number": 1,
+    "phase_name": "Identity And Onboarding Foundation",
+    "objectives": "Establish the patient digital front door with registration, authentication, onboarding workflow, and profile gating while preparing security and migration controls that underpin later lifecycle work.",
+    "epics_included": "E01,E05",
+    "success_criteria": "Patients can register and complete onboarding; baseline controls for regional security and migration planning are implemented and testable.",
+    "dependencies": "None",
+    "risks": "Identity-policy drift or unresolved onboarding edge cases can cascade into downstream lifecycle and migration scope.",
+    "duration_weeks": 3,
+    "duration_source": "user",
+    "kb_sources": [
+      "[KB:experience_cloud_4-2-2026.md:560-650]",
+      "[KB:experience_cloud_4-2-2026.md:13346-13549]"
+    ]
+  },
+  {
+    "phase_number": 2,
+    "phase_name": "Application Lifecycle And Eligibility Automation",
+    "objectives": "Implement subsidy application orchestration, eligibility checks, and standardized status lifecycle while advancing migration/security execution for controlled cutover readiness.",
+    "epics_included": "E02,E05",
+    "success_criteria": "Eligibility flow handles core pathways with auditable decisions; lifecycle states are consistent across regions; migration/security controls are integrated into lifecycle processing.",
+    "dependencies": "depends on: E01",
+    "risks": "External checker latency and unresolved verification evidence model can reduce automation quality and increase manual triage.",
+    "duration_weeks": 3,
+    "duration_source": "user",
+    "kb_sources": [
+      "[KB:sales_einstein_implementation_guide.md:28-77]",
+      "[assumption: tokenized medical-history verification evidence remains acceptable to policy owners]"
+    ]
+  },
+  {
+    "phase_number": 3,
+    "phase_name": "Operations, Assignment, And Collaboration",
+    "objectives": "Deliver practitioner assignment and reassignment logic, assessor work management, escalation visibility, and collaboration pathways that complete the operational model.",
+    "epics_included": "E03,E04",
+    "success_criteria": "Assignment and escalation flows run against agreed rules; assessor work queues and collaboration channels are operational with traceable routing.",
+    "dependencies": "depends on: E02",
+    "risks": "Unconfirmed geospatial-matching approach and channel architecture can force late design changes.",
+    "duration_weeks": 3,
+    "duration_source": "user",
+    "kb_sources": [
+      "[KB:service_cloud_3-27-2026.md:48-60]",
+      "[KB:experience_cloud_4-2-2026.md:23720-23812]",
+      "[assumption: confirm geospatial matching and reassignment strategy in solution design]",
+      "[assumption: confirm channel architecture for external chat and internal routing]"
+    ]
+  },
+  {
+    "phase_number": 4,
+    "phase_name": "Cutover, Stabilization, And Hypercare",
+    "objectives": "Execute migration cutover controls, stabilize production behavior, and close readiness gaps with focused defect hardening and adoption support.",
+    "epics_included": "E05",
+    "success_criteria": "Cutover executes with reconciled data and controlled access; high-priority defects are resolved; operational teams confirm readiness for steady state.",
+    "dependencies": "depends on: E03,E04,E05",
+    "risks": "Late discovery of migration data quality issues or unresolved policy items can extend stabilization.",
+    "duration_weeks": 1,
+    "duration_source": "user",
+    "kb_sources": [
+      "[KB:service_cloud_3-27-2026.md:18-50]"
+    ]
+  }
+]
